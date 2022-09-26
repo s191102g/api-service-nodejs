@@ -5,5 +5,4 @@ import { IBaseRepository } from "../../../shared/database/interfaces/IBaseReposi
 
 
 export interface ISangRepository extends IBaseRepository< string,Sang >{
-     
 }

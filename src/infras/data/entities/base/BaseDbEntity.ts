@@ -6,7 +6,8 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { IEntity } from "../../../../core/domain/interfaces/base/IEntity";
-import { BASE_SCHEMA } from "../../schemas/base/baseSchema";
+import { BASE_SCHEMA } from "../../schemas/base/BaseSchema";
+
 
 
 export abstract class BaseDbEntity<

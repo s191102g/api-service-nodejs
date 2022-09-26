@@ -1,4 +1,4 @@
-import { BASE_SCHEMA } from "../base/baseSchema";
+import { BASE_SCHEMA } from "../base/BaseSchema";
 
 
 export const SANG_SCHEMA ={

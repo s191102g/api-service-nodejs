@@ -25,7 +25,7 @@ export class CreateSangCommandHandle extends CommandHandler<
     param: CreateSangCommandInput
   ): Promise<CreateSangCommandOutput> {
 
-    // await validateDataInput(param)
+    await validateDataInput(param)
     const data = new Sang();
     data.name = param.name;
 
