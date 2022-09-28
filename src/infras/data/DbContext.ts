@@ -1,15 +1,14 @@
 
 import { createConnection, Connection, getConnection } from "typeorm";
 import { Service } from "typedi";
-import { IDbContext } from "../../core/shared/database/interfaces/IDbContext";
 import ORM from "../../configs/ORM";
+import { IDbContext } from "../../core/shared/database/interfaces/IDbContext";
 
 
 
-
-@Service('db.cotext')
+@Service('db.context')
 export class DbContext implements IDbContext {
-   async connect(connectionName = "default"): Promise<void> {
+   async connect(connectionName = "default"): Promise<void>  {
     
     let connection: Connection | undefined;
     try {
@@ -29,5 +28,8 @@ export class DbContext implements IDbContext {
       console.error("ERROR: Database connection failed!!", e);
       throw e;
     }
+
+    return console.log('ok');
+    
   }
 }

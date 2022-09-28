@@ -1,12 +1,10 @@
 
 
-import { Column, Entity} from "typeorm";
+import { Column, Entity, Index} from "typeorm";
 import { Sang } from "../../../../core/domain/entities/sang/Sang";
 import { ISang } from "../../../../core/domain/interfaces/sang/ISang";
 import { SANG_SCHEMA } from "../../schemas/sang/SangSchema";
 import { BaseDbEntity } from "../base/BaseDbEntity";
-
-
 
 
 
@@ -15,6 +13,7 @@ export class SangDb extends BaseDbEntity<string, Sang> implements ISang{
    
 
     @Column("varchar", { name: SANG_SCHEMA.COLUMNS.NAME, length: 50 })
+    @Index({ unique: true, where: BaseDbEntity.getIndexFilterDeletedColumn() })
     name: string;
     
     toEntity(): Sang {

@@ -7,7 +7,7 @@ import { SANG_SCHEMA } from "../../schemas/sang/SangSchema";
 import { BaseRepository } from "../base/BaseRepository";
 
 
-@Service()
+@Service('sang.repository')
 export class SangRepository
   extends BaseRepository<string, Sang, SangDb>
   implements ISangRepository

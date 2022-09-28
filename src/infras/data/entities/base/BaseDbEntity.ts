@@ -40,4 +40,8 @@ export abstract class BaseDbEntity<
 
   abstract toEntity(): TEntity;
   abstract fromEntity(entity: TEntity): IEntity<TIdentityType>;
+
+  static getIndexFilterDeletedColumn(): string {
+    return `${BASE_SCHEMA.COLUMNS.DELETED_AT} IS NULL`;
+  }
 }

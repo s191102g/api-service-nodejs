@@ -1,14 +1,12 @@
 
+import './infras/SingletonRegister'
 
-import { Container } from "typeorm-typedi-extensions";
 import { API_PORT } from "./configs/Configuration";
-
 import { ApiService } from "./infras/api/AppService";
-import { DbContext } from "./infras/data/DbContext";
+import { IDbContext } from "./core/shared/database/interfaces/IDbContext";
+import { Container } from "typedi";
 
-
-
-const dbContext = Container.get(DbContext)
+const dbContext = Container.get<IDbContext>('db.context')
 
 const startApplication = async (): Promise<void> => {
   
@@ -16,7 +14,6 @@ const startApplication = async (): Promise<void> => {
    ApiService.init(API_PORT);
    
  };
-
 
 if (process.env.NODE_ENV != 'production') {
   console.info(

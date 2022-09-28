@@ -1,17 +1,17 @@
 import { MigrationInterface, QueryRunner } from "typeorm"
 
-export class fix1664176398860 implements MigrationInterface {
+export class addIndex1664273422623 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
-            'alter table "user" add column "deleted_at" timestamp with time zone '
+            'CREATE UNIQUE INDEX "test_index" ON "test" ("name") WHERE deleted_at IS NULL'
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
-            'alter table "user" drop column "deleted_at"'
-        )
+            'DROP INDEX "public"."test_index"'
+          );
     }
 
 }
