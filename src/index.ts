@@ -1,4 +1,4 @@
-
+import './infras/AliasRegister'
 import './infras/SingletonRegister'
 
 import { API_PORT } from "./configs/Configuration";
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV != 'production') {
 
 } else {
   console.info(
-    `Starting project`
+    `Starting project in production`
   )
   startApplication().then(async () => {
        console.info(

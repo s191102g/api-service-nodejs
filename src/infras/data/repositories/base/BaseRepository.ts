@@ -1,10 +1,11 @@
+import { IEntity } from "@domain/interfaces/base/IEntity";
+import { BaseDbEntity } from "@infras/data/entities/base/BaseDbEntity";
+import { IBaseRepository } from "@shared/database/interfaces/IBaseRepository";
+import { IDbContext } from "@shared/database/interfaces/IDbContext";
+import { IDbQueryRunner } from "@shared/database/interfaces/IDbQueryRunner";
 import { Inject } from "typedi";
 import { getRepository, QueryRunner, Repository } from "typeorm";
-import { IEntity } from "../../../../core/domain/interfaces/base/IEntity";
-import { IBaseRepository } from "../../../../core/shared/database/interfaces/IBaseRepository";
-import { IDbContext } from "../../../../core/shared/database/interfaces/IDbContext";
-import { IDbQueryRunner } from "../../../../core/shared/database/interfaces/IDbQueryRunner";
-import { BaseDbEntity } from "../../entities/base/BaseDbEntity";
+
 
 export abstract class BaseRepository<
   TIdentityType,

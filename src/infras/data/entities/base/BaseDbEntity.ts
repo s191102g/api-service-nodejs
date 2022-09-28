@@ -1,12 +1,12 @@
 
+import { IEntity } from "@domain/interfaces/base/IEntity";
+import { BASE_SCHEMA } from "@infras/data/schemas/base/BaseSchema";
 import {
   CreateDateColumn,
   DeleteDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { IEntity } from "../../../../core/domain/interfaces/base/IEntity";
-import { BASE_SCHEMA } from "../../schemas/base/BaseSchema";
 
 
 

@@ -1,4 +1,5 @@
-import { IEntity } from "../../interfaces/base/IEntity";
+import { IEntity } from "@domain/interfaces/base/IEntity";
+
 
 
 export abstract class BaseEntity<

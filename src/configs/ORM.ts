@@ -17,12 +17,12 @@ export const ORM = new DataSource({
     migrations: [path.join(__dirname, "../infras/data/migrations/*{.js,.ts}")],
     logging: true,
     synchronize: false,
-  //   ssl: true,
-  //   extra: {
-  //   ssl: {
-  //     "rejectUnauthorized": false
-  //   }
-  // }
+    ssl: true,
+    extra: {
+    ssl: {
+      "rejectUnauthorized": false
+    }
+  }
 })
 export default {
     type: "postgres",
@@ -35,12 +35,12 @@ export default {
     migrations: [path.join(__dirname, "../infras/data/migrations/*{.js,.ts}")],
     logging: true,
     synchronize: false,
-  //   ssl: true,
-  //   extra: {
-  //   ssl: {
-  //     "rejectUnauthorized": false
-  //   }
-  // },
+    ssl: true,
+    extra: {
+    ssl: {
+      "rejectUnauthorized": false
+    }
+  },
     cli: {
       entitiesDir:
       path.join(__dirname, "../").replace(process.cwd(), ".") +
