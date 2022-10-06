@@ -13,3 +13,7 @@ phases:
   post_build:
     commands:
       - echo Removing unnecessary files...
+artifacts:
+  base-directory: '.'
+  files:
+    - '**/*'
