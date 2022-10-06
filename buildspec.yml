@@ -8,13 +8,9 @@ phases:
       - npm install
   build:
     commands:
+      - eb setenv NODE_ENV=production
       - echo Create build...
       - npm run build
   post_build:
     commands:
       - echo Removing unnecessary files...
-      - rm -rf node_modules/
-artifacts:
-  base-directory: '.'
-  files:
-    - '**/*'
