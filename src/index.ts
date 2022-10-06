@@ -5,12 +5,12 @@ import { API_PORT } from "./configs/Configuration";
 import { ApiService } from "./infras/api/AppService";
 import { Container } from "typedi";
 import { IDbContext } from '@shared/database/interfaces/IDbContext';
-import { IRedisContext } from '@shared/database/interfaces/IRedisContext';
+// import { IRedisContext } from '@shared/database/interfaces/IRedisContext';
 
 const dbContext = Container.get<IDbContext>('db.context')
-const redisContext = Container.get<IRedisContext>('redis.context')
+// const redisContext = Container.get<IRedisContext>('redis.context')
 const startApplication = async (): Promise<void> => {
-  await redisContext.createConnection();
+  // await redisContext.createConnection();
    await dbContext.connect();
    ApiService.init(API_PORT);
    
