@@ -1,9 +1,9 @@
-
 import { mapTemplate } from "@utils/mapper";
 import { IsString } from "class-validator";
 import { ErrorObject } from "./message/ErrorObject";
+import { MessageError } from "./message/MessageError";
 
-export class SystemError extends Error {
+export class UnauthorizedError extends Error {
   httpCode: number;
 
   @IsString()
@@ -15,19 +15,17 @@ export class SystemError extends Error {
   @IsString()
   override message: string;
 
-  @IsString()
-  override stack: string;
-  
-  constructor(errObj: ErrorObject, ...params: any[]) {
+  constructor(
+    errObj: ErrorObject = MessageError.UNAUTHORIZED,
+    ...params: any[]
+  ) {
     super();
-    this.httpCode = 500;
+    this.httpCode = 401;
     this.code = errObj.code;
-    this.name = "SystemError";
-    this.stack = ''
+    this.name = "UnauthorizedError";
     this.message =
       params && params.length
         ? mapTemplate(errObj.message, ...params)
         : errObj.message;
-
   }
 }

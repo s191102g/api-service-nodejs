@@ -24,13 +24,11 @@ export class DbContext implements IDbContext {
       } else {
         await createConnection(ORM);
       }
-      console.log("🌴 Database connection was successful!");
+      console.log("🌴 🌴 Database connection was successful!");
     } catch (e) {
       console.error("ERROR: Database connection failed!!", e);
       throw e;
     }
-
-    return console.log('ok');
     
   }
 }

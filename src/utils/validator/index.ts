@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-// import { InputValidationError } from "@shared/exceptions/InputValidationError";
+import { InputValidationError } from "@shared/exceptions/InputValidationError";
 import { isArray, isDate, validate } from "class-validator";
-import { InputValidationError } from "../../core/shared/exceptions/InputValidationError";
 
 /**
  * Validate data input
@@ -12,7 +11,7 @@ export async function validateDataInput(data: object): Promise<void> {
     validationError: { target: false },
   });
   if (errors && errors.length) {
-    throw new InputValidationError();
+    throw new InputValidationError(errors);
   }
 }
 

@@ -6,3 +6,9 @@ export const DB_HOST = process.env.DB_HOST;
 export const DB_PORT = Number(process.env.DB_PORT) ;
 export const DB_PASS = process.env.DB_PASS;
 export const DB_USER = process.env.DB_USER;
+
+
+export const   DB_CACHING_HOST=process.env.DB_CACHING_HOST
+export  const DB_CACHING_PORT=process.env.DB_CACHING_PORT
+export const  DB_CACHING_PASSWORD=process.env.DB_CACHING_PASSWORD
+export  const  DB_CACHING_PREFIX=process.env.DB_CACHING_PREFIX
