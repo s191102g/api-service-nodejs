@@ -45,6 +45,7 @@
     "@types/express": "^4.17.14",
     "@types/module-alias": "^2.0.1",
     "class-transformer": "^0.3.1",
+    "class-transformer3": "npm:class-transformer@^0.3.1",
     "class-validator": "^0.13.2",
     "class-validator-jsonschema": "^3.1.1",
     "crypto-js": "^4.1.1",
