@@ -1,4 +1,4 @@
-import { RefSchemaArray } from "@shared/decorators/RefSchema";
+
 import {
   Allow,
   IsArray,
@@ -6,6 +6,7 @@ import {
   IsString,
   ValidationError,
 } from "class-validator";
+import { RefSchemaArray } from "../decorators/RefSchema";
 import { MessageError } from "./message/MessageError";
 
 export class InputValidationFieldError {

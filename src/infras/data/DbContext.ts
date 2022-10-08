@@ -1,8 +1,8 @@
 
 import { createConnection, Connection, getConnection } from "typeorm";
 import { Service } from "typedi";
-import { IDbContext } from "@shared/database/interfaces/IDbContext";
-import ORM from "@configs/ORM";
+import { IDbContext } from "../../core/shared/database/interfaces/IDbContext";
+import ORM from "../../configs/ORM";
 
 
 

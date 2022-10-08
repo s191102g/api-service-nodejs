@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { InputValidationError } from "@shared/exceptions/InputValidationError";
+
 import { isArray, isDate, validate } from "class-validator";
+import { InputValidationError } from "../../core/shared/exceptions/InputValidationError";
 
 /**
  * Validate data input

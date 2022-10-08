@@ -1,10 +1,10 @@
-import './infras/AliasRegister'
+// import './infras/AliasRegister'
 import './infras/SingletonRegister'
 
 import { API_PORT } from "./configs/Configuration";
 import { ApiService } from "./infras/api/AppService";
 import { Container } from "typedi";
-import { IDbContext } from '@shared/database/interfaces/IDbContext';
+import { IDbContext } from './core/shared/database/interfaces/IDbContext';
 // import { IRedisContext } from '@shared/database/interfaces/IRedisContext';
 
 const dbContext = Container.get<IDbContext>('db.context')

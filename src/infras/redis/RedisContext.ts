@@ -1,17 +1,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import {
-  DB_CACHING_HOST,
-  DB_CACHING_PASSWORD,
-  DB_CACHING_PORT,
-  DB_CACHING_PREFIX,
-} from "@configs/DbConfig";
 
-import { IRedisContext } from "@shared/database/interfaces/IRedisContext";
-import { MessageError } from "@shared/exceptions/message/MessageError";
-import { SystemError } from "@shared/exceptions/SystemError";
+
 import redis, { createClient } from "redis";
 import { Service } from "typedi"; 
+import { DB_CACHING_HOST, DB_CACHING_PASSWORD, DB_CACHING_PORT, DB_CACHING_PREFIX } from "../../configs/DbConfig";
+import { IRedisContext } from "../../core/shared/database/interfaces/IRedisContext";
+import { MessageError } from "../../core/shared/exceptions/message/MessageError";
+import { SystemError } from "../../core/shared/exceptions/SystemError";
 @Service("redis.context")
 export class RedisContext implements IRedisContext {
   private _connection: any;

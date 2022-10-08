@@ -1,15 +1,20 @@
-import { API_PORT } from "@configs/Configuration";
+
 // import { COMPONENT_SCHEMA_PATH } from "@shared/decorators/RefSchema";
 // import { validationMetadatasToSchemas } from "class-validator-jsonschema";
+import { validationMetadatasToSchemas } from "class-validator-jsonschema";
 import { OpenAPIObject } from "openapi3-ts";
 import {
   getMetadataArgsStorage,
   RoutingControllersOptions,
 } from "routing-controllers";
 import { routingControllersToSpec } from "routing-controllers-openapi";
+import { COMPONENT_SCHEMA_PATH } from "../../core/shared/decorators/RefSchema";
 
 export class ApiDocument {
   static generate(options: RoutingControllersOptions): OpenAPIObject {
+    const schemas = validationMetadatasToSchemas({
+      refPointerPrefix: COMPONENT_SCHEMA_PATH,
+    });
     const storage = getMetadataArgsStorage();
 
     return routingControllersToSpec(storage, options, {
@@ -24,37 +29,26 @@ export class ApiDocument {
       },
       servers: [
         {
-          url: `http://localhost:${API_PORT}`,
+          url: `http://webapiservice-env-1.eba-me2tu2kp.us-east-1.elasticbeanstalk.com/`,
           description: "Localhost",
         },
-        // {
-        //   url: "https://dev.domain",
-        //   description: "Development Environment",
-        // },
-        // {
-        //   url: "https://stag.domain",
-        //   description: "Staging Environment",
-        // },
-        // {
-        //   url: "https://domain",
-        //   description: "Production Environment",
-        // },
+      
       ],
       // security: [
       //   {
       //     bearerAuth: [],
       //   },
       // ],
-      // components: {
-      //   schemas,
-      //   securitySchemes: {
-      //     bearerAuth: {
-      //       type: "http",
-      //       scheme: "bearer",
-      //       bearerFormat: "JWT",
-      //     },
-      //   },
-      // },
+      components: {
+        schemas,
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
+      },
     }) as OpenAPIObject;
   }
 }

@@ -2,9 +2,10 @@
 
 import CryptoJS from "crypto-js";
 import { Service } from "typedi";
+import { ICryptoService } from "../../../core/gateways/services/ICryptoService";
 
 @Service("crypto.service")
-export class CryptoService  {
+export class CryptoService implements ICryptoService  {
   private _secrecKey: CryptoJS.lib.WordArray;
   private _iv: CryptoJS.lib.WordArray;
   constructor() {

@@ -1,6 +1,7 @@
 
-import { mapTemplate } from "@utils/mapper";
+
 import { IsString } from "class-validator";
+import { mapTemplate } from "../../../utils/mapper";
 import { ErrorObject } from "./message/ErrorObject";
 
 export class SystemError extends Error {

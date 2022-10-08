@@ -1,5 +1,5 @@
 import "reflect-metadata";
-// import "./redis/RedisRegister"
+import "./redis/RedisRegister"
 import './data/DbRegister'
 import './services/ServiceRegister'
 import * as routingController from "routing-controllers";

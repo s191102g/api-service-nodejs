@@ -1,6 +1,7 @@
 import "./RedisContext";
 import path from "path";
-import { getDirectoriesSync, getFilesSync } from "@utils/file";
+import { getDirectoriesSync, getFilesSync } from "../../utils/file";
+
 
 const folder = path.join(__dirname, "./repositories");
 getFilesSync(folder).forEach((file) => {
