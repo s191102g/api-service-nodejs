@@ -9,6 +9,6 @@ export interface IUser extends IEntity<string>{
     firstName:string;
     lastName:string;
     gender: GenderType | null;
-    birthDay: string | null;
+    birthDay: Date | null;
     avatar: string | null;
 }

@@ -1,4 +1,4 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, Index } from "typeorm";
 import { User } from "../../../../core/domain/entities/user/User";
 import {
   GenderType,
@@ -10,15 +10,17 @@ import { BaseDbEntity } from "../base/BaseDbEntity";
 
 @Entity(USER_SCHEMA.TABLE_NAME)
 export class UserDb extends BaseDbEntity<string, User> implements IUser {
-  @Column("varchar", { name: USER_SCHEMA.COLUMNS.ROLE })
+  @Column("varchar", { name: USER_SCHEMA.COLUMNS.ROLE, length: 10 })
+  @Index()
   role: RoleType;
 
-  @Column("varchar", { name: USER_SCHEMA.COLUMNS.FIRST_NAME })
+  @Column("varchar", { name: USER_SCHEMA.COLUMNS.FIRST_NAME, length: 50 })
   firstName: string;
 
   @Column("varchar", {
     name: USER_SCHEMA.COLUMNS.LAST_NAME,
     nullable: true,
+    length: 50,
   })
   lastName: string;
 
@@ -36,8 +38,8 @@ export class UserDb extends BaseDbEntity<string, User> implements IUser {
   })
   gender: GenderType | null;
 
-  @Column("varchar", { name: USER_SCHEMA.COLUMNS.BIRTHDAY, nullable: true })
-  birthDay: string | null;
+  @Column("timestamptz", { name: USER_SCHEMA.COLUMNS.BIRTHDAY, nullable: true })
+  birthDay: Date | null;
 
   /* Relationship */
 

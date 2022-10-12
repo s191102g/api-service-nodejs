@@ -9,11 +9,23 @@ import swaggerUiExpress from "swagger-ui-express";
 export class ApiService {
   static init(port: string | undefined) {
     const app = express();
-
+     
     app.get("/test", (_req, res) => {
       res.status(200).end("ok");
     });
     const options = {
+      cors: {
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        allowedHeaders: [
+          "Origin",
+          "Content-Type",
+          "Accept",
+          "Authorization",
+        ],
+        preflightContinue: true,
+        optionsSuccessStatus: 204,
+      },
       routePrefix: "/api",
       controllers: [path.join(__dirname + '/controllers/**/*{.js,.ts}')],
       validation: false

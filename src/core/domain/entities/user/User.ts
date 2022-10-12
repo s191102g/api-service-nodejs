@@ -1,6 +1,4 @@
 
-import { MessageError } from "../../../shared/exceptions/message/MessageError";
-import { SystemError } from "../../../shared/exceptions/SystemError";
 import { GenderType, RoleType } from "../../enums/user/userEnum";
 import { IUser } from "../../interfaces/user/IUser";
 import { BaseEntity } from "../base/BaseEntyti";
@@ -45,20 +43,12 @@ export class UserBase<T extends IUser> extends BaseEntity<string, T> implements 
     this.data.gender = val;
   }
 
-  get birthDay(): string | null {
+  get birthDay(): Date | null {
     return this.data.birthDay;
   }
 
-  set birthday(val: string | null) {
-    if (val) {
-      if (!/(?<year>\d{4})-(?<month>\d{1,2})-(?<day>\d{1,2})/u.test(val)) {
-        throw new SystemError(MessageError.PARAM_INVALID, "birthday");
-      }
-
-      if (new Date(val) > new Date()) {
-        throw new SystemError(MessageError.PARAM_INVALID, "birthday");
-      }
-    }
+  set birthday(val: Date | null) {
+    
     this.data.birthDay = val;
   }
 }

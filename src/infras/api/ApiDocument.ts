@@ -13,7 +13,7 @@ import { COMPONENT_SCHEMA_PATH } from "../../core/shared/decorators/RefSchema";
 export class ApiDocument {
   static generate(options: RoutingControllersOptions): OpenAPIObject {
     const schemas = validationMetadatasToSchemas({
-      refPointerPrefix: COMPONENT_SCHEMA_PATH,
+      refPointerPrefix: COMPONENT_SCHEMA_PATH,  // đường dẫn tới hàm trong các controller
     });
     const storage = getMetadataArgsStorage();
 
@@ -29,8 +29,12 @@ export class ApiDocument {
       },
       servers: [
         {
-          url: `http://webapiservice-env-1.eba-me2tu2kp.us-east-1.elasticbeanstalk.com/`,
+          url: `http://localhost/3000/docs`,
           description: "Localhost",
+        },
+        {
+          url: `http://webapiservice-env-1.eba-me2tu2kp.us-east-1.elasticbeanstalk.com/`,
+          description: "Production",
         },
       
       ],
