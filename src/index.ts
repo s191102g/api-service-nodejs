@@ -6,7 +6,6 @@ import { ApiService } from "./infras/api/AppService";
 import { Container } from "typedi";
 import { IDbContext } from "./core/shared/database/interfaces/IDbContext";
 import cluster from "cluster";
-import chalk from "chalk";
 import os from "os";
 // import { IRedisContext } from '@shared/database/interfaces/IRedisContext';
 
@@ -28,14 +27,14 @@ if (process.env.NODE_ENV != "production") {
   console.info(`Starting project on local`);
   startApplication().then(async () => {
     console.info(
-      chalk.blue("[PROJECT]"),
+    
       `Api service is ready on http://localhost:${API_PORT} `
     );
   });
 } else {
   if (cluster.isMaster) {
     console.log(
-      chalk.red("[Cluster]"),
+      
       "Master process start running.",
       process.pid
     );
@@ -45,12 +44,12 @@ if (process.env.NODE_ENV != "production") {
 
     cluster.on("exit", function handleExit(worker) {
       console.log(
-        chalk.yellow("[Cluster]"),
+       
         "Worker stop.",
         worker.process.pid
       );
       console.log(
-        chalk.yellow("[Cluster]"),
+        
         "Dying:",
         worker.exitedAfterDisconnect
       );
@@ -61,9 +60,9 @@ if (process.env.NODE_ENV != "production") {
   } else  if (cluster.isWorker) {
     console.info(`Starting project on production`);
     startApplication().then(async () => {
-      console.log(chalk.blue("[PROJECT]"),`Api service is ready on http://host:${API_PORT} `);
+      console.log(`Api service is ready on http://host:${API_PORT} `);
     });
 
-    console.log(chalk.red("[Worker]"), "Worker start.", process.pid);
+    console.log( "Worker start.", process.pid);
   }
 }
