@@ -13,6 +13,7 @@ const dbContext = Container.get<IDbContext>("db.context");
 const redisContext = Container.get<IRedisContext>('redis.context')
 const startApplication = async (): Promise<void> => {
   await redisContext.createConnection();
+  console.log('Connected with Redis');
   await dbContext.connect();
   ApiService.init(API_PORT);
 };
