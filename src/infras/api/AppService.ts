@@ -3,36 +3,42 @@
 import 'reflect-metadata';
 import express from "express";
 import path from "path";
-import { RoutingControllersOptions, useExpressServer } from "routing-controllers";
+import { RoutingControllersOptions } from "routing-controllers";
 import { ApiDocument } from './ApiDocument';
 import swaggerUiExpress from "swagger-ui-express";
+import Container from 'typedi';
+import { ILogService } from '../../core/gateways/services/ILogService';
+import { HttpServer } from '../servers/HttpServer';
+import { Server } from 'http';
 export class ApiService {
-  static init(port: string | undefined) {
+  static init(port: number, callback?: () => void): Server {
     const app = express();
-     
+    const logger = Container.get<ILogService>('log.service');
     app.get("/test", (_req, res) => {
       res.status(200).end("ok");
     });
 
-
+    const loggingMiddleware = logger.createMiddleware();
+    app.use(loggingMiddleware);
     const options = this.getOptions({
       controllers: [path.join(__dirname + '/controllers/**/*{.js,.ts}')],
       middlewares: [path.join(__dirname, "./middlewares/*Middleware{.js,.ts}")],
-      validation: false
+      validation: false,
+      development: !!(process.env.NODE_ENV != 'production'),
     });
-
-    useExpressServer(app, options);
+    const httpServer = new HttpServer();
+    httpServer.createApp(app, options);
     const spec = ApiDocument.generate(options);
     app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(spec));
-    app.listen(port); 
+    return httpServer.start(port, callback);
   }
  
 
   static getOptions(param: {
     controllers?: string[] | Function[];
     middlewares?: string[] | Function[];
-    interceptors?: string[] | Function[];
     validation: boolean;
+    development: boolean;
   }): RoutingControllersOptions {
     return {
       cors: {
@@ -52,13 +58,11 @@ export class ApiService {
       controllers: param.controllers,
       middlewares: param.middlewares,
       validation: param.validation,
-      defaultErrorHandler: false,
+      development: param.development,
       // authorizationChecker: ApiAuthenticator.authorizationChecker,
       // currentUserChecker: ApiAuthenticator.currentUserChecker,
     };
   }
  
 }
-
-
 

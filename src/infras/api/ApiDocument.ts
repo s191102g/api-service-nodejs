@@ -38,11 +38,11 @@ export class ApiDocument {
         },
       
       ],
-      // security: [
-      //   {
-      //     bearerAuth: [],
-      //   },
-      // ],
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       components: {
         schemas,
         securitySchemes: {

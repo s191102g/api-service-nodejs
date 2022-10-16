@@ -6,9 +6,6 @@ import { CLIENT_SCHEMA } from "../../schemas/user/ClientSchema";
 import { BaseRepository } from "../base/BaseRepository";
 
 
-
-
-
 @Service('client.repository')
 export class ClientRepository extends BaseRepository<
   string, Client, ClientDb
