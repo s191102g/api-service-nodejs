@@ -1,56 +1,40 @@
-
-// import { Action } from "routing-controllers";
-// import Container from "typedi";
-// import { UnauthorizedError } from "../../core/shared/exceptions/UnauthorizedError";
-// import { IRequest, IRequest } from "../../core/shared/request/IRequest";
+import { Action } from "routing-controllers";
+import { IAuthJwtService } from "../../core/gateways/services/IAuthJwtService";
+import Container from "typedi";
+import { IRequest } from "../../core/shared/IRequest";
+import { UnauthorizedError } from "../../core/shared/exceptions/UnauthorizedError";
+import { GetAuthByJwtQueryHandler } from "../../core/usecases/user/getAuthByJwt/GetAuthByJwtHandler";
+import { AccessDeniedError } from "../../core/shared/exceptions/AccessDeniedError";
+import { UserAuthenticated } from "../../core/shared/UserAuthenticated";
 
 export class ApiAuthenticator {
   static authorizationChecker = async (
-    // action: Action,
-    // roleIds: string[]
+    action: Action,
+    role: string[]
   ): Promise<boolean> => {
-    // const reqExt = action.request as IRequest;
-    // const authJwtService = Container.get<IAuthJwtService>("auth_jwt.service");
-    // const token = authJwtService.getTokenFromHeader(reqExt.headers);
-    // if (!token) {
-    //   throw new UnauthorizedError();
-    // }
+    const reqExt = action.request as IRequest;
+    const authJwtService = Container.get<IAuthJwtService>("auth_jwt.service");
+    const token = authJwtService.getTokenFromHeader(reqExt.headers);
+    if (!token) {
+      throw new UnauthorizedError();
+    }
 
-    // const handleOption = new HandleOption();
-    // handleOption.req = reqExt;
-    // handleOption.trace = reqExt.trace;
+    const getAuthByJwtQueryHandler = Container.get(GetAuthByJwtQueryHandler);
+    const { data } = await getAuthByJwtQueryHandler.handle(token);
+    if (
+      role &&
+      role.length &&
+      !role.some((roleId) => data && roleId === data.role)
+    ) {
+      throw new AccessDeniedError();
+    }
 
-    // const getUserAuthByJwtQueryHandler = Container.get(
-    //   GetUserAuthByJwtQueryHandler
-    // );
-    // const { data } = await getUserAuthByJwtQueryHandler.handle(
-    //   token,
-    //   handleOption
-    // );
-    // if (
-    //   roleIds &&
-    //   roleIds.length &&
-    //   !roleIds.some((roleId) => data && roleId === data.roleId)
-    // ) {
-    //   throw new AccessDeniedError();
-    // }
-
-    // reqExt.userAuth = new UserAuthenticated(
-    //   data.userId,
-    //   data.roleId,
-    //   data.type
-    // );
+    reqExt.userAuth = new UserAuthenticated(data.userId, data.role);
     return true;
   };
 
-  // static currentUserChecker = (action: Action): string | null => {
-  //   // const reqExt = action.request as IRequest;
-  //   // return reqExt.userAuth;
-  // };
-
-  static currentUserChecker = () => {
-    // const reqExt = action.request as IRequest;
-    // return reqExt.userAuth;
-    return true
+  static currentUserChecker = (action: Action): UserAuthenticated | null => {
+    const reqExt = action.request as IRequest;
+    return reqExt.userAuth;
   };
 }

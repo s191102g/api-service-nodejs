@@ -1,5 +1,6 @@
 
 import { IEntity } from "../base/IEntity";
+import { IBoard } from "../board/IBoard";
 import { IClient } from "../user/IClient";
 
 
@@ -10,5 +11,6 @@ export interface IWorkSpace extends IEntity<string>{
     member: string [] ;
 
    /* Relationship */
-  client: IClient
+   client: IClient;
+   board: IBoard[];
 }

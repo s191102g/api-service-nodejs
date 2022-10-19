@@ -5,4 +5,5 @@ import { IBaseRepository } from "../../../shared/database/interfaces/IBaseReposi
 
 export interface IClientRepository extends IBaseRepository<string,Client>{
     CheckUserExist(param:string): Promise<boolean>;
+    getByUsername(username:string): Promise<Client | null>
 }

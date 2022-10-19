@@ -9,4 +9,5 @@ export const WORKSPACE_SCHEMA ={
         IMAGE:"image",
         MEMBER:"member"
     }
+   
 }

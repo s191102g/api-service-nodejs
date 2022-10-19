@@ -2,10 +2,10 @@
 
 export class UserAuthenticated {
   userId: string;
-  roleId: string;
+  role: string;
 
-  constructor(userId: string, roleId: string) {
+  constructor(userId: string, role: string) {
     this.userId = userId;
-    this.roleId = roleId;
+    this.role = role;
   }
 }

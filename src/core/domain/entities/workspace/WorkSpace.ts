@@ -3,6 +3,7 @@ import { MessageError } from "../../../shared/exceptions/message/MessageError";
 import { SystemError } from "../../../shared/exceptions/SystemError";
 import { IWorkSpace } from "../../interfaces/workspace/IWorkSpace";
 import { BaseEntity } from "../base/BaseEntyti";
+import { Board } from "../board/Board";
 import { Client } from "../user/Client";
 
 
@@ -43,4 +44,8 @@ export class WorkSpace extends BaseEntity<string, IWorkSpace> implements IWorkSp
     get client(): Client{
           return this.data.client && new Client(this.data.client)
     }
+
+    get board(): Board[] {
+        return this.data.board && this.data.board.map((e) => new Board(e));
+      }
 }

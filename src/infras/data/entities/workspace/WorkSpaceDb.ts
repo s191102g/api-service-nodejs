@@ -1,9 +1,11 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { WorkSpace } from "../../../../core/domain/entities/workspace/WorkSpace";
+import { IBoard } from "../../../../core/domain/interfaces/board/IBoard";
 import { IClient } from "../../../../core/domain/interfaces/user/IClient";
 import { IWorkSpace } from "../../../../core/domain/interfaces/workspace/IWorkSpace";
 import { WORKSPACE_SCHEMA } from "../../schemas/workspace/WorkSpaceSchema";
 import { BaseDbEntity } from "../base/BaseDbEntity";
+import { BoardDb } from "../board/BoardDb";
 import { ClientDb } from "../user/ClientDb";
 
 @Entity(WORKSPACE_SCHEMA.TABLE_NAME)
@@ -23,6 +25,9 @@ export class WorkSpaceDb
   @ManyToOne(() => ClientDb, (client) => client.workSpaces)
   @JoinColumn({ name: WORKSPACE_SCHEMA.COLUMNS.USER_ID })
   client: IClient;
+
+  @OneToMany(()=>BoardDb, (board)=>board.workSpace)
+  board: IBoard[];
 
   toEntity(): WorkSpace {
     return new WorkSpace(this);

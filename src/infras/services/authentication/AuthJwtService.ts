@@ -3,10 +3,11 @@ import { IncomingHttpHeaders } from "http";
 
 import jwt from "jsonwebtoken";
 import { Service } from "typedi";
+import { IAuthJwtService } from "../../../core/gateways/services/IAuthJwtService";
 
 
-@Service()
-export class AuthJwtService  {
+@Service('auth_jwt.service')
+export class AuthJwtService implements IAuthJwtService {
   getTokenFromHeader(headers: IncomingHttpHeaders): string {
     let token = "";
     if (headers.authorization) {
@@ -16,19 +17,19 @@ export class AuthJwtService  {
     return token;
   }
 
-  sign(userId: string, roleId: string, type: any): string {
+  sign(userId: string, role: string): string {
     return jwt.sign(
       {
-        roleId,
-        type,
+        userId,
+        role,
+  
       },
       'AUTH_SECRET_OR_PRIVATE_KEY',
       {
         subject: userId,
         expiresIn: 24 * 60 * 60,
         issuer: 'tt',
-        audience: `33`,
-        algorithm: 'AUTH_SIGNATURE',
+        audience: `33`
       } as jwt.SignOptions
     );
   }
@@ -36,8 +37,7 @@ export class AuthJwtService  {
   verify(token: string) {
     return jwt.verify(token, 'AUTH_SECRET_OR_PUBLIC_KEY', {
       issuer: 'tt',
-      audience: `33`,
-      algorithm: 'AUTH_SIGNATURE',
+      audience: `33`
     } as jwt.VerifyOptions) ;
   }
 }

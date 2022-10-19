@@ -1,6 +1,8 @@
 import { Service } from "typedi";
+import { QueryRunner } from "typeorm";
 import { Client } from "../../../../core/domain/entities/user/Client";
 import { IClientRepository } from "../../../../core/gateways/repositories/user/IClientRepository";
+import { IDbQueryRunner } from "../../../../core/shared/database/interfaces/IDbQueryRunner";
 import { ClientDb } from "../../entities/user/ClientDb";
 import { CLIENT_SCHEMA } from "../../schemas/user/ClientSchema";
 import { BaseRepository } from "../base/BaseRepository";
@@ -23,5 +25,20 @@ export class ClientRepository extends BaseRepository<
           )
           .getOne();
         return !!result;
+      }
+
+      async getByUsername(
+        username: string,
+        queryRunner: IDbQueryRunner | null = null
+      ): Promise<Client | null> {
+        const query = this.repository
+          .createQueryBuilder(CLIENT_SCHEMA.TABLE_NAME, queryRunner as QueryRunner)
+          .where(
+            `LOWER(${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.USER_NAME}) = LOWER(:username)`,
+            { username }
+          );
+    
+        const result = await query.getOne();
+        return result ? result.toEntity() : null;
       }
 }
