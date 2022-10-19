@@ -33,9 +33,6 @@ export class WorkSpace extends BaseEntity<string, IWorkSpace> implements IWorkSp
     }
 
     set member(val: string []){
-        if(!isUUID(val)){
-            throw new SystemError(MessageError.DATA_INVALID,'userId')
-        }
         this.data.member = val
     }
 

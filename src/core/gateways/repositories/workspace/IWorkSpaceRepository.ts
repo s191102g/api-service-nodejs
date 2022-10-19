@@ -1,3 +1,4 @@
+import { WorkSpace } from "../../../domain/entities/workspace/WorkSpace";
 import { IWorkSpace } from "../../../domain/interfaces/workspace/IWorkSpace";
 import { IBaseRepository } from "../../../shared/database/interfaces/IBaseRepository";
 
@@ -5,5 +6,5 @@ import { IBaseRepository } from "../../../shared/database/interfaces/IBaseReposi
 
 
 export interface IWorkSpaceRepository extends IBaseRepository<string,IWorkSpace>{
-
+     findByUser(userId:string): Promise<WorkSpace[] >
 }

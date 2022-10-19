@@ -35,7 +35,7 @@ export class AuthJwtService implements IAuthJwtService {
   }
 
   verify(token: string) {
-    return jwt.verify(token, 'AUTH_SECRET_OR_PUBLIC_KEY', {
+    return jwt.verify(token, 'AUTH_SECRET_OR_PRIVATE_KEY', {
       issuer: 'tt',
       audience: `33`
     } as jwt.VerifyOptions) ;

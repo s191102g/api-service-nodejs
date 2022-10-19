@@ -19,7 +19,7 @@ export class WorkSpaceDb
   member: any[];
 
   @Column("uuid", { name: WORKSPACE_SCHEMA.COLUMNS.USER_ID })
-  @Index({ unique: true, where: WorkSpaceDb.getIndexFilterDeletedColumn() })
+  @Index({ where: WorkSpaceDb.getIndexFilterDeletedColumn() })
   userId: string;
   /* Relationship */
   @ManyToOne(() => ClientDb, (client) => client.workSpaces)

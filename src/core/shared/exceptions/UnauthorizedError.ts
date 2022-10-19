@@ -15,12 +15,14 @@ export class UnauthorizedError extends Error {
 
   @IsString()
   override message: string;
-
+  @IsString()
+  override stack: string;
   constructor(
     errObj: ErrorObject = MessageError.UNAUTHORIZED,
     ...params: any[]
   ) {
     super();
+    this.stack =''
     this.httpCode = 401;
     this.code = errObj.code;
     this.name = "UnauthorizedError";
