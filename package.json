@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "dev": "nodemon",
-    "start": "npm run build && node build/index.js",
+    "start": "npm run build --force && node build/index.js",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:up": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/configs/ORM",
     "migration:down": "ts-node ./node_modules/typeorm/cli.js migration:revert -d ./src/configs/ORM",
