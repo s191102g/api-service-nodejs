@@ -29,7 +29,7 @@ export class ApiDocument {
       },
       servers: [
         {
-          url: `http://localhost/3000/docs`,
+          url: `http://localhost/3000/`,
           description: "Localhost",
         },
         {
