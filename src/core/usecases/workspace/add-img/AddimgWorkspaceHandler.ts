@@ -2,7 +2,7 @@ import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../utils/validator";
 import { WorkSpace } from "../../../domain/entities/workspace/WorkSpace";
 import { IWorkSpaceRepository } from "../../../gateways/repositories/workspace/IWorkSpaceRepository";
-import { IStorageService } from "../../../gateways/services/IStorageService";
+// import { IStorageService } from "../../../gateways/services/IStorageService";
 import { CommandHandler } from "../../../shared/usecase/CommandHandler";
 import { AddimgWorkspaceInput } from "./AddimgWorkspaceInput";
 import { AddimgWorkspaceOutput } from "./AddimgWorkspaceOutput";
@@ -16,8 +16,8 @@ AddimgWorkspaceInput,
 AddimgWorkspaceOutput
 >{
     constructor(
-        @Inject("storage.service")
-        private readonly _storageService: IStorageService,
+        // @Inject("storage.service")
+        // private readonly _storageService: IStorageService,
 
         @Inject("workspace.repository")
         private readonly _workspaceRepository: IWorkSpaceRepository
@@ -31,14 +31,14 @@ AddimgWorkspaceOutput
         
         const data = new WorkSpace()
         const fileKey = WorkSpace.generateImg(param.file)
-         await this._storageService.uploadFile(param.file, fileKey);
+        //  await this._storageService.uploadFile(param.file, fileKey);
          fs.unlink(`uploads/${fileKey}`, (err)=>{
            if(err) console.log(err);
            
          })
-         const readStream = await this._storageService.getFile(fileKey)
+        //  const readStream = await this._storageService.getFile(fileKey)
 
-         data.image = readStream.toString();
+         data.image = 'dsad';
 
          const hasSucess = await this._workspaceRepository.update(id,data)
          const result = new AddimgWorkspaceOutput()
