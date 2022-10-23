@@ -6,5 +6,6 @@ import { IBaseRepository } from "../../../shared/database/interfaces/IBaseReposi
 
 
 export interface IWorkSpaceRepository extends IBaseRepository<string,IWorkSpace>{
-     findByUser(userId:string): Promise<WorkSpace[] >
+     findByUser(userId:string): Promise<WorkSpace[] >;
+     checkNameExist(name:string): Promise<boolean>;
 }

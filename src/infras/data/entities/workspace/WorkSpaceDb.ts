@@ -13,6 +13,10 @@ export class WorkSpaceDb
   extends BaseDbEntity<string, WorkSpace>
   implements IWorkSpace
 {
+  @Column("varchar",{name:WORKSPACE_SCHEMA.COLUMNS.NAME, length:200})
+  @Index()
+  name: string;
+  
   @Column("varchar", { name: WORKSPACE_SCHEMA.COLUMNS.IMAGE, length: 200 })
   image: string;
   @Column("jsonb", { name: WORKSPACE_SCHEMA.COLUMNS.MEMBER })

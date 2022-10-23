@@ -58,4 +58,28 @@ export abstract class BaseRepository<
 
     return !!result.affected;
   }
+
+  async update(
+    id: TIdentityType,
+    data: TEntity,
+    queryRunner: IDbQueryRunner | null = null
+  ): Promise<boolean> {
+    const result = await this.repository
+      .createQueryBuilder(this._schema.TABLE_NAME, queryRunner as QueryRunner)
+      .update(new this._type().fromEntity(data) as any)
+      .whereInIds(id)
+      .execute();
+    return !!result.affected;
+  }
+
+  async getById(
+    id: TIdentityType,
+    queryRunner: IDbQueryRunner | null = null
+  ): Promise<TEntity | null> {
+    const result = await this.repository
+      .createQueryBuilder(this._schema.TABLE_NAME, queryRunner as QueryRunner)
+      .whereInIds(id)
+      .getOne();
+    return result ? result.toEntity() : null;
+  }
 }

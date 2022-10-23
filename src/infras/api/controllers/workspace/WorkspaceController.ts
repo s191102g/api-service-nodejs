@@ -1,4 +1,4 @@
-import { Authorized, Body, CurrentUser, Get, JsonController, Post } from "routing-controllers";
+import { Authorized, Body, CurrentUser, Get, JsonController, Param, Patch, Post, UploadedFile } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
 import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
@@ -7,10 +7,22 @@ import { CreateWorkspaceHandler } from "../../../../core/usecases/workspace/crea
 import { CreateWorkspaceInput } from "../../../../core/usecases/workspace/create/CreateWorkspaceInput";
 import { FindWorkSpacehandler } from "../../../../core/usecases/workspace/find-all/FindWorkspaceHandler";
 import { FindWorkspaceOutput } from "../../../../core/usecases/workspace/find-all/FindWorkspaceOutput";
+import multer from "multer";
+import { STORAGE_UPLOAD_DIR } from "../../../../configs/Configuration";
+import { AddimgWorkspaceInput } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceInput";
+import { AddimgWorkspaceOutput } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceOutput";
+import { AddimgWorkspaceHandler } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceHandler";
 
 
-
-
+const storage = multer.diskStorage({
+    destination(_req, _file, cb) {
+      cb(null, STORAGE_UPLOAD_DIR);
+    },
+    filename(_req, file, cb) {
+      cb(null, `${file.fieldname}-${Date.now()}.jpg`);
+    },
+  });
+  
 
 @Service()
 @JsonController('/v1/workspace')
@@ -18,14 +30,15 @@ export class WorkspaceController {
     
     constructor(
          private readonly _createWorkspaceHandler: CreateWorkspaceHandler,
-         private readonly _findWorkspaceHandler: FindWorkSpacehandler
+         private readonly _findWorkspaceHandler: FindWorkSpacehandler,
+         private readonly _addimgWorkspaceHandler: AddimgWorkspaceHandler
     ){}
 
     @Post('/')
     @Authorized()
     @OpenAPI({summary:"Add new workspace"})
     @ResponseSchema(CreateClientOutput)
-    async addNew(
+    async create(
         @Body() param:CreateWorkspaceInput,
         @CurrentUser()  userAuth: UserAuthenticated
     ): Promise<CreateClientOutput>{
@@ -40,5 +53,19 @@ export class WorkspaceController {
         @CurrentUser()  userAuth: UserAuthenticated
     ): Promise<FindWorkspaceOutput>{
         return await this._findWorkspaceHandler.handle(userAuth.userId)
+    }
+
+    @Patch("/add-image/:id([0-9a-f-]{36})")
+    @Authorized()
+    @OpenAPI({summary:"add image"})
+    @ResponseSchema(AddimgWorkspaceOutput)
+    async addImg(
+        @UploadedFile("imageWorkspace", { required: true, options: { storage } })
+        file: Express.Multer.File,
+        @Param("id") id: string
+    ): Promise<AddimgWorkspaceOutput>{
+        const param = new AddimgWorkspaceInput()
+        param.file = file
+        return await this._addimgWorkspaceHandler.handle(id,param)
     }
 }

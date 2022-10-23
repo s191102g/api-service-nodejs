@@ -10,6 +10,15 @@ import { Client } from "../user/Client";
 
 
 export class WorkSpace extends BaseEntity<string, IWorkSpace> implements IWorkSpace{
+
+    get name(): string{
+        return this.data.name
+    }
+
+    set name(val:string){
+        this.data.name = val
+    }
+
     get userId(): string{
         return this.data.userId
     }
@@ -25,6 +34,7 @@ export class WorkSpace extends BaseEntity<string, IWorkSpace> implements IWorkSp
         return this.data.image
     }
     set image(val: string){
+      
         this.data.image = val
     }
 
@@ -45,4 +55,9 @@ export class WorkSpace extends BaseEntity<string, IWorkSpace> implements IWorkSp
     get board(): Board[] {
         return this.data.board && this.data.board.map((e) => new Board(e));
       }
+
+    static generateImg(val:any): string{
+         const fileKey = `${val.filename}`;
+         return fileKey
+    }
 }

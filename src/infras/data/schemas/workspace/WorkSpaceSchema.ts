@@ -7,7 +7,8 @@ export const WORKSPACE_SCHEMA ={
         ...BASE_SCHEMA.COLUMNS,
         USER_ID:"user_id",
         IMAGE:"image",
-        MEMBER:"member"
+        MEMBER:"member",
+        NAME:"name"
     }
    
 }

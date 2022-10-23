@@ -30,4 +30,18 @@ string, WorkSpace, WorkSpaceDb
       return result.map((e)=> e.toEntity()) ;
       }
 
+      async checkNameExist(
+        name: string,
+      ): Promise<boolean> {
+        let query = this.repository
+          .createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME)
+          .where(
+            `lower ${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.COLUMNS.NAME} = lower(:name)`,
+            { name }
+          );
+    
+        const result = await query.getOne();
+        return !!result ;
+      }
+
 }
