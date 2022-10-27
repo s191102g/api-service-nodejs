@@ -5,8 +5,7 @@ phases:
   pre_build:
     commands:
       - echo Install packages...
-      - npm i
-      - rm -d uploads
+      - npm install
   build:
     commands:
       - echo Create build...
