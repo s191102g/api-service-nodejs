@@ -5,12 +5,13 @@ phases:
   pre_build:
     commands:
       - echo Install packages...
-      - npm install
+      - npm 
+      -  rm -d uploads
   build:
     commands:
       - echo Create build...
       - npm run build
-      - DIR="uploads" if [ -d "$DIR" ] then echo "have folder" else mkdir uploads
+      - mkdir uploads
   post_build:
     commands:
       - echo Removing unnecessary files...
