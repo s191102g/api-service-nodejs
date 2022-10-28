@@ -1,49 +1,66 @@
-// import { Service } from "typedi";
-// import { IStorageService } from "../../../core/gateways/services/IStorageService";
-// import { S3 } from "aws-sdk";
-// import { AWS_ACCESS_KEY, AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_SECRET_KEY } from "../../../configs/Configuration";
-// import * as fs from "fs";
+import { Readable } from "stream";
+import { Service } from "typedi";
+import { MINIO_ACCESS_KEY, MINIO_HOST, MINIO_PORT, MINIO_SECRET_KEY, MINIO_USE_SSL, STORAGE_BUCKET_NAME } from "../../../configs/Configuration";
+import { IStorageService, IStorageUploadOption } from "../../../core/gateways/services/IStorageService";
+import { IStorageProvider } from "./interfaces/IStorageProvider";
+import { MinioFactory } from "./providers/MinioFactory";
 
-// @Service("storage.service")
-// export class StorageService implements IStorageService{
-//     private readonly _s3: S3;
-//     private readonly bucketName = AWS_BUCKET_NAME;
-//     constructor(){
-//        this._s3 = new S3({
-//         region : AWS_BUCKET_REGION,
-//         accessKeyId : AWS_ACCESS_KEY,
-//         secretAccessKey : AWS_SECRET_KEY
-//        })
-//     }
-    
-//     async uploadFile(file: any, fileKey:string): Promise<any> {
-      
-//         const fileStream = fs.createReadStream(file.path)
-//         const uploadParams = {
-//             Bucket: this.bucketName,
-//             Body: fileStream,
-//             Key: fileKey,
+@Service("storage.service")
+export class StorageService implements IStorageService {
+  private readonly _provider: IStorageProvider;
 
-//           }
-        
-//          const upload = await this._s3.upload(uploadParams).promise();
-//          return upload
-//     }
+  constructor() {
+        this._provider = new MinioFactory(
+          MINIO_HOST,
+          MINIO_PORT,
+          MINIO_USE_SSL,
+          MINIO_ACCESS_KEY,
+          MINIO_SECRET_KEY
+        )
+  }
 
+  async createBucket(policy: string): Promise<void> {
+    const isExist = await this._provider.checkBucketExist(STORAGE_BUCKET_NAME);
+    if (!isExist) {
+      await this._provider.createBucket(STORAGE_BUCKET_NAME);
+      await this._provider.setBucketPolicy(STORAGE_BUCKET_NAME, policy);
+    }
+  }
 
+  async checkBucketExist(bucketName: string): Promise<boolean> {
+    return this._provider.checkBucketExist(bucketName);
+  }
 
+  mapUrl(urlPath: string): string {
+    return this._provider.mapUrl(STORAGE_BUCKET_NAME, urlPath);
+  }
 
+  async upload(
+    urlPath: string,
+    stream: string | Readable | Buffer,
+    options: IStorageUploadOption | null = null
+  ): Promise<boolean> {
+    return await this._provider.upload(
+      STORAGE_BUCKET_NAME,
+      urlPath,
+      stream as any,
+      options as any
+    );
+  }
 
-//     async getFile(imageKey: string): Promise<Object> {
-//         const downloadParams = {
-//             Key: imageKey,
-//             Bucket: this.bucketName,
-//             Expires:120
-//           }
-        
-//           const filename = this._s3.getSignedUrl('getObject ',downloadParams);
+  async download(urlPath: string): Promise<Buffer> {
+    return await this._provider.download(STORAGE_BUCKET_NAME, urlPath);
+  }
 
-//           return filename
-//     }
-     
-// }
+  async delete(urlPath: string): Promise<boolean> {
+    return await this._provider.delete(STORAGE_BUCKET_NAME, urlPath);
+  }
+
+  async setPolicy(policy: string): Promise<void> {
+    await this._provider.setBucketPolicy(STORAGE_BUCKET_NAME, policy);
+  }
+
+  async deletePolicy(): Promise<void> {
+    await this._provider.deleteBucketPolicy(STORAGE_BUCKET_NAME);
+  }
+}

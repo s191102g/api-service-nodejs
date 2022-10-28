@@ -2,14 +2,14 @@ import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../utils/validator";
 import { WorkSpace } from "../../../domain/entities/workspace/WorkSpace";
 import { IWorkSpaceRepository } from "../../../gateways/repositories/workspace/IWorkSpaceRepository";
-// import { IStorageService } from "../../../gateways/services/IStorageService";
 import { CommandHandler } from "../../../shared/usecase/CommandHandler";
 import { AddimgWorkspaceInput } from "./AddimgWorkspaceInput";
 import { AddimgWorkspaceOutput } from "./AddimgWorkspaceOutput";
-import * as fs from "fs";
 import mime from "mime";
 import { SystemError } from "../../../shared/exceptions/SystemError";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
+import { IStorageService } from "../../../gateways/services/IStorageService";
+import { readFile, removeFile } from "../../../../utils/file";
 
 @Service()
 export class AddimgWorkspaceHandler extends CommandHandler<
@@ -17,8 +17,8 @@ export class AddimgWorkspaceHandler extends CommandHandler<
   AddimgWorkspaceOutput
 > {
   constructor(
-    // @Inject("storage.service")
-    // private readonly _storageService: IStorageService,
+    @Inject("storage.service")
+    private readonly _storageService: IStorageService,
 
     @Inject("workspace.repository")
     private readonly _workspaceRepository: IWorkSpaceRepository
@@ -31,7 +31,6 @@ export class AddimgWorkspaceHandler extends CommandHandler<
     param: AddimgWorkspaceInput
   ): Promise<AddimgWorkspaceOutput> {
     await validateDataInput(param);
-    await validateDataInput(param);
 
     const file = param.file;
     const ext = mime.getExtension(file.mimetype);
@@ -40,15 +39,21 @@ export class AddimgWorkspaceHandler extends CommandHandler<
     }
 
     WorkSpace.validateImageFile(file);
-    const fileKey = WorkSpace.getImagePath(id, ext);
-    const data = new WorkSpace();
-    //  await this._storageService.uploadFile(param.file, fileKey);
-    fs.unlink(`uploads/${fileKey}`, (err) => {
-      if (err) console.log(err);
-    });
-    //  const readStream = await this._storageService.getFile(fileKey)
+    const imagePath = WorkSpace.getImagePath(id, ext);
 
-    data.image = fileKey;
+    const data = new WorkSpace()
+    data.image = imagePath;
+    
+    const buffer = await readFile(file.path);
+    const hasSucceed = await this._storageService
+      .upload(imagePath, buffer, {
+        mimetype: file.mimetype,
+        size: file.size,
+      })
+      .finally(() => removeFile(file.path));
+    if (!hasSucceed) {
+      throw new SystemError(MessageError.PARAM_CANNOT_UPLOAD, "image");
+    }
 
     const hasSucess = await this._workspaceRepository.update(id, data);
     const result = new AddimgWorkspaceOutput();
