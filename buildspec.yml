@@ -10,7 +10,6 @@ phases:
     commands:
       - echo Create build...
       - npm run build
-      - mkdir uploads
   post_build:
     commands:
       - echo Removing unnecessary files...
