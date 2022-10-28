@@ -27,10 +27,9 @@ Implementing advanced architectures like clean architecture and domain driven de
 * Storage Service: StorageConsole (console log), MinIO, AwsS3, GoogleStorage.
 
 ## Architecture & Design Patterns
-
 - Clean architecture
 - Domain driven design (DDD)
-- CQRS pattern
+- CQRS pattern // command and query not apply
 - Repository pattern
 - Transfer object pattern
 - Data mapper pattern
@@ -48,11 +47,6 @@ Implementing advanced architectures like clean architecture and domain driven de
 - Socket.io
 - Routing controllers
 - Open API 3
-- ESLint
-- Mocha
-- Nyc
-- Grunt
-- Docker
 - Visual Code
 
 ## Required
@@ -111,6 +105,9 @@ Implementing advanced architectures like clean architecture and domain driven de
 - |------------------------ repositories --------------// Execution operations.
 - |------------------------ RedisContext.ts
 - |------------------------ RedisRegister.ts
+- |------------ server
+- |------------------ http ------------------------// Initialize http.
+- |------------------ Socket----------------// Initialize socket 
 - |------------ services
 - |------------------ authorization -------------------// Authentication service.
 - |------------------ Crypto -----------------------------// Crypto service.
@@ -118,16 +115,11 @@ Implementing advanced architectures like clean architecture and domain driven de
 
 - |------------------ ServiceRegister.ts
 - |------------ SingletonRegister.ts ------------------// Define singleton and need to load first.
-- |------------ socket
-- |------------------ channels ------------------------// Initialize socket connection & event handling.
-- |------------------ SocketService.ts ----------------// Initialize socket service
+
 - |------ utils
 - |------ index.ts --------------------------------------// Main application.
-- |-- .dockerignore -----------------------------------// Docker ignore configuration.
 - |-- .env --------------------------------------------// Configuration cloned from `.env.sample` and we need to add to `.gitignore`.
 - |-- .gitignore --------------------------------------// Git ignore configuration.
-- |-- docker-compose.yml ------------------------------// Docker configuration.
-- |-- Dockerfile --------------------------------------// Used by `docker-compose.yml`.
 - |-- nodemon.json
 - |-- package-lock.json -------------------------------// Lock package version and should not add to `.gitignore`.
 - |-- package.json
@@ -138,7 +130,7 @@ Implementing advanced architectures like clean architecture and domain driven de
 ## NPM Commands
 
 npm run cache:clear ---------------------------// Clear cache of TypeORM.
-npm run migration:generate {Migration_Name} ---// Generate migration for updating database structure.
+npm run migration:generate --name={Migration_Name} ---// Generate migration for updating database structure.
 npm run migration:up --------------------------// Run the next migrations for updating database structure.
 npm run migration:down ------------------------// Revert migration for updating database structure.
 npm run build ---------------------------------// Build source before start with production environment.
@@ -154,7 +146,6 @@ npm start -------------------------------------// Start with production environm
 ```
 - npm install
 - npm run build
-- npm test
 - npm run migration:up
 - npm start
 ```
