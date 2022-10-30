@@ -7,6 +7,8 @@ export const CLIENT_SCHEMA ={
         ...USER_SCHEMA.COLUMNS,
         USER_NAME:"username",
         PASS_WORD:"password",
-        EMAIL:"email"
+        EMAIL:"email",
+        ACTIVEKEY:"active_key",
+        STATUS:"status"
     }
 }

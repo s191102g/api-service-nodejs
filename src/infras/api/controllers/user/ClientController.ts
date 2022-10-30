@@ -7,6 +7,9 @@ import { CreateClientOutput } from "../../../../core/usecases/user/client/create
 import { LoginClientHandler } from "../../../../core/usecases/user/client/login/LoginClientHandler";
 import { LoginClientInput } from "../../../../core/usecases/user/client/login/LoginClientInput";
 import { LoginClientOutput } from "../../../../core/usecases/user/client/login/LoginClientOutput";
+import { RequireRegisterHandler } from "../../../../core/usecases/user/client/require-register/RequireRegisterHandler";
+import { RequireRegisterInput } from "../../../../core/usecases/user/client/require-register/RequireRegisterInput";
+import { RequireRegisterOutput } from "../../../../core/usecases/user/client/require-register/RequireRegisterOutput";
 
 
 
@@ -17,8 +20,19 @@ import { LoginClientOutput } from "../../../../core/usecases/user/client/login/L
 export class ClientController {
      constructor(
          private readonly _createClientHandler: CreateClientHandler,
-         private readonly _loginClientHandler: LoginClientHandler
+         private readonly _loginClientHandler: LoginClientHandler,
+         private readonly _requireRegisterHandler: RequireRegisterHandler,
      ){}
+
+     @Post("/require-register")
+     @OpenAPI({summary:"require register client"})
+     @ResponseSchema(RequireRegisterOutput)
+     async requireRegister(
+          @Body() param:RequireRegisterInput
+     ):Promise<RequireRegisterOutput>{
+        return await this._requireRegisterHandler.handle(param)
+     }
+
 
      @Post("/register")
      @OpenAPI({summary:"register client"})

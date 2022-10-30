@@ -7,3 +7,8 @@ export enum GenderType {
     Client = "client",
     Admin = "admin",
   }
+
+  export enum StatusType {
+    Active = "actived",
+    InActive = "Inactive",
+  }

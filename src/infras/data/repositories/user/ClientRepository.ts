@@ -20,22 +20,22 @@ export class ClientRepository extends BaseRepository<
         const result = await this.repository
           .createQueryBuilder(CLIENT_SCHEMA.TABLE_NAME)
           .where(
-            `LOWER(${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.USER_NAME}) = LOWER(:user_name)`,
-            { user_name:param }
+            `LOWER(${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.EMAIL}) = LOWER(:email)`,
+            { email:param }
           )
           .getOne();
         return !!result;
       }
 
-      async getByUsername(
-        username: string,
+      async getByEmail(
+        email: string,
         queryRunner: IDbQueryRunner | null = null
       ): Promise<Client | null> {
         const query = this.repository
           .createQueryBuilder(CLIENT_SCHEMA.TABLE_NAME, queryRunner as QueryRunner)
           .where(
-            `LOWER(${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.USER_NAME}) = LOWER(:username)`,
-            { username }
+            `LOWER(${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.EMAIL}) = LOWER(:email)`,
+            { email }
           );
     
         const result = await query.getOne();

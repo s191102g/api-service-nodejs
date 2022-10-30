@@ -4,6 +4,7 @@ import { hashMD5 } from "../../../../utils/crypt";
 import { ICryptoService } from "../../../gateways/services/ICryptoService";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
 import { SystemError } from "../../../shared/exceptions/SystemError";
+import { StatusType } from "../../enums/user/userEnum";
 import { IClient } from "../../interfaces/user/IClient";
 import { WorkSpace } from "../workspace/WorkSpace";
 import { UserBase } from "./User";
@@ -52,6 +53,19 @@ export class Client extends UserBase<IClient> implements IClient {
     this.data.email = this._cryptoService.encrypt(val);
   }  
 
+  get activeKey(): string{
+       return this.data.activeKey;
+  }
+  set activeKey(val:string){
+    this.data.activeKey =val
+  }
+
+  get status(): StatusType{
+      return this.data.status;
+  }
+  set status(val : StatusType){
+    this.data.status = val
+  }
    
   // relationship
   get workSpaces(): WorkSpace[] {

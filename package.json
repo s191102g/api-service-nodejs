@@ -8,8 +8,8 @@
     "dev": "nodemon",
     "start": "npm run build && node build/index.js",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js  -d ./src/configs/ORM",
-    "migration:up": "npm run typeorm -- migration:run -d ",
-    "migration:down": "npm run typeorm -- migration:revert",
+    "migration:up": "npm run typeorm  migration:run",
+    "migration:down": "npm run typeorm  migration:revert",
     "migration:generate": "npm run typeorm -- migration:generate ./src/infras/data/migrations/%npm_config_name%",
     "migration:create": "npm run typeorm migration:create"
   },
