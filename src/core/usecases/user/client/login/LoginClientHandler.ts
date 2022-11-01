@@ -1,7 +1,7 @@
 
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../../utils/validator";
-import { RoleType } from "../../../../domain/enums/user/userEnum";
+import { RoleType, StatusType } from "../../../../domain/enums/user/userEnum";
 import { IClientRepository } from "../../../../gateways/repositories/user/IClientRepository";
 import { IAuthJwtService } from "../../../../gateways/services/IAuthJwtService";
 import { ICryptoService } from "../../../../gateways/services/ICryptoService";
@@ -34,7 +34,7 @@ export class LoginClientHandler extends CommandHandler<
     async handle(param:  LoginClientInput ): Promise<LoginClientOutput> {
         await validateDataInput(param)
         
-        const user = await this._clientRepository.getByUsername(this._cryptoService.encrypt(param.username))
+        const user = await this._clientRepository.getByEmail(this._cryptoService.encrypt(param.email))
         if (user == null) {
             throw new SystemError(MessageError.PARAM_INCORRECT,"username")
         }
@@ -43,6 +43,10 @@ export class LoginClientHandler extends CommandHandler<
             throw new SystemError(MessageError.PARAM_INCORRECT,"password")
         }
 
+        
+        if(user.status !== StatusType.Active){
+            throw new SystemError(MessageError.UNAUTHORIZED,"account")
+        }
         if(user.role !== RoleType.Client){
             throw new SystemError(MessageError.DATA_INVALID,"account")
         }

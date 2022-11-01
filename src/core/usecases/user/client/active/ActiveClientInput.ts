@@ -1,10 +1,10 @@
 import { IsString } from "class-validator";
 
 
-export class LoginClientInput {
+export class ActiveClientInput{
     @IsString()
     email:string;
 
     @IsString()
-    password:string;
+    activeKey: string;
 }

@@ -1,6 +1,9 @@
 import { Body, JsonController, Post } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
+import { ActiveClientHandler } from "../../../../core/usecases/user/client/active/ActiveClientHandler";
+import { ActiveClientInput } from "../../../../core/usecases/user/client/active/ActiveClientInput";
+import { ActiveClientOutput } from "../../../../core/usecases/user/client/active/ActiveClientOutput";
 import { CreateClientHandler } from "../../../../core/usecases/user/client/create/CreateClientHandler";
 import { CreateClientInput } from "../../../../core/usecases/user/client/create/CreateClientInput";
 import { CreateClientOutput } from "../../../../core/usecases/user/client/create/CreateClientOutput";
@@ -22,6 +25,7 @@ export class ClientController {
          private readonly _createClientHandler: CreateClientHandler,
          private readonly _loginClientHandler: LoginClientHandler,
          private readonly _requireRegisterHandler: RequireRegisterHandler,
+         private readonly _activeClientHandler: ActiveClientHandler
      ){}
 
      @Post("/require-register")
@@ -33,6 +37,14 @@ export class ClientController {
         return await this._requireRegisterHandler.handle(param)
      }
 
+     @Post('/active')
+     @OpenAPI({summary:"active"})
+     @ResponseSchema(ActiveClientOutput)
+     async active(
+          @Body() param: ActiveClientInput
+     ): Promise<ActiveClientOutput>{
+          return await this._activeClientHandler.handle(param)
+     }
 
      @Post("/register")
      @OpenAPI({summary:"register client"})

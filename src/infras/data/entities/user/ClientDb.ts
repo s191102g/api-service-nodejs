@@ -21,7 +21,7 @@ export class ClientDb extends UserDb implements IClient {
 
   @Column("varchar", {name:CLIENT_SCHEMA.COLUMNS.ACTIVEKEY, length:20, nullable:true})
   @Index()
-  activeKey: string;
+  activeKey: string | null;
 
   @Column("enum",{name: CLIENT_SCHEMA.COLUMNS.STATUS, enum: StatusType, nullable:true})
    status: StatusType;

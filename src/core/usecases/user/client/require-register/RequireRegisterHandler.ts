@@ -2,7 +2,7 @@
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../../utils/validator";
 import { Client } from "../../../../domain/entities/user/Client";
-import { StatusType } from "../../../../domain/enums/user/userEnum";
+import { RoleType, StatusType } from "../../../../domain/enums/user/userEnum";
 import { IClientRepository } from "../../../../gateways/repositories/user/IClientRepository";
 import { ICryptoService } from "../../../../gateways/services/ICryptoService";
 import { MessageError } from "../../../../shared/exceptions/message/MessageError";
@@ -11,6 +11,7 @@ import { CommandHandler } from "../../../../shared/usecase/CommandHandler";
 import { RequireRegisterInput } from "./RequireRegisterInput";
 import { RequireRegisterOutput } from "./RequireRegisterOutput";
 import crypto from "crypto";
+import { IMailService } from "../../../../gateways/services/IMailService";
 
 
 
@@ -24,7 +25,10 @@ export class RequireRegisterHandler extends CommandHandler<
         private readonly  _clientRepository: IClientRepository,
 
         @Inject('crypto.service')
-        private readonly _cryptoServiceL: ICryptoService
+        private readonly _cryptoServiceL: ICryptoService,
+
+        @Inject("mail.service")
+        private readonly _mailService: IMailService
     ){
         super()
     }
@@ -40,8 +44,12 @@ export class RequireRegisterHandler extends CommandHandler<
               data.status = StatusType.InActive;
               const activeKey = crypto.randomBytes(4).toString("hex");
               data.activeKey = activeKey;
-
+              data.role = RoleType.Client;
+              data.firstName = 'client';
+              data.passWord = '1clientC.';
+              
               await this._clientRepository.create(data);
+              await this._mailService.sendMailVertify(param.email, data.activeKey)
               const result = new RequireRegisterOutput()
               result.setData(true)
               return result;

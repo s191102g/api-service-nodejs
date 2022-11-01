@@ -2,7 +2,6 @@ import { Authorized, Body, CurrentUser, Get, JsonController, Param, Patch, Post,
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
 import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
-import { CreateClientOutput } from "../../../../core/usecases/user/client/create/CreateClientOutput";
 import { CreateWorkspaceHandler } from "../../../../core/usecases/workspace/create/CreateWorkspaceHandler";
 import { CreateWorkspaceInput } from "../../../../core/usecases/workspace/create/CreateWorkspaceInput";
 import { FindWorkSpacehandler } from "../../../../core/usecases/workspace/find-all/FindWorkspaceHandler";
@@ -12,6 +11,7 @@ import { STORAGE_UPLOAD_DIR } from "../../../../configs/Configuration";
 import { AddimgWorkspaceInput } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceInput";
 import { AddimgWorkspaceOutput } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceOutput";
 import { AddimgWorkspaceHandler } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceHandler";
+import { CreateWorkspaceOutput } from "../../../../core/usecases/workspace/create/CreateWorkspaceOutput";
 
 
 const storage = multer.diskStorage({
@@ -37,11 +37,11 @@ export class WorkspaceController {
     @Post('/')
     @Authorized()
     @OpenAPI({summary:"Add new workspace"})
-    @ResponseSchema(CreateClientOutput)
+    @ResponseSchema(CreateWorkspaceOutput)
     async create(
         @Body() param:CreateWorkspaceInput,
         @CurrentUser()  userAuth: UserAuthenticated
-    ): Promise<CreateClientOutput>{
+    ): Promise<CreateWorkspaceOutput>{
         return await this._createWorkspaceHandler.handle(userAuth.userId, param)
     }
 

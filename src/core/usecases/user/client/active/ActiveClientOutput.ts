@@ -3,12 +3,11 @@ import { DataResponse } from "../../../../shared/usecase/DataResponse";
 
 
 
-
-export class CreateClientOutput extends DataResponse<boolean>{
+export class ActiveClientOutput extends DataResponse<boolean>{
     @IsBoolean()
     data: boolean;
 
-    setData(val:boolean): void{
-        this.data = val
+    setData(val: boolean){
+        this.data = val;
     }
 }

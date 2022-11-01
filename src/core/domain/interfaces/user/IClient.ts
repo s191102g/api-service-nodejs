@@ -8,7 +8,7 @@ export interface IClient extends IUser{
     userName:string;
     passWord:string;
     email:string;
-    activeKey: string;
+    activeKey: string | null;
     status: StatusType;
     
     // relationship

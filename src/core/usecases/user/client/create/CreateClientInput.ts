@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 
 
@@ -8,14 +8,12 @@ export class CreateClientInput{
    firstName:string;
 
    @IsString()
+   @IsOptional()
    lastName:string;
 
    @IsString()
    email:string;
 
    @IsString()
-   userName:string;
-
-   @IsString()
-   passWord:string;
+   password:string;
 }

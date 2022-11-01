@@ -53,10 +53,10 @@ export class Client extends UserBase<IClient> implements IClient {
     this.data.email = this._cryptoService.encrypt(val);
   }  
 
-  get activeKey(): string{
+  get activeKey(): string | null{
        return this.data.activeKey;
   }
-  set activeKey(val:string){
+  set activeKey(val:string | null){
     this.data.activeKey =val
   }
 
