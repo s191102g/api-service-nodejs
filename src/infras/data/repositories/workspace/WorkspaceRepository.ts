@@ -36,7 +36,7 @@ string, WorkSpace, WorkSpaceDb
         let query = this.repository
           .createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME)
           .where(
-            `lower ${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.COLUMNS.NAME} = lower(:name)`,
+            `lower(${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.COLUMNS.NAME}) = lower(:name)`,
             { name }
           );
     

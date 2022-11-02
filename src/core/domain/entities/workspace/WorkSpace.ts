@@ -81,6 +81,6 @@ export class WorkSpace extends BaseEntity<string, IWorkSpace> implements IWorkSp
   }
 
   static getImagePath(id: string, ext: string): string {
-    return `workspace/${id}/image-${Date.now()}.${ext}`;
+    return `workspace/${id}.${ext}`;
   }
 }

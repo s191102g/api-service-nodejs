@@ -19,17 +19,11 @@ const startApplication = async (): Promise<void> => {
 };
 
 if (process.env.NODE_ENV != "production") {
-  console.log(`  =============================
-  =                           =
-  =       DEV BY SANG         =
-  =                           =
-  =============================
- `);
-  console.info(`Starting project on local`);
+  console.info(`Starting project \x1b[1m\x1b[96mDols\x1b[0m\x1b[21m on \x1B[2mlocal`);
   startApplication().then(async () => {
     console.info(
     
-      `Api service is ready on http://localhost:${API_PORT} `
+      `Api service is ready on \x1b[32m http://localhost:${API_PORT} \x1b[0m`
     );
   });
 } else {
