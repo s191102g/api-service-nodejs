@@ -44,6 +44,7 @@ export class AddimgWorkspaceHandler extends CommandHandler<
     const data = new WorkSpace()
     data.image = imagePath;
     
+
     // const buffer = await readFile(file.path);
     // const hasSucceed = await this._storageService
     //   .upload( buffer,imagePath, ext)
