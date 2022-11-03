@@ -19,9 +19,9 @@ export class StorageService implements IStorageService {
       Bucket: AWS_BUCKET_NAME,
       Body:file,
       ContentType: type,
-    }).promise();
+    });
 
-    const data = await this.s3.listObjectsV2({Bucket:AWS_BUCKET_NAME}).promise()
+    const data = await this.s3.listObjectsV2({Bucket:AWS_BUCKET_NAME})
     console.log(data);
     
     return `${STORAGE_URL}/${fileKey}`
