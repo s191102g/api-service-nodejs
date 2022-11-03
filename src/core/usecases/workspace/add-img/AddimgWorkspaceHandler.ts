@@ -8,8 +8,8 @@ import { AddimgWorkspaceOutput } from "./AddimgWorkspaceOutput";
 import mime from "mime-types";
 import { SystemError } from "../../../shared/exceptions/SystemError";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
-import { IStorageService } from "../../../gateways/services/IStorageService";
-import { readFile, removeFile } from "../../../../utils/file";
+// import { IStorageService } from "../../../gateways/services/IStorageService";
+// import { readFile, removeFile } from "../../../../utils/file";
 
 @Service()
 export class AddimgWorkspaceHandler extends CommandHandler<
@@ -17,8 +17,8 @@ export class AddimgWorkspaceHandler extends CommandHandler<
   AddimgWorkspaceOutput
 > {
   constructor(
-    @Inject("storage.service")
-    private readonly _storageService: IStorageService,
+    // @Inject("storage.service")
+    // private readonly _storageService: IStorageService,
 
     @Inject("workspace.repository")
     private readonly _workspaceRepository: IWorkSpaceRepository
@@ -44,17 +44,17 @@ export class AddimgWorkspaceHandler extends CommandHandler<
     const data = new WorkSpace()
     data.image = imagePath;
     
-    const buffer = await readFile(file.path);
-    const hasSucceed = await this._storageService
-      .upload( buffer,imagePath, ext)
-      .finally(() => removeFile(file.path));
-    if (!hasSucceed) {
-      throw new SystemError(MessageError.PARAM_CANNOT_UPLOAD, "image");
-    }
+    // const buffer = await readFile(file.path);
+    // const hasSucceed = await this._storageService
+    //   .upload( buffer,imagePath, ext)
+    //   .finally(() => removeFile(file.path));
+    // if (!hasSucceed) {
+    //   throw new SystemError(MessageError.PARAM_CANNOT_UPLOAD, "image");
+    // }
 
      await this._workspaceRepository.update(id, data);
     const result = new AddimgWorkspaceOutput();
-    result.setData(hasSucceed);
+    result.setData('test');
     return result;
   }
 }

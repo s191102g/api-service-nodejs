@@ -1,3 +1,4 @@
+import { FavouriteType } from "../../enums/user/boardEnum";
 import { IEntity } from "../base/IEntity";
 import { IData } from "../datas/IData";
 import { ITemplate } from "../template/ITemplate";
@@ -9,8 +10,8 @@ export interface IBoard extends IEntity<string>{
     title:string;
     icon:string;
     position:number;
-    description:string;
-    favourite:string;
+    description:string | null;
+    favourite:FavouriteType;
     favouritePosition:number;
     workSpaceId:string;
     templateId:string;

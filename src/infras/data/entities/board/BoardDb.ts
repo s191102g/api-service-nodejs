@@ -48,7 +48,7 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
     @JoinColumn({name:BOARD_SCHEMA.COLUMNS.WORKSPACE_ID})
     workSpace: IWorkSpace;
 
-    @OneToOne(()=>TemplateDb, (template)=>template.board)
+    @ManyToOne(()=>TemplateDb, (template)=>template.board)
     @JoinColumn({name:BOARD_SCHEMA.COLUMNS.TEMPLATE_ID})
     template: ITemplate;
 

@@ -28,8 +28,9 @@ export class CreateBoardHandler extends CommandHandler<
        const data = new Board()
        data.title = param.title;
        data.position = param.position;
+       data.description = param.description;
        data.icon = param.icon;
-       data.favourite = param.favourite === true ? FavouriteType.Favourite : FavouriteType.UnFavourite;
+       data.favourite = param.favourite === 'no' ? FavouriteType.Favourite : FavouriteType.UnFavourite;
        data.favouritePosition = param.favouritePosition;
        data.workSpaceId = param.workspaceId;
        data.templateId = param.templateId;

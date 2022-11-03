@@ -1,3 +1,4 @@
+import { FavouriteType } from "../../enums/user/boardEnum";
 import { IBoard } from "../../interfaces/board/IBoard";
 import { BaseEntity } from "../base/BaseEntyti";
 import { Data } from "../datas/Data";
@@ -29,17 +30,17 @@ export class Board extends BaseEntity<string,IBoard> implements IBoard{
         this.data.position = val
     }
 
-    get description(): string{
+    get description(): string | null{
         return this.data.description
     }
-    set description(val:string){
+    set description(val:string | null){
         this.data.description = val
     }
 
-    get favourite(): string{
+    get favourite(): FavouriteType{
         return this.data.favourite
     }
-    set favourite(val:string){
+    set favourite(val:FavouriteType){
         this.data.favourite = val
     }
     

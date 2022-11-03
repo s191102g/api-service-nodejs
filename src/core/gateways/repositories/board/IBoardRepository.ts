@@ -1,9 +1,10 @@
-import { IBoard } from "../../../domain/interfaces/board/IBoard";
+import { Board } from "../../../domain/entities/board/Board";
+
 import { IBaseRepository } from "../../../shared/database/interfaces/IBaseRepository";
 
 
 
 
-export interface IBoardRepository extends IBaseRepository<string, IBoard>{
+export interface IBoardRepository extends IBaseRepository<string, Board>{
 
 }

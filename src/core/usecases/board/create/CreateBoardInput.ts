@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
+import {  IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 
 
 
@@ -17,8 +17,8 @@ export class CreateBoardInput{
     @IsNumber()
     position:number;
 
-    @IsBoolean()
-    favourite: boolean;
+    @IsString()
+    favourite: string;
 
     @IsNumber()
     favouritePosition:number;

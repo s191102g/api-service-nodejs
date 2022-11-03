@@ -4,5 +4,5 @@ export interface IBaseRepository<TIdentityType, TEntity>{
     find(): Promise<TEntity[]>;
     softDelete(id:TIdentityType): Promise<boolean>;
     update(id: TIdentityType,data: TEntity,): Promise<boolean>;
-    getById(id: TIdentityType,): Promise<TEntity | null>
+    getById(id: TIdentityType): Promise<TEntity | null>
 }
