@@ -13,7 +13,7 @@ export class ApiService {
   static init(port: number, callback?: () => void): Server {
     const app = express();
     const logger = Container.get<ILogService>("log.service");
-    app.get("/test", (_req, res) => {
+    app.get("/", (_req, res) => {
       res.status(200).end("ok");
     });
 
