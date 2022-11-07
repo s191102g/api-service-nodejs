@@ -36,6 +36,11 @@ export class ApiDocument {
           url: `http://webapiservice-env-1.eba-me2tu2kp.us-east-1.elasticbeanstalk.com/`,
           description: "Production",
         },
+        {
+          url: `https://back-end-for-app.herokuapp.com/`,
+          description: "Preventive",
+        },
+        
       
       ],
       security: [
