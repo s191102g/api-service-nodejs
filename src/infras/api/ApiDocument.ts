@@ -33,13 +33,9 @@ export class ApiDocument {
           description: "Localhost",
         },
         {
-          url: `http://webapiservice-env-1.eba-me2tu2kp.us-east-1.elasticbeanstalk.com/`,
+          url: `http://apiservice-env.eba-vgrg7cua.us-east-1.elasticbeanstalk.com/`,
           description: "Production",
-        },
-        {
-          url: `https://back-end-for-app.herokuapp.com/`,
-          description: "Preventive",
-        },
+        }
         
       
       ],
