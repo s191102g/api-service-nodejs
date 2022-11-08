@@ -9,8 +9,8 @@ export class MailService implements IMailService {
       // config mail server
       service: "Gmail",
       auth: {
-        user: "umallserviceteam@gmail.com",
-        pass: "mbhhgxjqdcfsulaa",
+        user: "dolsservicess@gmail.com",
+        pass: "afxzatllrwoikkdk",
       },
     });
     var mainOptions = {
