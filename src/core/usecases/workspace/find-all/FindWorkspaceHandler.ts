@@ -1,4 +1,5 @@
 import { Inject, Service } from "typedi";
+import { WorkSpace } from "../../../domain/entities/workspace/WorkSpace";
 import { IWorkSpaceRepository } from "../../../gateways/repositories/workspace/IWorkSpaceRepository";
 import { QueryHandler } from "../../../shared/usecase/QueryHandler";
 import { FindWorkspaceOutput } from "./FindWorkspaceOutput";
@@ -19,9 +20,17 @@ export class FindWorkSpacehandler extends QueryHandler<
      }
 
      async handle(userId:string): Promise<FindWorkspaceOutput> {
-         const data = await this._workspaceRepository.findByUser(userId)
+
+         const list = await this._workspaceRepository.getAll()
+         const data : WorkSpace[]= [];
+
+         for (const item of list) {
+            if(item.member.includes(userId)){
+               data.push(item)
+            }
+         }
          const result = new FindWorkspaceOutput()
          result.setData(data)
-         return result
+         return result;
      }
 }

@@ -1,4 +1,4 @@
-import { Authorized, Body, CurrentUser, Get, JsonController, Post } from "routing-controllers";
+import { Authorized, Body, CurrentUser, Get, JsonController, Patch, Post } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
 import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
@@ -12,6 +12,9 @@ import { FindWorkspaceOutput } from "../../../../core/usecases/workspace/find-al
 // import { AddimgWorkspaceOutput } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceOutput";
 // import { AddimgWorkspaceHandler } from "../../../../core/usecases/workspace/add-img/AddimgWorkspaceHandler";
 import { CreateWorkspaceOutput } from "../../../../core/usecases/workspace/create/CreateWorkspaceOutput";
+import { AddMemberWorkspaceOutput } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceOutput";
+import { AddMemberWorkspaceInput } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceInput";
+import { AddMemberWorkspaceHandler } from "../../../../core/usecases/workspace/add-member/AddMemberWorkSpaceHandler";
 
 
 // const storage = multer.diskStorage({
@@ -29,9 +32,10 @@ import { CreateWorkspaceOutput } from "../../../../core/usecases/workspace/creat
 export class WorkspaceController {
     
     constructor(
+          //  private readonly _addimgWorkspaceHandler: AddimgWorkspaceHandler
          private readonly _createWorkspaceHandler: CreateWorkspaceHandler,
          private readonly _findWorkspaceHandler: FindWorkSpacehandler,
-        //  private readonly _addimgWorkspaceHandler: AddimgWorkspaceHandler
+        private readonly _addMemberWorkspaceHandler: AddMemberWorkspaceHandler
     ){}
 
     @Post('/')
@@ -47,12 +51,23 @@ export class WorkspaceController {
 
     @Get('/')
     @Authorized()
-    @OpenAPI({summary:"Get all workspace by user"})
+    @OpenAPI({summary:"Get all workspace have user"})
     @ResponseSchema(FindWorkspaceOutput)
     async getByUser(
         @CurrentUser()  userAuth: UserAuthenticated
     ): Promise<FindWorkspaceOutput>{
         return await this._findWorkspaceHandler.handle(userAuth.userId)
+    }
+
+    @Patch("/add-member")
+    @Authorized()
+    @OpenAPI({summary:"add member for workspace"})
+    @ResponseSchema(AddMemberWorkspaceOutput)
+    async addMember(
+        @Body() param: AddMemberWorkspaceInput,
+        @CurrentUser()  userAuth: UserAuthenticated
+    ): Promise<AddMemberWorkspaceOutput>{
+        return await this._addMemberWorkspaceHandler.handle(userAuth.userId, param)
     }
 
     // @Patch("/add-image/:id([0-9a-f-]{36})")

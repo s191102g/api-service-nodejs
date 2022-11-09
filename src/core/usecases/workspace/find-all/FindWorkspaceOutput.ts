@@ -15,11 +15,15 @@ export class FindWorkspaceData{
    @IsArray()
    member:any [];
 
+   @IsUUID()
+   userCreated: string;
+
    constructor(data: WorkSpace){
      this.id = data.id;
      this.createdAt = data.createdAt;
      this.image = data.image;
      this.member = data.member;
+     this.userCreated = data.userId;
    }
 }
 
