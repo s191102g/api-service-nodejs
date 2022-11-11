@@ -26,26 +26,20 @@ export class DbContext implements IDbContext {
     }
     return new DbConnection(connection);
   }
-   async connect(connectionName = "default"): Promise<void>  {
-    
-    let connection: Connection | undefined;
+
+  async createConnection(connectionName = "default"): Promise<IDbConnection> {
+    let connection: Connection | null = null;
     try {
       connection = getConnection(connectionName);
-    } catch (e) {}
-
-    try {
-      if (connection) {
-        if (!connection.isConnected) {
-          await connection.connect();
-        }
-      } else {
-        await createConnection(ORM);
-      }
-      console.log("🌴 🌴 Database connection was successful!");
-    } catch (e) {
-      console.error("ERROR: Database connection failed!!", e);
-      throw e;
+    } catch {}
+    if (connection && connection.isConnected) {
+      return new DbConnection(connection);
     }
-    
+
+    connection = await createConnection({
+      ...ORM,
+      name: connectionName,
+    } as any);
+    return new DbConnection(connection);
   }
 }

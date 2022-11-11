@@ -14,7 +14,7 @@ import { FindWorkspaceOutput } from "../../../../core/usecases/workspace/find-al
 import { CreateWorkspaceOutput } from "../../../../core/usecases/workspace/create/CreateWorkspaceOutput";
 import { AddMemberWorkspaceOutput } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceOutput";
 import { AddMemberWorkspaceInput } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceInput";
-import { AddMemberWorkspaceHandler } from "../../../../core/usecases/workspace/add-member/AddMemberWorkSpaceHandler";
+import { AddMemberWorkspaceHandler } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceHandler";
 
 
 // const storage = multer.diskStorage({

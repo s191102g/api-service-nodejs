@@ -7,14 +7,10 @@ import { Container } from "typedi";
 import { IDbContext } from "./core/shared/database/interfaces/IDbContext";
 import cluster from "cluster";
 import os from "os";
-// import { IRedisContext } from "./core/shared/database/interfaces/IRedisContext";
 
 const dbContext = Container.get<IDbContext>("db.context");
-// const redisContext = Container.get<IRedisContext>('redis.context')
 const startApplication = async (): Promise<void> => {
-  // await redisContext.createConnection();
-  // console.log('Connected with Redis');
-  await dbContext.connect();
+  await dbContext.createConnection();
   ApiService.init( Number(API_PORT) );
 };
 

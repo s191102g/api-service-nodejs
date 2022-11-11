@@ -2,7 +2,7 @@ import { IUser } from "./IUser";
 
 
 
-export interface IClient extends IUser{
+export interface IAdmin extends IUser{
     userName:string;
     passWord:string;
 

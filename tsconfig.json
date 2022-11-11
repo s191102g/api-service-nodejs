@@ -83,7 +83,7 @@
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["./src/**/*.ts", "1665226916583-Create_User_and_Client.ts"],
+  "include": ["./src/**/*.ts"],
   "exclude": [
       "node_modules"
   ]
