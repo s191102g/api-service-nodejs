@@ -1,4 +1,4 @@
-import { Authorized, Body, CurrentUser, Get, JsonController, Patch, Post } from "routing-controllers";
+import { Authorized, Body, CurrentUser, Delete, Get, JsonController, Param, Patch, Post } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
 import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
@@ -15,6 +15,9 @@ import { CreateWorkspaceOutput } from "../../../../core/usecases/workspace/creat
 import { AddMemberWorkspaceOutput } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceOutput";
 import { AddMemberWorkspaceInput } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceInput";
 import { AddMemberWorkspaceHandler } from "../../../../core/usecases/workspace/add-member/AddMemberWorkspaceHandler";
+import { DeleteWorkspaceHandler } from "../../../../core/usecases/workspace/delete-workspace/DeleteWorkspaceHandler";
+import { DeleteWorkspaceOutput } from "../../../../core/usecases/workspace/delete-workspace/DeleteWorkspaceOutput";
+import { DeleteWorkspaceInput } from "../../../../core/usecases/workspace/delete-workspace/DeleteWorkspaceInput";
 
 
 // const storage = multer.diskStorage({
@@ -33,9 +36,10 @@ export class WorkspaceController {
     
     constructor(
           //  private readonly _addimgWorkspaceHandler: AddimgWorkspaceHandler
-         private readonly _createWorkspaceHandler: CreateWorkspaceHandler,
-         private readonly _findWorkspaceHandler: FindWorkSpacehandler,
-        private readonly _addMemberWorkspaceHandler: AddMemberWorkspaceHandler
+        private readonly _createWorkspaceHandler: CreateWorkspaceHandler,
+        private readonly _findWorkspaceHandler: FindWorkSpacehandler,
+        private readonly _addMemberWorkspaceHandler: AddMemberWorkspaceHandler,
+        private readonly _deleteWorkspaceHandler: DeleteWorkspaceHandler
     ){}
 
     @Post('/')
@@ -68,6 +72,20 @@ export class WorkspaceController {
         @CurrentUser()  userAuth: UserAuthenticated
     ): Promise<AddMemberWorkspaceOutput>{
         return await this._addMemberWorkspaceHandler.handle(userAuth.userId, param)
+    }
+
+    @Delete("/:id([0-9a-f-]{36})")
+    @Authorized()
+    @OpenAPI({summary:"delete workspace"})
+    @ResponseSchema(DeleteWorkspaceOutput)
+    async delete(
+        @Param("id") id: string,
+        @CurrentUser()  userAuth: UserAuthenticated
+    ): Promise<DeleteWorkspaceOutput>{
+        const param = new DeleteWorkspaceInput
+        param.id = id;
+        param.userId = userAuth.userId;
+        return await this._deleteWorkspaceHandler.handle(param)
     }
 
     // @Patch("/add-image/:id([0-9a-f-]{36})")

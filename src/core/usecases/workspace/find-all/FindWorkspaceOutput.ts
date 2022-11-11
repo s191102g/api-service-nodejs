@@ -13,6 +13,9 @@ export class FindWorkspaceData{
    @IsString()
    image:string;
 
+   @IsString()
+   name:string;
+
    @IsArray()
    member:any [];
 
@@ -25,6 +28,7 @@ export class FindWorkspaceData{
    constructor(data: WorkSpace){
      this.id = data.id;
      this.createdAt = data.createdAt;
+     this.name = data.name;
      this.image = data.image;
      this.member = data.member;
      this.userCreated = data.userId;

@@ -48,9 +48,8 @@ string, WorkSpace, WorkSpaceDb
       async getAll(): Promise<WorkSpace[]>{
         let query = this.repository
         .createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME)
-        .innerJoinAndSelect(
-          `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.RELATED_MANY.BOARD}`,
-          BOARD_SCHEMA.TABLE_NAME
+        .leftJoinAndSelect(
+          `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.RELATED_MANY.BOARD}`, `${BOARD_SCHEMA.TABLE_NAME}`
         )
 
         const result = await query.getMany()

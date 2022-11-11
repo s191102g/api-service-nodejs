@@ -44,6 +44,11 @@ export class MessageError {
     "Data cannot save!"
   );
 
+  static DATA_CANNOT_DELETE = new ErrorObject(
+    ErrorCode.DATA_CANNOT_DELETE,
+    "Data cannot delete!"
+  );
+
   static PARAM_CANNOT_UPLOAD = new ErrorObject(
     ErrorCode.DATA_CANNOT_UPLOAD,
     "The {0} cannot upload!"
