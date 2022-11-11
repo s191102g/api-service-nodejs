@@ -11,7 +11,8 @@ import { LoginAdminOutput } from "../../../../core/usecases/user/admin/login-adm
 
 
 @Service()
-@JsonController("/v1/admin")
+@JsonController("/v1/admins")
+// @JsonController("/v1/admin")
 export class ClientController {
      constructor(
          private readonly _createAdminHandler: CreateAdminHandler,
