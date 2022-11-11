@@ -24,7 +24,7 @@ export class ApiAuthenticator {
     if (
       role &&
       role.length &&
-      !role.some((roleId) => data && roleId === data.role)
+      !role.some((role) => data && role === data.role)
     ) {
       throw new AccessDeniedError();
     }

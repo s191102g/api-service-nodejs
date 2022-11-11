@@ -19,7 +19,7 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
     
   
      @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.TITLE, length:200})
-     @Index({unique:true, where:BoardDb.getIndexFilterDeletedColumn()})
+     @Index({ where:BoardDb.getIndexFilterDeletedColumn()})
      title: string;
 
      @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.ICON,length:200})

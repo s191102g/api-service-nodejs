@@ -2,6 +2,7 @@ import { Service } from "typedi";
 import { WorkSpace } from "../../../../core/domain/entities/workspace/WorkSpace";
 import { IWorkSpaceRepository } from "../../../../core/gateways/repositories/workspace/IWorkSpaceRepository";
 import { WorkSpaceDb } from "../../entities/workspace/WorkSpaceDb";
+import { BOARD_SCHEMA } from "../../schemas/board/BoardSchema";
 import { WORKSPACE_SCHEMA } from "../../schemas/workspace/WorkSpaceSchema";
 import { BaseRepository } from "../base/BaseRepository";
 
@@ -47,6 +48,10 @@ string, WorkSpace, WorkSpaceDb
       async getAll(): Promise<WorkSpace[]>{
         let query = this.repository
         .createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME)
+        .innerJoinAndSelect(
+          `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.RELATED_MANY.BOARD}`,
+          BOARD_SCHEMA.TABLE_NAME
+        )
 
         const result = await query.getMany()
         return result.map((e) => e.toEntity())

@@ -9,6 +9,9 @@ export const WORKSPACE_SCHEMA ={
         IMAGE:"image",
         MEMBER:"member",
         NAME:"name"
+    },
+    RELATED_MANY:{
+        BOARD:"board"
     }
    
 }

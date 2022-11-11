@@ -16,4 +16,18 @@ export class BoardRepository extends BaseRepository<string, Board, BoardDb>
     constructor(){
         super(BoardDb,BOARD_SCHEMA)
     }
+   
+
+    async  getByWorkspaceId(workSpaceId: string): Promise<Board[] | null> {
+        const  query = this.repository
+        .createQueryBuilder(BOARD_SCHEMA.TABLE_NAME)
+        .where(
+            `${BOARD_SCHEMA.TABLE_NAME}.${BOARD_SCHEMA.COLUMNS.WORKSPACE_ID} =:workSpaceId`,
+            {workSpaceId}
+        )
+
+        const result = await query.getMany();
+        return result ? result.map((e)=> e.toEntity()) : null;
+    }
+
 }

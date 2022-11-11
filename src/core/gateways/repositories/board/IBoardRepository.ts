@@ -6,5 +6,5 @@ import { IBaseRepository } from "../../../shared/database/interfaces/IBaseReposi
 
 
 export interface IBoardRepository extends IBaseRepository<string, Board>{
-
+      getByWorkspaceId(workSpaceId:string): Promise<Board[] | null>;
 }

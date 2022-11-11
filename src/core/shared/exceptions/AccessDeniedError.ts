@@ -13,11 +13,14 @@ export class AccessDeniedError extends Error {
   @IsString()
   override message: string;
 
+  @IsString()
+  override stack: string;
   constructor() {
     super();
     this.httpCode = 403;
     this.code = MessageError.ACCESS_DENIED.code;
     this.name = "AccessDeniedError";
     this.message = MessageError.ACCESS_DENIED.message;
+    this.stack = ''
   }
 }
