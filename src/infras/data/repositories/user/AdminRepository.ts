@@ -14,4 +14,17 @@ export class AdminRepository extends BaseRepository<
         super(AdminDb,ADMIN_SCHEMA)
     }
 
+    async getByUsername(
+      username: string
+    ): Promise<Admin | null> {
+      const query = this.repository
+        .createQueryBuilder(ADMIN_SCHEMA.TABLE_NAME)
+        .where(
+          `LOWER(${ADMIN_SCHEMA.TABLE_NAME}.${ADMIN_SCHEMA.COLUMNS.USER_NAME}) = LOWER(:username)`,
+          { username }
+        );
+  
+      const result = await query.getOne();
+      return result ? result.toEntity() : null;
+    }
 }

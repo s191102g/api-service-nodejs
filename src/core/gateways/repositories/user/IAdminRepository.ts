@@ -5,4 +5,6 @@ import { IBaseRepository } from "../../../shared/database/interfaces/IBaseReposi
 
 
 export interface IAdminRepository extends IBaseRepository<string,Admin>{
+
+    getByUsername(username:string): Promise<Admin | null>
 }

@@ -2,12 +2,11 @@ import { IsJWT } from "class-validator";
 import { DataResponse } from "../../../../shared/usecase/DataResponse";
 
 
-
-export class LoginClientOutput extends DataResponse<string>{
+export class LoginAdminOutput extends DataResponse<string>{
     @IsJWT()
     data: string;
-    
-    setData(val:string):void{
-        this.data = val
+
+    setData(val: string){
+        this.data = val;
     }
 }
