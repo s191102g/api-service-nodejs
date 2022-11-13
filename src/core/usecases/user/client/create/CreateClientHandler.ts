@@ -32,8 +32,8 @@ export class CreateClientHandler extends CommandHandler<
         
         const data = new Client()
         data.firstName = param.firstName;
-        data.lastName = param.lastName;
         data.passWord = param.password;
+        data.avatar = param.image;
         const client = await this._clientRepository.getByEmail( this._cryptoService.encrypt(param.email) )
         if(!client){
             throw new SystemError(MessageError.DATA_NOT_FOUND)
