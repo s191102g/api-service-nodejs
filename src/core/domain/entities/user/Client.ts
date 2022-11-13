@@ -31,16 +31,16 @@ export class Client extends UserBase<IClient> implements IClient {
   }
 
   set passWord(val: string) {
-    const regExp =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/;
-    if (!regExp.test(val)) {
-      throw new SystemError(
-        MessageError.PARAM_LEN_AT_LEAST_AND_MAX_SPECIAL,
-        "password",
-        6,
-        20
-      );
-    }
+    // const regExp =
+    //   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/;
+    // if (!regExp.test(val)) {
+    //   throw new SystemError(
+    //     MessageError.PARAM_LEN_AT_LEAST_AND_MAX_SPECIAL,
+    //     "password",
+    //     8,
+    //     20
+    //   );
+    // }
 
     this.data.passWord = this._hashPassword(val);
   }
