@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DB_CACHING_PREFIX = exports.DB_CACHING_PASSWORD = exports.DB_CACHING_PORT = exports.DB_CACHING_HOST = exports.DB_USER = exports.DB_PASS = exports.DB_PORT = exports.DB_HOST = exports.DB_NAME = void 0;
+const tslib_1 = require("tslib");
+const dotenv_1 = tslib_1.__importDefault(require("dotenv"));
+dotenv_1.default.config();
+exports.DB_NAME = process.env.DB_NAME;
+exports.DB_HOST = process.env.DB_HOST;
+exports.DB_PORT = Number(process.env.DB_PORT);
+exports.DB_PASS = process.env.DB_PASS;
+exports.DB_USER = process.env.DB_USER;
+exports.DB_CACHING_HOST = process.env.DB_CACHING_HOST;
+exports.DB_CACHING_PORT = process.env.DB_CACHING_PORT;
+exports.DB_CACHING_PASSWORD = process.env.DB_CACHING_PASSWORD;
+exports.DB_CACHING_PREFIX = process.env.DB_CACHING_PREFIX;

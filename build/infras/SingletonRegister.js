@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+require("reflect-metadata");
+require("./redis/RedisRegister");
+require("./data/DbRegister");
+require("./services/ServiceRegister");
+const routingController = tslib_1.__importStar(require("routing-controllers"));
+const typeorm = tslib_1.__importStar(require("typeorm"));
+const typeorm_typedi_extensions_1 = require("typeorm-typedi-extensions");
+typeorm.useContainer(typeorm_typedi_extensions_1.Container);
+routingController.useContainer(typeorm_typedi_extensions_1.Container);
