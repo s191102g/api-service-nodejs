@@ -1,7 +1,8 @@
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../utils/validator";
 import { Board } from "../../../domain/entities/board/Board";
-import { FavouriteType } from "../../../domain/enums/user/boardEnum";
+import { FavouriteType } from "../../../domain/enums/boardEnum";
+
 import { IBoardRepository } from "../../../gateways/repositories/board/IBoardRepository";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
 import { SystemError } from "../../../shared/exceptions/SystemError";

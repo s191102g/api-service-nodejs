@@ -1,6 +1,6 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { Board } from "../../../../core/domain/entities/board/Board";
-import { FavouriteType } from "../../../../core/domain/enums/user/boardEnum";
+import { FavouriteType } from "../../../../core/domain/enums/boardEnum";
 import { IBoard } from "../../../../core/domain/interfaces/board/IBoard";
 import { IData } from "../../../../core/domain/interfaces/datas/IData";
 import { ITemplate } from "../../../../core/domain/interfaces/template/ITemplate";

@@ -1,6 +1,6 @@
 import { IsDate, IsNumber, IsObject, IsString, IsUUID } from "class-validator";
 import { Board } from "../../../domain/entities/board/Board";
-import { FavouriteType } from "../../../domain/enums/user/boardEnum";
+import { FavouriteType } from "../../../domain/enums/boardEnum";
 import { RefSchemaObject } from "../../../shared/decorators/RefSchema";
 import { DataResponse } from "../../../shared/usecase/DataResponse";
 

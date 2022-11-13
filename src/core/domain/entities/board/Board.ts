@@ -1,4 +1,5 @@
-import { FavouriteType } from "../../enums/user/boardEnum";
+
+import { FavouriteType } from "../../enums/boardEnum";
 import { IBoard } from "../../interfaces/board/IBoard";
 import { BaseEntity } from "../base/BaseEntyti";
 import { Data } from "../datas/Data";
