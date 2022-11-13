@@ -1,7 +1,7 @@
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../../utils/validator";
 import { Admin } from "../../../../domain/entities/user/Admin";
-import { RoleType } from "../../../../domain/enums/user/userEnum";
+import { RoleType } from "../../../../domain/enums/userEnum";
 import { IAdminRepository } from "../../../../gateways/repositories/user/IAdminRepository";
 import { CommandHandler } from "../../../../shared/usecase/CommandHandler";
 import { CreateAdminInput } from "./CreateAdminInput";

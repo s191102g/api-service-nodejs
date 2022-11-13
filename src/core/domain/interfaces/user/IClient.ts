@@ -1,4 +1,4 @@
-import { StatusType } from "../../enums/user/userEnum";
+import { StatusType } from "../../enums/userEnum";
 import { IWorkSpace } from "../workspace/IWorkSpace";
 import { IUser } from "./IUser";
 

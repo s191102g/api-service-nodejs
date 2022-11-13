@@ -1,7 +1,7 @@
 import { Authorized, Body, JsonController, Post } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
-import { RoleType } from "../../../../core/domain/enums/user/userEnum";
+import { RoleType } from "../../../../core/domain/enums/userEnum";
 import { CreateAdminHandler } from "../../../../core/usecases/user/admin/create-admin/CreateAdminHandler";
 import { CreateAdminInput } from "../../../../core/usecases/user/admin/create-admin/CreateAdminInput";
 import { CreateAdminOutput } from "../../../../core/usecases/user/admin/create-admin/CreateAdminOutput";

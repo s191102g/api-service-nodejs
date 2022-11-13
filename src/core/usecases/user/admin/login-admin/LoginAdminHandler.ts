@@ -1,6 +1,6 @@
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../../utils/validator";
-import { RoleType } from "../../../../domain/enums/user/userEnum";
+import { RoleType } from "../../../../domain/enums/userEnum";
 import { IAdminRepository } from "../../../../gateways/repositories/user/IAdminRepository";
 import { IAuthJwtService } from "../../../../gateways/services/IAuthJwtService";
 import { ICryptoService } from "../../../../gateways/services/ICryptoService";

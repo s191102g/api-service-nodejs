@@ -3,7 +3,7 @@ import { User } from "../../../../core/domain/entities/user/User";
 import {
   GenderType,
   RoleType,
-} from "../../../../core/domain/enums/user/userEnum";
+} from "../../../../core/domain/enums/userEnum";
 import { IUser } from "../../../../core/domain/interfaces/user/IUser";
 import { USER_SCHEMA } from "../../schemas/user/UserSchema";
 import { BaseDbEntity } from "../base/BaseDbEntity";

@@ -1,5 +1,5 @@
 
-import { GenderType, RoleType } from "../../enums/user/userEnum";
+import { GenderType, RoleType } from "../../enums/userEnum";
 import { IUser } from "../../interfaces/user/IUser";
 import { BaseEntity } from "../base/BaseEntyti";
 

@@ -1,6 +1,6 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Client } from "../../../../core/domain/entities/user/Client";
-import { StatusType } from "../../../../core/domain/enums/user/userEnum";
+import { StatusType } from "../../../../core/domain/enums/userEnum";
 import { IClient } from "../../../../core/domain/interfaces/user/IClient";
 import { IWorkSpace } from "../../../../core/domain/interfaces/workspace/IWorkSpace";
 import { CLIENT_SCHEMA } from "../../schemas/user/ClientSchema";
