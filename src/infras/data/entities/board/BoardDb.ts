@@ -22,10 +22,10 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
      @Index({ where:BoardDb.getIndexFilterDeletedColumn()})
      title: string;
 
-     @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.ICON,length:200})
+     @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.ICON,length:200, nullable:true})
      icon: string;
 
-     @Column("integer",{name:BOARD_SCHEMA.COLUMNS.POSITION})
+     @Column("integer",{name:BOARD_SCHEMA.COLUMNS.POSITION, nullable:true})
      position: number;
 
      @Column("text",{name:BOARD_SCHEMA.COLUMNS.DESCRIPTION})
@@ -34,7 +34,7 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
      @Column("enum",{name: BOARD_SCHEMA.COLUMNS.FAVOURITE,enum: FavouriteType,default: FavouriteType.UnFavourite,})
      favourite: FavouriteType;
 
-     @Column("integer",{name:BOARD_SCHEMA.COLUMNS.FAVOURITE_POSITION})
+     @Column("integer",{name:BOARD_SCHEMA.COLUMNS.FAVOURITE_POSITION, nullable: true })
      favouritePosition: number;
      
      @Column("uuid",{name:BOARD_SCHEMA.COLUMNS.WORKSPACE_ID})

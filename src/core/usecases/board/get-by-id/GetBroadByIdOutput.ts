@@ -27,6 +27,7 @@ export class GetBoardByIdData{
     @IsString()
     favourite:FavouriteType;
 
+
     @IsNumber()
     favouritePosition:number;
 
@@ -41,6 +42,7 @@ export class GetBoardByIdData{
         this.id = data.id;
         this.createdAt = data.createdAt;
         this.icon = data.icon;
+        this.description = data.description;
         this.position = data.position;
         this.favourite = data.favourite;
         this.favouritePosition = data.favouritePosition;

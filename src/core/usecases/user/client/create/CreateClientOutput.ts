@@ -1,14 +1,14 @@
-import { IsBoolean } from "class-validator";
+import {  IsString } from "class-validator";
 import { DataResponse } from "../../../../shared/usecase/DataResponse";
 
 
 
 
-export class CreateClientOutput extends DataResponse<boolean>{
-    @IsBoolean()
-    data: boolean;
+export class CreateClientOutput extends DataResponse<string>{
+    @IsString()
+    data: string;
 
-    setData(val:boolean): void{
+    setData(val:string): void{
         this.data = val
     }
 }
