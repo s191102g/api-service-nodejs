@@ -28,7 +28,7 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
      @Column("integer",{name:BOARD_SCHEMA.COLUMNS.POSITION, nullable:true})
      position: number;
 
-     @Column("text",{name:BOARD_SCHEMA.COLUMNS.DESCRIPTION})
+     @Column("text",{name:BOARD_SCHEMA.COLUMNS.DESCRIPTION, nullable:true})
      description: string;
 
      @Column("enum",{name: BOARD_SCHEMA.COLUMNS.FAVOURITE,enum: FavouriteType,default: FavouriteType.UnFavourite,})

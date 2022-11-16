@@ -26,7 +26,7 @@ export class UserDb extends BaseDbEntity<string, User> implements IUser {
 
   @Column("varchar", {
     name: USER_SCHEMA.COLUMNS.AVATAR,
-    length: 200,
+    length: 1000,
     nullable: true,
   })
   avatar: string | null;
