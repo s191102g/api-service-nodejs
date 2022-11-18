@@ -2,6 +2,7 @@
 import { Inject } from "typedi";
 import { getRepository, QueryRunner, Repository } from "typeorm";
 import { IEntity } from "../../../../core/domain/interfaces/base/IEntity";
+import { DbPaginationFilter } from "../../../../core/shared/database/DbPaginationFilter";
 import { IBaseRepository } from "../../../../core/shared/database/interfaces/IBaseRepository";
 import { IDbContext } from "../../../../core/shared/database/interfaces/IDbContext";
 import { IDbQueryRunner } from "../../../../core/shared/database/interfaces/IDbQueryRunner";
@@ -23,6 +24,17 @@ export abstract class BaseRepository<
     private _schema: { TABLE_NAME: string }
   ) {
     this.repository = getRepository(this._type);
+  }
+
+  
+  async findAndCount(filter: DbPaginationFilter): Promise<[TEntity[], number]> {
+    const query = this.repository
+      .createQueryBuilder(this._schema.TABLE_NAME)
+      .skip(filter.skip)
+      .take(filter.limit);
+
+    const [list, count] = await query.getManyAndCount();
+    return [list.map((item) => item.toEntity()), count];
   }
 
   async create(

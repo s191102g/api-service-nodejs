@@ -1,6 +1,8 @@
+import { IDbPaginationFilter } from "./IDbPaginationFilter";
 import { IDbQueryRunner } from "./IDbQueryRunner";
 
 export interface IBaseRepository<TIdentityType, TEntity>{
+  findAndCount(param: IDbPaginationFilter): Promise<[TEntity[], number]>;
     create(data: TEntity): Promise<TIdentityType>;
     create(
         data: TEntity,
