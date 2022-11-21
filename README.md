@@ -27,9 +27,8 @@ Implementing advanced architectures like clean architecture and domain driven de
 * Storage Service: StorageConsole (console log), MinIO, AwsS3, GoogleStorage.
 
 ## Architecture & Design Patterns
-- Clean architecture
 - Domain driven design (DDD)
-- CQRS pattern // command and query not apply
+- CQRS pattern // command and query not actualy apply in this project but you can apply it
 - Repository pattern
 - Transfer object pattern
 - Data mapper pattern
@@ -74,7 +73,7 @@ Implementing advanced architectures like clean architecture and domain driven de
 - |------------ Configuration.ts ---------------------// Define environment variables from .env file.
 - |------------ DbConfig.ts --------------------------// Database configuration.
 - |------------ Enums.ts -----------------------------// Enums defination.
-- |------------ ORM.ts -----------------------------// Enums defination.
+- |------------ ORM.ts -----------------------------// connect db defination.
 - |------ core
 - |------------ domain
 - |------------------ entities
@@ -129,7 +128,7 @@ Implementing advanced architectures like clean architecture and domain driven de
 
 ## NPM Commands
 
-npm run cache:clear ---------------------------// Clear cache of TypeORM.
+
 npm run migration:generate --name={Migration_Name} ---// Generate migration for updating database structure.
 npm run migration:up --------------------------// Run the next migrations for updating database structure.
 npm run migration:down ------------------------// Revert migration for updating database structure.
@@ -154,9 +153,6 @@ npm start -------------------------------------// Start with production environm
 ## Configuration
 
 - `.env` file is main configuration created by `.env.sample`.
-- `.dockerignore` is Docker ignore configuration.
-- `docker-compose.yml` is Docker configuration.
-- `Dockerfile` is Docker script for build image.
 - `.gitignore` is Git ignore configuration.
 - `tsconfig.json` is Typescript configuration.
 

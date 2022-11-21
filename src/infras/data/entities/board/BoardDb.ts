@@ -14,15 +14,13 @@ import { WorkSpaceDb } from "../workspace/WorkSpaceDb";
 
 
 @Entity(BOARD_SCHEMA.TABLE_NAME)
-export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
-    
-    
+export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{    
   
-     @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.TITLE, length:200})
+     @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.TITLE, length:200, nullable:true})
      @Index({ where:BoardDb.getIndexFilterDeletedColumn()})
      title: string;
 
-     @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.ICON,length:200, nullable:true})
+     @Column("varchar",{name:BOARD_SCHEMA.COLUMNS.ICON,length:1000, nullable:true})
      icon: string;
 
      @Column("integer",{name:BOARD_SCHEMA.COLUMNS.POSITION, nullable:true})
@@ -38,9 +36,11 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
      favouritePosition: number;
      
      @Column("uuid",{name:BOARD_SCHEMA.COLUMNS.WORKSPACE_ID})
+     @Index()
      workSpaceId: string;
 
      @Column("uuid",{name:BOARD_SCHEMA.COLUMNS.TEMPLATE_ID})
+     @Index()
      templateId: string;
 
     //  relationship

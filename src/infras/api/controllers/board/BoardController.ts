@@ -1,11 +1,15 @@
-import { Authorized, Body, Get, JsonController, Param, Post } from "routing-controllers";
+import { Authorized, Body, Get, JsonController, Param, Post, Put } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
+import { RoleType } from "../../../../core/domain/enums/userEnum";
 import { CreateBoardHandler } from "../../../../core/usecases/board/create/CreateBoardHandler";
 import { CreateBoardInput } from "../../../../core/usecases/board/create/CreateBoardInput";
 import { CreateBoardOutput } from "../../../../core/usecases/board/create/CreateBoardOutput";
 import { GetBoardByIdHandler } from "../../../../core/usecases/board/get-by-id/GetBroadByIdHandler";
 import { GetBoardByIdOutput } from "../../../../core/usecases/board/get-by-id/GetBroadByIdOutput";
+import { UpdateBoardHandler } from "../../../../core/usecases/board/update-board/UpdateBoardHandler";
+import { UpdateBoardInput } from "../../../../core/usecases/board/update-board/UpdateBoardInput";
+import { UpdateBoardOutput } from "../../../../core/usecases/board/update-board/UpdateBoardOutput";
 
 
 
@@ -14,7 +18,8 @@ import { GetBoardByIdOutput } from "../../../../core/usecases/board/get-by-id/Ge
 export class BoardController {
     constructor(
          private readonly _createBoardHandler: CreateBoardHandler,
-         private readonly _getBroadByIdHandler: GetBoardByIdHandler
+         private readonly _getBoardByIdHandler: GetBoardByIdHandler,
+         private readonly _updateBoardHandler: UpdateBoardHandler
     ){}
 
     @Post("/")
@@ -35,7 +40,18 @@ export class BoardController {
     async getOne(
         @Param("id") id: string
     ): Promise<GetBoardByIdOutput>{
-        return await this._getBroadByIdHandler.handle(id)
+        return await this._getBoardByIdHandler.handle(id)
+    }
+
+    @Put("/:id([0-9a-f-]{36})")
+    @Authorized(RoleType.Client)
+    @OpenAPI({summary:"update board"})
+    @ResponseSchema(UpdateBoardOutput)
+    async update(
+        @Param("id") id:string,
+        @Body() param:UpdateBoardInput
+    ): Promise<UpdateBoardOutput>{
+        return await this._updateBoardHandler.handle(id,param)
     }
     
 
