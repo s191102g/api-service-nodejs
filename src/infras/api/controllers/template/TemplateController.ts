@@ -1,4 +1,4 @@
-import { Authorized, Body, Get, JsonController, Post, QueryParams } from "routing-controllers";
+import { Authorized, Body, Get, JsonController, Param, Post, QueryParams } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
 import { RoleType } from "../../../../core/domain/enums/userEnum";
@@ -8,6 +8,8 @@ import { CreateTemplateOutput } from "../../../../core/usecases/template/create/
 import { FindTemplateHandler } from "../../../../core/usecases/template/find-template/FindTemplateHandler";
 import { FindTemplateInput } from "../../../../core/usecases/template/find-template/FindTemplateInput";
 import { FindTemplateOutput } from "../../../../core/usecases/template/find-template/FindTemplateOutput";
+import { GetTemplateByIdHandler } from "../../../../core/usecases/template/get-by-id/GetTemplateByIdHandler";
+import { GetTemplateByIdOutput } from "../../../../core/usecases/template/get-by-id/GetTemplateByIdOutput";
 
 
 
@@ -18,7 +20,8 @@ import { FindTemplateOutput } from "../../../../core/usecases/template/find-temp
 export class TemplateController {
     constructor(
         private readonly _createTemplateHandler: CreateTemplateHandler,
-        private readonly _findTemplateHandler: FindTemplateHandler
+        private readonly _findTemplateHandler: FindTemplateHandler,
+        private readonly _getTemplateByIdHandler: GetTemplateByIdHandler
     ){}
 
     @Post("/")
@@ -39,5 +42,15 @@ export class TemplateController {
         @QueryParams() param: FindTemplateInput
     ): Promise<FindTemplateOutput>{
         return await this._findTemplateHandler.handle(param)
+    }
+
+    @Get("/:id([0-9a-f-]{36})")
+    @Authorized()
+    @OpenAPI({summary:"get template by id"})
+    @ResponseSchema(GetTemplateByIdOutput)
+    async getById(
+        @Param("id") id: string,
+    ): Promise<GetTemplateByIdOutput>{
+        return await this._getTemplateByIdHandler.handle(id)
     }
 }

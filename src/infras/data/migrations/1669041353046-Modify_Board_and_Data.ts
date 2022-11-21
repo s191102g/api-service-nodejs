@@ -1,13 +1,12 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class ModifyBoardAndData1669004019827 implements MigrationInterface {
-    name = 'ModifyBoardAndData1669004019827'
+export class ModifyBoardAndData1669041353046 implements MigrationInterface {
+    name = 'ModifyBoardAndData1669041353046'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE "data" ADD "title" character varying(200)`);
+        await queryRunner.query(`ALTER TABLE "data" ADD "content" text`);
         await queryRunner.query(`ALTER TABLE "data" ALTER COLUMN "heading" DROP NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "data" ALTER COLUMN "heading" DROP NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "data" DROP COLUMN "heading"`);
-        await queryRunner.query(`ALTER TABLE "data" ADD "heading" text`);
         await queryRunner.query(`ALTER TABLE "board" ALTER COLUMN "title" DROP NOT NULL`);
         await queryRunner.query(`ALTER TABLE "board" DROP COLUMN "icon"`);
         await queryRunner.query(`ALTER TABLE "board" ADD "icon" character varying(1000)`);
@@ -23,10 +22,9 @@ export class ModifyBoardAndData1669004019827 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "board" DROP COLUMN "icon"`);
         await queryRunner.query(`ALTER TABLE "board" ADD "icon" character varying(200)`);
         await queryRunner.query(`ALTER TABLE "board" ALTER COLUMN "title" SET NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "data" DROP COLUMN "heading"`);
-        await queryRunner.query(`ALTER TABLE "data" ADD "heading" character varying(200) NOT NULL`);
         await queryRunner.query(`ALTER TABLE "data" ALTER COLUMN "heading" SET NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "data" ALTER COLUMN "heading" SET NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "data" DROP COLUMN "content"`);
+        await queryRunner.query(`ALTER TABLE "data" DROP COLUMN "title"`);
     }
 
 }

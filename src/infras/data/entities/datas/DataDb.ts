@@ -17,10 +17,10 @@ export class DataDb extends BaseDbEntity<string,IData> implements IData{
     @Column("varchar",{name:DATA_SCHEMA.COLUMNS.HEADING, length:200, nullable:true})
     heading: string;
 
-    @Column("varchar",{name:DATA_SCHEMA.COLUMNS.HEADING, length:200, nullable:true})
+    @Column("varchar",{name:DATA_SCHEMA.COLUMNS.TITLE, length:200, nullable:true})
     title: string | null;
 
-    @Column("text",{name:DATA_SCHEMA.COLUMNS.HEADING, nullable:true})
+    @Column("text",{name:DATA_SCHEMA.COLUMNS.CONTENT, nullable:true})
     content: string | null;
 
     @Column("uuid",{name:DATA_SCHEMA.COLUMNS.BOARD_ID})

@@ -11,7 +11,7 @@ import { BaseRepository } from "../base/BaseRepository";
 
 
 @Service("template.repository")
-export class BoardRepository extends BaseRepository<string, Template, TemplateDb>
+export class TemplateRepository extends BaseRepository<string, Template, TemplateDb>
  implements ITemplateRepository
 {
     constructor(){

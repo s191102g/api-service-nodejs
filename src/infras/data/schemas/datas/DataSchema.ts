@@ -7,6 +7,8 @@ export const DATA_SCHEMA = {
     COLUMNS : {
         ...BASE_SCHEMA.COLUMNS,
         HEADING:"heading",
-        BOARD_ID:"board_id"
+        BOARD_ID:"board_id",
+        TITLE:"title",
+        CONTENT:"content"
     }
 }
