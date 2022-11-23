@@ -41,6 +41,7 @@ export class GetBoardByIdData{
     constructor(data: Board){
         this.id = data.id;
         this.createdAt = data.createdAt;
+        this.title = data.title;
         this.icon = data.icon;
         this.description = data.description;
         this.position = data.position;

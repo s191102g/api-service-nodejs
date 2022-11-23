@@ -11,6 +11,8 @@ import { CommandHandler } from "../../../../shared/usecase/CommandHandler";
 import { HandleOption } from "../../../../shared/usecase/HandleOption";
 import { CreateBoardInput } from "../../../board/create/CreateBoardInput";
 import { CreateBoardWhenCreateClientHandler } from "../../../board/create/CreateBoardwhenCreateClientHandler";
+import { CreateDataHandler } from "../../../datas/create-data/CreateDataHandler";
+import { CreateDataInput } from "../../../datas/create-data/CreateDataInput";
 import { CreateWorkspaceInput } from "../../../workspace/create/CreateWorkspaceInput";
 import { CreateWorkspaceWhenCreateClientHandler } from "../../../workspace/create/CreateWorkspaceWhenCreateClientHandler";
 import { CreateClientInput } from "./CreateClientInput";
@@ -33,7 +35,9 @@ export class CreateClientHandler extends CommandHandler<
     @Inject()
     private readonly _createBoard: CreateBoardWhenCreateClientHandler,
     @Inject("auth_jwt.service")
-    private readonly _authJwtService: IAuthJwtService
+    private readonly _authJwtService: IAuthJwtService,
+    @Inject()
+    private readonly _createData: CreateDataHandler
   ) {
     super();
   }
@@ -70,12 +74,19 @@ export class CreateClientHandler extends CommandHandler<
         board.workspaceId = idCreated.data;
         board.description = 'Your descriptions'
         board.position = 0
-        board.icon = 'null',
+        board.icon = '✍️',
         board.favourite = 'no',
         board.favouritePosition = 0
         board.templateId = '674e1995-80a0-467a-b48f-312502538210'
 
-        await this._createBoard.handle(board, handleOption)
+        const idBoard =  await this._createBoard.handle(board, handleOption)
+
+        const datas = new CreateDataInput()
+        datas.title = 'Your title';
+        datas.content = 'Your Content';
+        datas.boardId = idBoard.data;
+
+        await this._createData.handle(datas)
         await this._clientRepository.update(client.id, data, handleOption.queryRunner);
         const token = this._authJwtService.sign(
             client.id,

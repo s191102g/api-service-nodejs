@@ -100,10 +100,6 @@ Implementing advanced architectures like clean architecture and domain driven de
 - |------------------------ schemas -------------------// Define database schemas.
  - |------------------------DbContext.ts
  - |------------------------DbRegister.ts                          
-- |------------ redis ---------------------------// In-memory database.
-- |------------------------ repositories --------------// Execution operations.
-- |------------------------ RedisContext.ts
-- |------------------------ RedisRegister.ts
 - |------------ server
 - |------------------ http ------------------------// Initialize http.
 - |------------------ Socket----------------// Initialize socket 
@@ -115,10 +111,11 @@ Implementing advanced architectures like clean architecture and domain driven de
 - |------------------ ServiceRegister.ts
 - |------------ SingletonRegister.ts ------------------// Define singleton and need to load first.
 
-- |------ utils
+- |------ utils //
 - |------ index.ts --------------------------------------// Main application.
 - |-- .env --------------------------------------------// Configuration cloned from `.env.sample` and we need to add to `.gitignore`.
 - |-- .gitignore --------------------------------------// Git ignore configuration.
+- |-- buildspec.yml ----------------------------------// File for run pipeline on aws
 - |-- nodemon.json
 - |-- package-lock.json -------------------------------// Lock package version and should not add to `.gitignore`.
 - |-- package.json
