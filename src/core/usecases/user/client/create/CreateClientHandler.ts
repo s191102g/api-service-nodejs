@@ -11,8 +11,8 @@ import { CommandHandler } from "../../../../shared/usecase/CommandHandler";
 import { HandleOption } from "../../../../shared/usecase/HandleOption";
 import { CreateBoardInput } from "../../../board/create/CreateBoardInput";
 import { CreateBoardWhenCreateClientHandler } from "../../../board/create/CreateBoardwhenCreateClientHandler";
-import { CreateDataHandler } from "../../../datas/create-data/CreateDataHandler";
-import { CreateDataInput } from "../../../datas/create-data/CreateDataInput";
+// import { CreateDataInput } from "../../../datas/create-data/CreateDataInput";
+// import { CreateDataWhenCreateClientHandler } from "../../../datas/create-data/CreateDatawhenCreateClientHandler";
 import { CreateWorkspaceInput } from "../../../workspace/create/CreateWorkspaceInput";
 import { CreateWorkspaceWhenCreateClientHandler } from "../../../workspace/create/CreateWorkspaceWhenCreateClientHandler";
 import { CreateClientInput } from "./CreateClientInput";
@@ -36,8 +36,8 @@ export class CreateClientHandler extends CommandHandler<
     private readonly _createBoard: CreateBoardWhenCreateClientHandler,
     @Inject("auth_jwt.service")
     private readonly _authJwtService: IAuthJwtService,
-    @Inject()
-    private readonly _createData: CreateDataHandler
+    // @Inject()
+    // private readonly _createData: CreateDataWhenCreateClientHandler
   ) {
     super();
   }
@@ -78,15 +78,14 @@ export class CreateClientHandler extends CommandHandler<
         board.favourite = 'no',
         board.favouritePosition = 0
         board.templateId = '674e1995-80a0-467a-b48f-312502538210'
+        await this._createBoard.handle(board, handleOption)
 
-        const idBoard =  await this._createBoard.handle(board, handleOption)
+        // const datas = new CreateDataInput()
+        // datas.title = 'Your title';
+        // datas.content = '<h2><a href="https://emojipedia.org/travel-places">🚀</a>Xin chào bạn, lại là DOLS đây !<a href="https://emojipedia.org/travel-places">🚀</a></h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/four-leaf-clover/">🍀</a>Đây là nơi mà bạn có thể ghi bất cứ thứ gì mà bạn muốn…</h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/new-years-eve/">🎊</a>Chỉ có cái bạn không nghĩ ra chứ không có cái DOLS không có&nbsp;</h2>';
+        // datas.boardId = idBoard.data;
 
-        const datas = new CreateDataInput()
-        datas.title = 'Your title';
-        datas.content = 'Your Content';
-        datas.boardId = idBoard.data;
-
-        await this._createData.handle(datas)
+        // await this._createData.handle(datas,handleOption)
         await this._clientRepository.update(client.id, data, handleOption.queryRunner);
         const token = this._authJwtService.sign(
             client.id,

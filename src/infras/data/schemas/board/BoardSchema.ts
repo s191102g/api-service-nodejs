@@ -13,5 +13,8 @@ export const BOARD_SCHEMA = {
         FAVOURITE_POSITION:"favourite_position",
         WORKSPACE_ID:"workspace_id",
         TEMPLATE_ID:"template_id"
+    },
+    RELATED_MANY:{
+        DATA:"data"
     }
 }

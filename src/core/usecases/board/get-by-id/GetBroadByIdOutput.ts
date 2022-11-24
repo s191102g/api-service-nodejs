@@ -3,6 +3,7 @@ import { Board } from "../../../domain/entities/board/Board";
 import { FavouriteType } from "../../../domain/enums/boardEnum";
 import { RefSchemaObject } from "../../../shared/decorators/RefSchema";
 import { DataResponse } from "../../../shared/usecase/DataResponse";
+// import { GetDataByIdData } from "../../datas/get-data-by-id/GetDataByIdOutput";
 
 
 export class GetBoardByIdData{
@@ -37,6 +38,9 @@ export class GetBoardByIdData{
     @IsUUID()
     templateId:string;
 
+    // @IsArray()
+    // @RefSchemaArray(GetDataByIdData)
+    // datas: GetDataByIdData[] | null;
 
     constructor(data: Board){
         this.id = data.id;
@@ -49,6 +53,7 @@ export class GetBoardByIdData{
         this.favouritePosition = data.favouritePosition;
         this.workSpaceId = data.workSpaceId;
         this.templateId = data.templateId;
+        // this.datas = data.datas && data.datas.map((e) => new GetDataByIdData(e))
     }
 }
 

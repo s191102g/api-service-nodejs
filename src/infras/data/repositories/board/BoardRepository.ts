@@ -3,6 +3,7 @@ import { Board } from "../../../../core/domain/entities/board/Board";
 import { IBoardRepository } from "../../../../core/gateways/repositories/board/IBoardRepository";
 import { BoardDb } from "../../entities/board/BoardDb";
 import { BOARD_SCHEMA } from "../../schemas/board/BoardSchema";
+// import { DATA_SCHEMA } from "../../schemas/datas/DataSchema";
 import { BaseRepository } from "../base/BaseRepository";
 
 
@@ -18,9 +19,12 @@ export class BoardRepository extends BaseRepository<string, Board, BoardDb>
     }
    
 
-    async  getByWorkspaceId(workSpaceId: string): Promise<Board[] | null> {
+    async getByWorkspaceId(workSpaceId: string): Promise<Board[] | null> {
         const  query = this.repository
         .createQueryBuilder(BOARD_SCHEMA.TABLE_NAME)
+        // .leftJoinAndSelect(
+        //     `${BOARD_SCHEMA.TABLE_NAME}.${BOARD_SCHEMA.RELATED_MANY.DATA}`, `${DATA_SCHEMA.TABLE_NAME}`
+        // )
         .where(
             `${BOARD_SCHEMA.TABLE_NAME}.${BOARD_SCHEMA.COLUMNS.WORKSPACE_ID} =:workSpaceId`,
             {workSpaceId}
