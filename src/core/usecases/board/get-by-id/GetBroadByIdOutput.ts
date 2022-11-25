@@ -13,6 +13,9 @@ export class GetBoardByIdData{
     @IsDate()
     createdAt: Date;
 
+    @IsDate()
+    updateAt: Date;
+
     @IsString()
     title:string;
 
@@ -53,6 +56,7 @@ export class GetBoardByIdData{
         this.favouritePosition = data.favouritePosition;
         this.workSpaceId = data.workSpaceId;
         this.templateId = data.templateId;
+        this.updateAt = data.updatedAt;
         // this.datas = data.datas && data.datas.map((e) => new GetDataByIdData(e))
     }
 }
