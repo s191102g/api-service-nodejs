@@ -23,7 +23,7 @@ export class FindWorkspaceData{
    userCreated: string;
 
    @IsArray()
-  @RefSchemaArray(GetBoardByIdData)
+   @RefSchemaArray(GetBoardByIdData)
   board: GetBoardByIdData[] | null;
    constructor(data: WorkSpace){
      this.id = data.id;

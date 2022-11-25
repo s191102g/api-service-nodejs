@@ -12,7 +12,7 @@ export class GetTemplateByIdData{
     createdAt: Date;
 
     @IsString()
-    typebyString: string;
+    typeByString: string;
 
     @IsArray()
     usageFields: any[];
@@ -21,7 +21,7 @@ export class GetTemplateByIdData{
     constructor(data: Template){
         this.id = data.id;
         this.createdAt = data.createdAt;
-        this.typebyString = data.typeByString;
+        this.typeByString = data.typeByString;
         this.usageFields = data.usageFields
     }
 }
