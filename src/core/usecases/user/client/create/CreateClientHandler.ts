@@ -72,7 +72,7 @@ export class CreateClientHandler extends CommandHandler<
         const board = new CreateBoardInput();
         board.title = "First board"
         board.workspaceId = idCreated.data;
-        board.description = 'Your descriptions'
+        board.description = '<h2><a href="https://emojipedia.org/travel-places">🚀</a>Xin chào bạn, lại là DOLS đây !<a href="https://emojipedia.org/travel-places">🚀</a></h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/four-leaf-clover/">🍀</a>Đây là nơi mà bạn có thể ghi bất cứ thứ gì mà bạn muốn…</h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/new-years-eve/">🎊</a>Chỉ có cái bạn không nghĩ ra chứ không có cái DOLS không có&nbsp;</h2>'
         board.position = 0
         board.icon = '✍️',
         board.favourite = 'no',
