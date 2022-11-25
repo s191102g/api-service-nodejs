@@ -1,6 +1,6 @@
 import { IsArray, IsDate, IsEnum, IsString, IsUUID } from "class-validator";
 import { Client } from "../../../../domain/entities/user/Client";
-import { GenderType, RoleType } from "../../../../domain/enums/userEnum";
+import { GenderType, RoleType, StatusType } from "../../../../domain/enums/userEnum";
 import { RefSchemaArray } from "../../../../shared/decorators/RefSchema";
 import { PaginationResponse } from "../../../../shared/usecase/PaginationResponse";
 
@@ -39,6 +39,9 @@ export class FindAllClientData{
 
     @IsString()
     avatar: string | null;
+
+    @IsEnum(StatusType)
+    status: StatusType
     constructor(data: Client){
         this.id = data.id;
         this.createdAt = data.createdAt;
@@ -50,6 +53,7 @@ export class FindAllClientData{
        this.birthDay = data.birthDay;
        this.avatar = data.avatar;
        this.gender =data.gender;
+       this.status = data.status;
     }
 }
 

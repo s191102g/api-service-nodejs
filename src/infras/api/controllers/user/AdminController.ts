@@ -40,9 +40,9 @@ export class AdminController {
         return await this._loginAdminHandler.handle(param)
      }
 
-     @Get("/")
+     @Get("/find-all-clients")
      @Authorized(RoleType.Admin)
-     @OpenAPI({summary:"find template"})
+     @OpenAPI({summary:"find all client"})
      @ResponseSchema(FindAllCientOutput)
      async findAndCount(
          @QueryParams() param: FindAllClientInput
