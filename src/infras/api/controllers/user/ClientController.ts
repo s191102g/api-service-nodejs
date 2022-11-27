@@ -13,6 +13,9 @@ import { LoginClientOutput } from "../../../../core/usecases/user/client/login/L
 import { RequireRegisterHandler } from "../../../../core/usecases/user/client/require-register/RequireRegisterHandler";
 import { RequireRegisterInput } from "../../../../core/usecases/user/client/require-register/RequireRegisterInput";
 import { RequireRegisterOutput } from "../../../../core/usecases/user/client/require-register/RequireRegisterOutput";
+import { UsingWithGGHandler } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGHandler";
+import { UsingWithGGInput } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGInput";
+import { UsingWithGGOutput } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGOutput";
 
 
 
@@ -25,7 +28,8 @@ export class ClientController {
          private readonly _createClientHandler: CreateClientHandler,
          private readonly _loginClientHandler: LoginClientHandler,
          private readonly _requireRegisterHandler: RequireRegisterHandler,
-         private readonly _activeClientHandler: ActiveClientHandler
+         private readonly _activeClientHandler: ActiveClientHandler,
+         private readonly _usingWithGGHandler: UsingWithGGHandler
      ){}
 
      @Post("/require-register")
@@ -63,4 +67,15 @@ export class ClientController {
      ):Promise<LoginClientOutput>{
           return await this._loginClientHandler.handle(param)
      }
+
+     
+     @Post("/using-with-gg")
+     @OpenAPI({summary:"Using with google"})
+     @ResponseSchema(UsingWithGGOutput)
+     async usingWithGG(
+          @Body() param:UsingWithGGInput
+     ):Promise<UsingWithGGOutput>{
+          return await this._usingWithGGHandler.handle(param)
+     }
+     
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Board } from "../../../../core/domain/entities/board/Board";
 import { FavouriteType } from "../../../../core/domain/enums/boardEnum";
 import { IBoard } from "../../../../core/domain/interfaces/board/IBoard";
@@ -52,7 +52,7 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
     @JoinColumn({name:BOARD_SCHEMA.COLUMNS.TEMPLATE_ID})
     template: ITemplate;
 
-    @OneToOne(()=>DataDb, (data)=>data.board)
+    @OneToMany(()=>DataDb, (data)=>data.board)
     datas: IData[];
     toEntity(): Board {
         return new Board(this)

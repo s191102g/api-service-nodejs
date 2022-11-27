@@ -9,6 +9,7 @@ export const CLIENT_SCHEMA ={
         PASS_WORD:"password",
         EMAIL:"email",
         ACTIVEKEY:"active_key",
-        STATUS:"status"
+        STATUS:"status",
+        TYPE_USE:"type_use"
     }
 }

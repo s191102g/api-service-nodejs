@@ -1,4 +1,4 @@
-import { StatusType } from "../../enums/userEnum";
+import { StatusType, TypeUse } from "../../enums/userEnum";
 import { IWorkSpace } from "../workspace/IWorkSpace";
 import { IUser } from "./IUser";
 
@@ -10,6 +10,7 @@ export interface IClient extends IUser{
     email:string;
     activeKey: string | null;
     status: StatusType;
+    typeUse: TypeUse| null;
     
     // relationship
     workSpaces: IWorkSpace[];

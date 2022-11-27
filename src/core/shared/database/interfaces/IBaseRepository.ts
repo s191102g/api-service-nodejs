@@ -16,5 +16,9 @@ export interface IBaseRepository<TIdentityType, TEntity>{
       data: TEntity,
       queryRunner: IDbQueryRunner | null
     ): Promise<boolean>;
-    getById(id: TIdentityType): Promise<TEntity | null>
+    getById(id: TIdentityType): Promise<TEntity | null>;
+    getById(
+      id: TIdentityType,
+      queryRunner: IDbQueryRunner | null
+    ): Promise<TEntity | null>;
 }

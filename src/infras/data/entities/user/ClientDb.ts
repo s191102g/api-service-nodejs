@@ -1,6 +1,6 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Client } from "../../../../core/domain/entities/user/Client";
-import { StatusType } from "../../../../core/domain/enums/userEnum";
+import { StatusType, TypeUse } from "../../../../core/domain/enums/userEnum";
 import { IClient } from "../../../../core/domain/interfaces/user/IClient";
 import { IWorkSpace } from "../../../../core/domain/interfaces/workspace/IWorkSpace";
 import { CLIENT_SCHEMA } from "../../schemas/user/ClientSchema";
@@ -25,6 +25,9 @@ export class ClientDb extends UserDb implements IClient {
 
   @Column("enum",{name: CLIENT_SCHEMA.COLUMNS.STATUS, enum: StatusType, nullable:true})
    status: StatusType;
+
+   @Column("enum",{name: CLIENT_SCHEMA.COLUMNS.TYPE_USE, enum: TypeUse, nullable:true})
+   typeUse: TypeUse;
 
   /* Relationship */
   @OneToMany(() => WorkSpaceDb, (workspaces) => workspaces.client)

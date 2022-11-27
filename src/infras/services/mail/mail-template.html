@@ -1,29 +1,8 @@
-import { Service } from "typedi";
-import { IMailService } from "../../../core/gateways/services/IMailService";
-import nodemailer from "nodemailer";
 
-@Service("mail.service")
-export class MailService implements IMailService {
-  async sendMailVertify(email: string, activeKey: string): Promise<void> {
-    var transporter = nodemailer.createTransport({
-      // config mail server
-      service: "Gmail",
-      auth: {
-        user: "dolsservicess@gmail.com",
-        pass: "afxzatllrwoikkdk",
-      },
-    });
-    var mainOptions = {
-      // thiết lập đối tượng, nội dung gửi mail
-      from: "UMALL_SERVICE",
-      to: `${email}`,
-      subject: "XÁC THỰC NGƯỜI DÙNG",
-      text: "Hãy sử dụng mã phía dưới để xác thực",
-      html: `
-      
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <title><%- subject %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
@@ -100,8 +79,16 @@ export class MailService implements IMailService {
                         <tbody>
                             <tr>
                                 <td class="em_header_padding" valign="middle" align="center" style="width: 100%; padding-top: 35px; padding-bottom: 35px;">
-                                    <a href="" target="_blank" style="color: #308085;font-weight: bold; font-size: 1.5 rem;">
-                                       DOLS
+                                    <a href="<%- product.link %>" target="_blank">
+                                        <% if (locals.product.logo) { %>
+                                            <% if (locals.product.logoHeight) { %> 
+                                                <img src="<%- product.logo %>" style="width:100px; height: auto;" alt="" />
+                                                <% } else { %>
+                                                <img src="<%- product.logo %>" class="email-logo" alt="" />
+                                                <% } %>
+                                        <% } else { %>
+                                            <%- product.name %>
+                                        <% } %>
                                     </a>
                                 </td>
                             </tr>
@@ -122,16 +109,39 @@ export class MailService implements IMailService {
                                         <tbody>
                                             <tr>
                                                 <td align="center" valign="middle" style="color: #000000; padding-bottom: 35px; padding-top: 20px;">
-                                                    <span class="fs_heading" style="font-size: 28px; line-height: 100%; font-weight: 400;">Cảm ơn vì bạn đã chọn Dols</span>
+                                                    <!-- <span style="font-size: 28px; line-height: 100%;">Hi there,</span> -->
+                                                    <span class="fs_heading" style="font-size: 28px; line-height: 100%; font-weight: 400;"><%- greeting %></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td align="center" valign="middle" style="color: #000000; padding-bottom: 20px;">
-                                                                                                     
-                                                    <span class="fs_normal" style="font-size: 16px; line-height: 20px; font-weight: 400;">Mã xác thực của bạn là ${activeKey}</span>
+                                                    <!-- <span style="font-size: 16px; line-height: 20px;">You receive this mail because you has submitted form {{formName}} at our platform.</span> -->                                                    
+                                                    <span class="fs_normal" style="font-size: 16px; line-height: 20px; font-weight: 400;"><%- intro %></span>
                                                 </td>
                                             </tr>
-                                      
+                                            <tr>
+                                                <td align="center" valign="middle" style="color: #000000; padding-bottom: 20px;">
+                                                    <!-- <span style="font-size: 16px; line-height: 20px;">Click button below to join us now.</span> -->
+                                                    <span class="fs_normal" style="font-size: 16px; line-height: 20px; font-weight: 400;"><%- button.instructions %></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="middle" style="padding-bottom: 20px;">
+                                                    <a title="<%- button.text %>" href="<%- button.link %>" target="_blank" style="font-size: 16px; line-height: 20px; font-weight: 600; color: #ffffff; background-color: #308085; text-align: center; padding: 12px 48px; border-radius: 10px;"><%- button.text %></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="middle" style="color: #000000;">
+                                                    <!-- <span style="font-size: 16px; line-height: 20px;">Thanks,</span> -->
+                                                    <span class="fs_normal" style="font-size: 16px; line-height: 20px; font-weight: 400;"><%- signatureIntro %></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="middle" style="color: #000000; padding-bottom: 20px;">
+                                                    <!-- <span style="font-size: 16px; line-height: 20px;">Jiffy</span> -->
+                                                    <span class="fs_normal" style="font-size: 16px; line-height: 20px; font-weight: 400;"><%- signature %></span>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -153,7 +163,7 @@ export class MailService implements IMailService {
                                         <tbody>
                                             <tr>
                                                 <td align="center" style="font-size: 12px; font-weight: 400; text-align: center; color: #308085">© 2022 
-                                                    <a href="<%- product.link %>" target="_blank" style="color: #308085; font-weight: 400;">Dols</a>
+                                                    <a href="<%- product.link %>" target="_blank" style="color: #308085; font-weight: 400;">Jiffy</a>
                                                     . All rights reserved.</td>
                                             </tr>
                                         </tbody>
@@ -169,8 +179,3 @@ export class MailService implements IMailService {
      </table>
   </body>
 </html>
-      `,
-    };
-    transporter.sendMail(mainOptions);
-  }
-}

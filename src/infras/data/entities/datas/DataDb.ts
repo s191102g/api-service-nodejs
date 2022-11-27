@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Data } from "../../../../core/domain/entities/datas/Data";
 import { IBoard } from "../../../../core/domain/interfaces/board/IBoard";
 import { IData } from "../../../../core/domain/interfaces/datas/IData";
@@ -27,7 +27,7 @@ export class DataDb extends BaseDbEntity<string,IData> implements IData{
     @Index()
     boardId: string;
     // relationship
-    @OneToOne(()=>BoardDb, (board)=>board.datas)
+    @ManyToOne(()=>BoardDb, (board)=>board.datas)
     @JoinColumn({name:DATA_SCHEMA.COLUMNS.BOARD_ID})
     board: IBoard;
 

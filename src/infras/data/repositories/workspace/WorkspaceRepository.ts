@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import { WorkSpace } from "../../../../core/domain/entities/workspace/WorkSpace";
-import { IWorkSpaceRepository } from "../../../../core/gateways/repositories/workspace/IWorkSpaceRepository";
+import { FindAllWorkspaceForAdminClientFilter, IWorkSpaceRepository } from "../../../../core/gateways/repositories/workspace/IWorkSpaceRepository";
 import { WorkSpaceDb } from "../../entities/workspace/WorkSpaceDb";
 import { BOARD_SCHEMA } from "../../schemas/board/BoardSchema";
 import { WORKSPACE_SCHEMA } from "../../schemas/workspace/WorkSpaceSchema";
@@ -17,6 +17,22 @@ string, WorkSpace, WorkSpaceDb
  {
       constructor(){
         super(WorkSpaceDb,WORKSPACE_SCHEMA)
+      }
+      override async findAndCount( param: FindAllWorkspaceForAdminClientFilter): Promise<[WorkSpace[], number]>{
+        let query = this.repository.createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME);
+  
+        if (param.keyword) {
+          const keyword = `%${param.keyword}%`;
+          query = query.andWhere(
+            `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.COLUMNS.NAME} ILIKE :keyword`,
+            { keyword }
+          );
+        }
+    
+        query = query.skip(param.skip).take(param.limit);
+    
+        const [list, count] = await query.getManyAndCount();
+        return [list.map((item) => item.toEntity()), count];
       }
  
       async findByUser(userId:string): Promise<WorkSpace[]>{

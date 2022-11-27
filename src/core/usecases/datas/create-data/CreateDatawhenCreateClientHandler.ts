@@ -32,8 +32,7 @@ CreateDataOutput
     const data = new Data();
    console.log(param.boardId);
    
-    const board = await this._broadRepository.getById(param.boardId);
-    console.log(board);
+    const board = await this._broadRepository.getById(param.boardId, handleOption.queryRunner);
     
     if(!board){
         throw new SystemError(MessageError.DATA_NOT_FOUND)

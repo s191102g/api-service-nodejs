@@ -12,3 +12,8 @@ export enum GenderType {
     Active = "actived",
     InActive = "Inactive",
   }
+
+  export enum TypeUse {
+    Normal = "normal",
+    WithGG = "withgg"
+  }

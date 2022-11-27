@@ -2,7 +2,7 @@
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../../utils/validator";
 import { Client } from "../../../../domain/entities/user/Client";
-import { RoleType, StatusType } from "../../../../domain/enums/userEnum";
+import { RoleType, StatusType, TypeUse } from "../../../../domain/enums/userEnum";
 import { IClientRepository } from "../../../../gateways/repositories/user/IClientRepository";
 import { ICryptoService } from "../../../../gateways/services/ICryptoService";
 import { MessageError } from "../../../../shared/exceptions/message/MessageError";
@@ -47,20 +47,24 @@ export class RequireRegisterHandler extends CommandHandler<
               data.role = RoleType.Client;
               data.firstName = 'client';
               data.passWord = '1clientC.';
+              data.typeUse = TypeUse.Normal;
               
               await this._clientRepository.create(data);
               await this._mailService.sendMailVertify(param.email, data.activeKey)
               const result = new RequireRegisterOutput()
               result.setData(true)
               return result;
-        }else{
-            if(client.status == StatusType.InActive && client.email){
-                throw new SystemError(MessageError.PARAM_NOT_ACTIVATED, "email")
-            }
-            const result = new RequireRegisterOutput()
-            result.setData(false)
-            return result;
         }
+
+        if(client.typeUse == TypeUse.WithGG){
+            throw new SystemError(MessageError.DATA_INVALID)
+        }
+        if(client.status == StatusType.InActive && client.email){
+            throw new SystemError(MessageError.PARAM_NOT_ACTIVATED, "email")
+        }
+        const result = new RequireRegisterOutput()
+        result.setData(false)
+        return result;
 
         
     }

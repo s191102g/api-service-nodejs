@@ -11,6 +11,9 @@ import { FindAllCientOutput } from "../../../../core/usecases/user/admin/find-al
 import { LoginAdminHandler } from "../../../../core/usecases/user/admin/login-admin/LoginAdminHandler";
 import { LoginAdminInput } from "../../../../core/usecases/user/admin/login-admin/LoginAdminInput";
 import { LoginAdminOutput } from "../../../../core/usecases/user/admin/login-admin/LoginAdminOutput";
+import { FindWorkspaceForAdminHandler } from "../../../../core/usecases/workspace/admin-find-all/FindAllForAdminHandler";
+import { FindAllWorkSpaceForAdminInput } from "../../../../core/usecases/workspace/admin-find-all/FindAllForAdminInput";
+import { FindAllWorkspaceForAdminOutput } from "../../../../core/usecases/workspace/admin-find-all/FindAllForAdminOutput";
 
 
 @Service()
@@ -19,7 +22,8 @@ export class AdminController {
      constructor(
          private readonly _createAdminHandler: CreateAdminHandler,
          private readonly _loginAdminHandler: LoginAdminHandler,
-         private readonly _findAllClientHandler: FindAllClientHandler
+         private readonly _findAllClientHandler: FindAllClientHandler,
+         private readonly _findAllWorkspaceForAdminHandler: FindWorkspaceForAdminHandler
      ){}
      @Post("/create")
      @Authorized(RoleType.Admin)
@@ -44,10 +48,20 @@ export class AdminController {
      @Authorized(RoleType.Admin)
      @OpenAPI({summary:"find all client"})
      @ResponseSchema(FindAllCientOutput)
-     async findAndCount(
+     async findAndCountClient(
          @QueryParams() param: FindAllClientInput
      ): Promise<FindAllCientOutput>{
          return await this._findAllClientHandler.handle(param)
+     }
+
+     @Get("/find-all-workspace")
+     @Authorized(RoleType.Admin)
+     @OpenAPI({summary:"find all workspace"})
+     @ResponseSchema(FindAllWorkspaceForAdminOutput)
+     async findAndCountWorkspace(
+         @QueryParams() param: FindAllWorkSpaceForAdminInput
+     ): Promise<FindAllWorkspaceForAdminOutput>{
+         return await this._findAllWorkspaceForAdminHandler.handle(param)
      }
 
 }
