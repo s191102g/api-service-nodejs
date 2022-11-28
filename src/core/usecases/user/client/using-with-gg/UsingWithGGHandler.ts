@@ -98,10 +98,12 @@ export class UsingWithGGHandler extends CommandHandler<
     const client2 = await this._clientRepository.getByEmail(
       this._cryptoService.encrypt(param.email)
     );
+    console.log(client2?.typeUse);
+    
     if (!client2) {
       throw new SystemError(MessageError.SOMETHING_WRONG);
     }
-    if (client2.typeUse === TypeUse.WithGG) {
+    if (client2.typeUse == TypeUse.Normal) {
       throw new SystemError(MessageError.DATA_INVALID);
     }
     const token = this._authJwtService.sign(client2.id, client2.role);
