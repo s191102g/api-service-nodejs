@@ -101,7 +101,7 @@ export class UsingWithGGHandler extends CommandHandler<
     if (!client2) {
       throw new SystemError(MessageError.SOMETHING_WRONG);
     }
-    if (client2.typeUse === TypeUse.Normal) {
+    if (client2.typeUse === TypeUse.WithGG) {
       throw new SystemError(MessageError.DATA_INVALID);
     }
     const token = this._authJwtService.sign(client2.id, client2.role);

@@ -56,7 +56,7 @@ export class RequireRegisterHandler extends CommandHandler<
               return result;
         }
 
-        if(client.typeUse == TypeUse.WithGG){
+        if(client.typeUse === TypeUse.WithGG){
             throw new SystemError(MessageError.DATA_INVALID)
         }
         if(client.status == StatusType.InActive && client.email){
