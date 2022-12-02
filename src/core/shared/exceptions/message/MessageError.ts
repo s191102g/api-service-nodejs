@@ -89,6 +89,11 @@ export class MessageError {
     "The {0} has not been activated!"
   );
 
+  static PARAM_IS_BANED = new ErrorObject(
+    ErrorCode.DATA_IS_BAN,
+    "The {0} has been baned!"
+  );
+
   static PARAM_NOT_VERIFIED = new ErrorObject(
     ErrorCode.DATA_NOT_VERIFIED,
     "The {0} has not been verified!"

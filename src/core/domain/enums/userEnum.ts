@@ -11,6 +11,7 @@ export enum GenderType {
   export enum StatusType {
     Active = "actived",
     InActive = "Inactive",
+    Archived = "Archived",
   }
 
   export enum TypeUse {

@@ -11,6 +11,12 @@ import { FindAllCientOutput } from "../../../../core/usecases/user/admin/find-al
 import { LoginAdminHandler } from "../../../../core/usecases/user/admin/login-admin/LoginAdminHandler";
 import { LoginAdminInput } from "../../../../core/usecases/user/admin/login-admin/LoginAdminInput";
 import { LoginAdminOutput } from "../../../../core/usecases/user/admin/login-admin/LoginAdminOutput";
+import { BanClientHandler } from "../../../../core/usecases/user/client/ban-client-for-admin/BanClientHandler";
+import { BanClienInput } from "../../../../core/usecases/user/client/ban-client-for-admin/BanClientInput";
+import { BanClientOutput } from "../../../../core/usecases/user/client/ban-client-for-admin/BanClientOutput";
+import { UnbanClientHandler } from "../../../../core/usecases/user/client/unban-client-for-admin/UnbanClientHandler";
+import { UnbanClienInput } from "../../../../core/usecases/user/client/unban-client-for-admin/UnbanClientInput";
+import { UnbanClientOutput } from "../../../../core/usecases/user/client/unban-client-for-admin/UnbanClientOutput";
 import { FindWorkspaceForAdminHandler } from "../../../../core/usecases/workspace/admin-find-all/FindAllForAdminHandler";
 import { FindAllWorkSpaceForAdminInput } from "../../../../core/usecases/workspace/admin-find-all/FindAllForAdminInput";
 import { FindAllWorkspaceForAdminOutput } from "../../../../core/usecases/workspace/admin-find-all/FindAllForAdminOutput";
@@ -23,7 +29,9 @@ export class AdminController {
          private readonly _createAdminHandler: CreateAdminHandler,
          private readonly _loginAdminHandler: LoginAdminHandler,
          private readonly _findAllClientHandler: FindAllClientHandler,
-         private readonly _findAllWorkspaceForAdminHandler: FindWorkspaceForAdminHandler
+         private readonly _findAllWorkspaceForAdminHandler: FindWorkspaceForAdminHandler,
+         private readonly _banclientHandler: BanClientHandler,
+         private readonly _unbanclientHandler: UnbanClientHandler
      ){}
      @Post("/create")
      @Authorized(RoleType.Admin)
@@ -53,6 +61,27 @@ export class AdminController {
      ): Promise<FindAllCientOutput>{
          return await this._findAllClientHandler.handle(param)
      }
+
+     @Post("/ban-client")
+     @Authorized(RoleType.Admin)
+     @OpenAPI({summary:"ban client"})
+     @ResponseSchema(BanClientOutput)
+     async banClient(
+         @Body() param: BanClienInput
+     ): Promise<BanClientOutput>{
+         return await this._banclientHandler.handle(param)
+     }
+
+     @Post("/unban-client")
+     @Authorized(RoleType.Admin)
+     @OpenAPI({summary:"unban client"})
+     @ResponseSchema(UnbanClientOutput)
+     async unbanClient(
+         @Body() param: UnbanClienInput
+     ): Promise<UnbanClientOutput>{
+         return await this._unbanclientHandler.handle(param)
+     }
+
 
      @Get("/find-all-workspace")
      @Authorized(RoleType.Admin)

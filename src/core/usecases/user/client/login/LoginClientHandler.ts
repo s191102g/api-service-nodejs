@@ -44,8 +44,11 @@ export class LoginClientHandler extends CommandHandler<
         }
 
         
-        if(user.status !== StatusType.Active){
-            throw new SystemError(MessageError.UNAUTHORIZED,"account")
+        if(user.status === StatusType.InActive){
+            throw new SystemError(MessageError.PARAM_NOT_ACTIVATED,"account")
+        }
+        if(user.status === StatusType.Archived){
+            throw new SystemError(MessageError.PARAM_IS_BANED,"account")
         }
         if(user.role !== RoleType.Client){
             throw new SystemError(MessageError.DATA_INVALID,"account")

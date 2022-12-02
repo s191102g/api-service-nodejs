@@ -13,6 +13,9 @@ import { LoginClientOutput } from "../../../../core/usecases/user/client/login/L
 import { RequireRegisterHandler } from "../../../../core/usecases/user/client/require-register/RequireRegisterHandler";
 import { RequireRegisterInput } from "../../../../core/usecases/user/client/require-register/RequireRegisterInput";
 import { RequireRegisterOutput } from "../../../../core/usecases/user/client/require-register/RequireRegisterOutput";
+import { ResendActiveHandler } from "../../../../core/usecases/user/client/resend-active/ResendActiveHandler";
+import { ResendActiveInput } from "../../../../core/usecases/user/client/resend-active/ResendActiveInput";
+import { ResendActiveOutput } from "../../../../core/usecases/user/client/resend-active/ResendactiveOutput";
 import { UsingWithGGHandler } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGHandler";
 import { UsingWithGGInput } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGInput";
 import { UsingWithGGOutput } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGOutput";
@@ -29,7 +32,8 @@ export class ClientController {
          private readonly _loginClientHandler: LoginClientHandler,
          private readonly _requireRegisterHandler: RequireRegisterHandler,
          private readonly _activeClientHandler: ActiveClientHandler,
-         private readonly _usingWithGGHandler: UsingWithGGHandler
+         private readonly _usingWithGGHandler: UsingWithGGHandler,
+         private readonly _resendActiveHandler: ResendActiveHandler
      ){}
 
      @Post("/require-register")
@@ -48,6 +52,15 @@ export class ClientController {
           @Body() param: ActiveClientInput
      ): Promise<ActiveClientOutput>{
           return await this._activeClientHandler.handle(param)
+     }
+
+     @Post('/resend-activekey')
+     @OpenAPI({summary:"resend active"})
+     @ResponseSchema(ResendActiveOutput)
+     async resendactive(
+          @Body() param: ResendActiveInput
+     ): Promise<ResendActiveOutput>{
+          return await this._resendActiveHandler.handle(param)
      }
 
      @Post("/register")
