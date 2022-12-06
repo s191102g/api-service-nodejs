@@ -31,8 +31,8 @@ export class DataDb extends BaseDbEntity<string,IData> implements IData{
     @JoinColumn({name:DATA_SCHEMA.COLUMNS.BOARD_ID})
     board: IBoard;
 
-    @OneToMany(()=> TaskDb, (task)=> task.datas)
-    tasks: ITask[];
+    @OneToMany(()=> TaskDb, (tasks)=> tasks.datas)
+    tasks: ITask[] | null;
 
     
     toEntity(): Data {

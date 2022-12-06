@@ -10,5 +10,8 @@ export const DATA_SCHEMA = {
         BOARD_ID:"board_id",
         TITLE:"title",
         CONTENT:"content"
+    },
+    RELATED_MANY:{
+        TASK:"tasks"
     }
 }

@@ -52,7 +52,7 @@ export class BoardDb extends BaseDbEntity<string,IBoard> implements IBoard{
     @JoinColumn({name:BOARD_SCHEMA.COLUMNS.TEMPLATE_ID})
     template: ITemplate;
 
-    @OneToMany(()=>DataDb, (data)=>data.board)
+    @OneToMany(()=>DataDb, (datas)=>datas.board)
     datas: IData[];
     toEntity(): Board {
         return new Board(this)

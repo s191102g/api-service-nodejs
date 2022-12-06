@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../utils/validator";
 import { Data } from "../../../domain/entities/datas/Data";
@@ -39,8 +40,23 @@ CreateDataOutput
         data.content = param.content;
         if(param.title)
         data.title = param.title;
-        if(param.heading)
-        data.heading = param.heading;
+        if(param.heading){
+            if(Array.isArray(param.heading)){
+                for (let i = 0; i < param.heading.length; i++) {
+                    data.id = randomUUID();
+                    data.heading = param.heading[i];
+                    await  this._dataRepository.create(data);
+                }
+                const ranId =  randomUUID()
+                const result = new CreateDataOutput()
+                result.setData(ranId)
+                return result;
+            }else{
+                data.heading = param.heading;
+            }
+            
+        }
+       
 
        
         const id = await this._dataRepository.create(data)

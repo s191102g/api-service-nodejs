@@ -1,9 +1,9 @@
-import { IsDate, IsNumber, IsObject, IsString, IsUUID } from "class-validator";
+import { IsArray, IsDate, IsNumber, IsObject, IsString, IsUUID } from "class-validator";
 import { Board } from "../../../domain/entities/board/Board";
 import { FavouriteType } from "../../../domain/enums/boardEnum";
-import { RefSchemaObject } from "../../../shared/decorators/RefSchema";
+import { RefSchemaArray, RefSchemaObject } from "../../../shared/decorators/RefSchema";
 import { DataResponse } from "../../../shared/usecase/DataResponse";
-// import { GetDataByIdData } from "../../datas/get-data-by-id/GetDataByIdOutput";
+import { GetDataByIdData } from "../../datas/get-data-by-id/GetDataByIdOutput";
 
 
 export class GetBoardByIdData{
@@ -41,9 +41,9 @@ export class GetBoardByIdData{
     @IsUUID()
     templateId:string;
 
-    // @IsArray()
-    // @RefSchemaArray(GetDataByIdData)
-    // datas: GetDataByIdData[] | null;
+    @IsArray()
+    @RefSchemaArray(GetDataByIdData)
+    datas: GetDataByIdData[] | null;
 
     constructor(data: Board){
         this.id = data.id;
@@ -57,7 +57,7 @@ export class GetBoardByIdData{
         this.workSpaceId = data.workSpaceId;
         this.templateId = data.templateId;
         this.updateAt = data.updatedAt;
-        // this.datas = data.datas && data.datas.map((e) => new GetDataByIdData(e))
+        this.datas = data.datas && data.datas.map((e) => new GetDataByIdData(e))
     }
 }
 

@@ -15,6 +15,6 @@ export const BOARD_SCHEMA = {
         TEMPLATE_ID:"template_id"
     },
     RELATED_MANY:{
-        DATA:"data"
+        DATA:"datas"
     }
 }

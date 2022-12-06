@@ -11,5 +11,5 @@ export interface IData extends IEntity<string>{
     boardId:string;
     // relationship
     board: IBoard;
-    tasks: ITask[];
+    tasks: ITask[] | null;
 }

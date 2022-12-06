@@ -43,7 +43,7 @@ export class Data extends BaseEntity<string,IData> implements IData{
           return this.data.board && new Board(this.data.board)
     }
 
-    get tasks(): Task[]{
+    get tasks(): Task[] | null{
         return this.data.tasks &&  this.data.tasks.map((e)=> new Task(e))
     }
 }

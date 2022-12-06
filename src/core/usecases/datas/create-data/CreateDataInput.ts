@@ -1,9 +1,9 @@
 import { IsOptional, IsString, IsUUID } from "class-validator";
 
 export class CreateDataInput {
-    @IsString()
+  
     @IsOptional()
-    heading: string | null;
+    heading: string | string[] | null;
 
     @IsString()
     @IsOptional()

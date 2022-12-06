@@ -11,14 +11,14 @@ import { DataDb } from "../datas/DataDb";
 @Entity(TASK_SCHEMA.TABLE_NAME)
 export class TaskDb extends BaseDbEntity<string,ITask> implements ITask{
    
-    @Column("varchar",{name:TASK_SCHEMA.COLUMNS.TITLE, length:200})
-    @Index({unique:true, where:TaskDb.getIndexFilterDeletedColumn()})
+    @Column("varchar",{name:TASK_SCHEMA.COLUMNS.TITLE, length:200, nullable:true})
+    @Index({ where:TaskDb.getIndexFilterDeletedColumn()})
     title: string;
 
-    @Column("text",{name:TASK_SCHEMA.COLUMNS.CONTENT})
+    @Column("text",{name:TASK_SCHEMA.COLUMNS.CONTENT, nullable:true})
     content: string;
 
-    @Column("integer",{name:TASK_SCHEMA.COLUMNS.POSITION})
+    @Column("integer",{name:TASK_SCHEMA.COLUMNS.POSITION, nullable:true})
     position: number;
 
     @Column("uuid",{name:TASK_SCHEMA.COLUMNS.DATA_ID})
