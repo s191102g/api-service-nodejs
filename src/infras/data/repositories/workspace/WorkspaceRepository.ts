@@ -3,6 +3,8 @@ import { WorkSpace } from "../../../../core/domain/entities/workspace/WorkSpace"
 import { FindAllWorkspaceForAdminClientFilter, IWorkSpaceRepository } from "../../../../core/gateways/repositories/workspace/IWorkSpaceRepository";
 import { WorkSpaceDb } from "../../entities/workspace/WorkSpaceDb";
 import { BOARD_SCHEMA } from "../../schemas/board/BoardSchema";
+import { DATA_SCHEMA } from "../../schemas/datas/DataSchema";
+import { TASK_SCHEMA } from "../../schemas/task/TaskSchema";
 import { WORKSPACE_SCHEMA } from "../../schemas/workspace/WorkSpaceSchema";
 import { BaseRepository } from "../base/BaseRepository";
 
@@ -66,6 +68,12 @@ string, WorkSpace, WorkSpaceDb
         .createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME)
         .leftJoinAndSelect(
           `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.RELATED_MANY.BOARD}`, `${BOARD_SCHEMA.TABLE_NAME}`
+        )
+        .leftJoinAndSelect(
+          `${BOARD_SCHEMA.TABLE_NAME}.${BOARD_SCHEMA.RELATED_MANY.DATA}`, `${DATA_SCHEMA.TABLE_NAME}`
+        )
+        .leftJoinAndSelect(
+          `${DATA_SCHEMA.TABLE_NAME}.${DATA_SCHEMA.RELATED_MANY.TASK}`, `${TASK_SCHEMA.TABLE_NAME}`
         )
 
         const result = await query.getMany()
