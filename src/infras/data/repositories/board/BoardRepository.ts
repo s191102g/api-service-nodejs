@@ -4,6 +4,7 @@ import { IBoardRepository } from "../../../../core/gateways/repositories/board/I
 import { BoardDb } from "../../entities/board/BoardDb";
 import { BOARD_SCHEMA } from "../../schemas/board/BoardSchema";
 import { DATA_SCHEMA } from "../../schemas/datas/DataSchema";
+import { TASK_SCHEMA } from "../../schemas/task/TaskSchema";
 import { BaseRepository } from "../base/BaseRepository";
 
 
@@ -41,6 +42,9 @@ export class BoardRepository extends BaseRepository<string, Board, BoardDb>
           .createQueryBuilder(BOARD_SCHEMA.TABLE_NAME)
           .leftJoinAndSelect(
             `${BOARD_SCHEMA.TABLE_NAME}.${BOARD_SCHEMA.RELATED_MANY.DATA}`, `${DATA_SCHEMA.TABLE_NAME}`
+        )
+        .leftJoinAndSelect(
+          `${DATA_SCHEMA.TABLE_NAME}.${DATA_SCHEMA.RELATED_MANY.TASK}`, `${TASK_SCHEMA.TABLE_NAME}`
         )
           .whereInIds(id)
           .getOne();
