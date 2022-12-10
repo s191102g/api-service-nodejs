@@ -13,6 +13,9 @@ import { UpdateTaskHandler } from "../../../../core/usecases/task/update-task/Up
 import { DeleteTaskOutput } from "../../../../core/usecases/task/delete-task/DeleteTaskOutput";
 import { UpdateTaskInput } from "../../../../core/usecases/task/update-task/UpdateTaskInput";
 import { UpdateTaskOutput } from "../../../../core/usecases/task/update-task/UpdateTaskOutput";
+import { UpdateTaskOfDataHandler } from "../../../../core/usecases/task/update-task-of-data/UpdateTaskOfDataHandler";
+import { UpdateTaskOfDataInput } from "../../../../core/usecases/task/update-task-of-data/UpdateTaskOfDataInput";
+import { UpdateTaskOfDataOutput } from "../../../../core/usecases/task/update-task-of-data/UpdateTaskOfDataOutput";
 
 @Service()
 @JsonController("/v1/tasks")
@@ -22,6 +25,7 @@ export class TaskController{
        private readonly _findTaskHandler: FindTaskHandler,
        private readonly _updateTaskHandler: UpdateTaskHandler,
        private readonly _deleteTaskHandler: DeleteTaskHandler,
+       private readonly _updateTaskOfDataHandler: UpdateTaskOfDataHandler
     ){}
 
     @Post("/")
@@ -56,6 +60,17 @@ export class TaskController{
     ): Promise<UpdateTaskOutput> {
         return await this._updateTaskHandler.handle(id,param)
     }
+
+    @Post("/update-task-of-data")
+    @OpenAPI({summary: "update task of data"})
+    @Authorized(RoleType.Client)
+    @ResponseSchema(UpdateTaskOfDataOutput)
+    async updateMultiple(
+        @Body() param: UpdateTaskOfDataInput,
+    ): Promise<UpdateTaskOfDataOutput> {
+        return await this._updateTaskOfDataHandler.handle(param)
+    }
+
 
     @Delete("/:id([0-9a-f-]{36})")
     @Authorized(RoleType.Client)
