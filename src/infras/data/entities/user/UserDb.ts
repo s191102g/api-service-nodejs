@@ -38,7 +38,7 @@ export class UserDb extends BaseDbEntity<string, User> implements IUser {
   })
   gender: GenderType | null;
 
-  @Column("timestamptz", { name: USER_SCHEMA.COLUMNS.BIRTHDAY, nullable: true })
+  @Column("date", { name: USER_SCHEMA.COLUMNS.BIRTHDAY, nullable: true })
   birthDay: Date | null;
 
   /* Relationship */
