@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { Authorized, Body,  Get,  JsonController, Param, Post, Put } from "routing-controllers";
+import { Authorized, Body,  Delete,  Get,  JsonController, Param, Post, Put } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { RoleType } from "../../../../core/domain/enums/userEnum";
 import { CreateDataOutput } from "../../../../core/usecases/datas/create-data/CreateDataOutput";
@@ -10,6 +10,8 @@ import { UpdateDataInput } from "../../../../core/usecases/datas/update-data/Upd
 import { UpdateDataHandler } from "../../../../core/usecases/datas/update-data/UpdateDataHandler";
 import { GetDataByIdOutput } from "../../../../core/usecases/datas/get-data-by-id/GetDataByIdOutput";
 import { GetDataByIdHandler } from "../../../../core/usecases/datas/get-data-by-id/GetDataByIdHandler";
+import { DeleteDataHandler } from "../../../../core/usecases/datas/delete-data/DeleteDataHandler";
+import { DeleteDataOutput } from "../../../../core/usecases/datas/delete-data/DeleteDataOutput";
 
 @Service()
 @JsonController("/v1/datas")
@@ -17,7 +19,8 @@ export class DatasController{
     constructor(
         private readonly _createDataHandler : CreateDataHandler,
         private readonly _updateDataHandler : UpdateDataHandler,
-        private readonly _getDataByIdHandler : GetDataByIdHandler
+        private readonly _getDataByIdHandler : GetDataByIdHandler,
+        private readonly _deleteDataHandler : DeleteDataHandler
     ){}
 
     @Post("/")
@@ -50,5 +53,16 @@ export class DatasController{
         @Body() param: UpdateDataInput,
     ): Promise<UpdateDataOutput> {
         return await this._updateDataHandler.handle(id,param)
+    }
+
+
+    @Delete("/:id([0-9a-f-]{36})")
+    @Authorized(RoleType.Client)
+    @OpenAPI({summary:"delete data"})
+    @ResponseSchema(DeleteDataOutput)
+    async delete(
+        @Param("id") id: string
+    ): Promise<DeleteDataOutput>{
+        return await this._deleteDataHandler.handle(id)
     }
 }

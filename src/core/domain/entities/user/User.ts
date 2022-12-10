@@ -47,7 +47,7 @@ export class UserBase<T extends IUser> extends BaseEntity<string, T> implements 
     return this.data.birthDay;
   }
 
-  set birthday(val: Date | null) {
+  set birthDay(val: Date | null) {
     
     this.data.birthDay = val;
   }
