@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsOptional, IsString } from "class-validator";
+import {  IsEnum, IsOptional, IsString } from "class-validator";
 import { GenderType } from "../../../../domain/enums/userEnum";
 
 
@@ -12,7 +12,6 @@ export class UpdateClientProfileInput {
     @IsOptional()
     gender: GenderType | null;
 
-    @IsDate()
     @IsOptional()
     birthDay: Date | null;
 
