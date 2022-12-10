@@ -45,6 +45,7 @@ CreateDataOutput
                 for (let i = 0; i < param.heading.length; i++) {
                     data.id = randomUUID();
                     data.heading = param.heading[i];
+                    data.content = String(i+1);
                     await  this._dataRepository.create(data);
                 }
                 const ranId =  randomUUID()
