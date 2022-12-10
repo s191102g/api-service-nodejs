@@ -42,16 +42,16 @@ export class CreateBoardHandler extends CommandHandler<
        if (!boards) {
             throw new SystemError(MessageError.PARAM_INCORRECT, "workspaceId")
        }
-       for (const item of boards) {
-            if (item.position == param.position) {
-               throw new SystemError(MessageError.PARAM_INCORRECT,"position")
-            }
-            if(param.favourite === 'yes'){
-               if (item.favouritePosition == param.favouritePosition) {
-                  throw new SystemError(MessageError.PARAM_INCORRECT,"favouritePosition")
-               }
-            }
-       }
+      //  for (const item of boards) {
+      //       if (item.position == param.position) {
+      //          throw new SystemError(MessageError.PARAM_INCORRECT,"position")
+      //       }
+      //       if(param.favourite === 'yes'){
+      //          if (item.favouritePosition == param.favouritePosition) {
+      //             throw new SystemError(MessageError.PARAM_INCORRECT,"favouritePosition")
+      //          }
+      //       }
+      //  }
 
        const create = await  this._boardReposiory.create(data);
        const result = new CreateBoardOutput()
