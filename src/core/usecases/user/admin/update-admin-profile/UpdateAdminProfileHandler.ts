@@ -37,7 +37,7 @@ UpdateClientProfileOutput
         if(param.avatar)
         data.avatar = param.avatar;
         if(param.birthDay)
-        data.birthDay = new Date(param.birthDay) ;
+        data.birthDay = param.birthDay ;
         if(param.firstName)
         data.firstName = param.firstName;
         if(param.gender)
