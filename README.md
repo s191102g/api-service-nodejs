@@ -1,17 +1,8 @@
 
-# Node Core
-
-Node Core is a NodeJS framework built by cutting edge designs and techniques like clean architecture, domain driven design (DDD), singleton pattern, table inheritance, and more..., it's easy to maintain and expand the system, including the transition from monolithic to microservices. Besides, to increase the performance and stability of the project, the framework is also supported by powerful tools such as Redis, Typescript, Eslint, Grunt, TypeORM,...
-Implementing advanced architectures like clean architecture and domain driven design will affect project development time, generator module is a great tool to overcome this problem, it even helps the team reduce development time more than conventional frameworks.
-
 ## Features
-
-* Support both RESTful API and WebSocket.
-* Support caching from Redis.
+* Support both RESTful API 
 * Support database connection and database migration via TypeORM.
-* Support unit test and coverage.
 * Support auto-generating API documentation and expose to Swagger UI.
-* Support docker container.
 ## Modules Integrated
 
 * User: Register, active account, get profile, update profile,...
@@ -21,19 +12,8 @@ Implementing advanced architectures like clean architecture and domain driven de
 ## Service Integrated
 
 * JSON Web Token (JWT).
-* Mail Service: MailConsole (console log), Google SMTP, MailGun, SendInBlue.
+* Mail Service: Node Mailer.
 * Payment Service: Paypal, Stripe.
-* Socket Emitter.
-* Storage Service: StorageConsole (console log), MinIO, AwsS3, GoogleStorage.
-
-## Architecture & Design Patterns
-- Domain driven design (DDD)
-- CQRS pattern // command and query not actualy apply in this project but you can apply it
-- Repository pattern
-- Transfer object pattern
-- Data mapper pattern
-- Singleton pattern
-- Factory pattern
 
 ## Technologies and Tools
 
@@ -138,14 +118,13 @@ npm start -------------------------------------// Start with production environm
 
 ## Deploy to server
 
-- We must modify environment variables into `.env` on server and run the commands below:
 ```
+- create db name and config db host, db pass
 - npm install
 - npm run build
 - npm run migration:up
-- npm start
+- npm start 
 ```
-
 
 ## Configuration
 
@@ -157,11 +136,3 @@ npm start -------------------------------------// Start with production environm
 
 - Database Migrations, a technique to help us keep our database changes under control. Database migration is the process of transforming data between various states without any human interaction. This process will allow us to track changes between schema updates.
 
-
-
-- API controllers order should be arranged in turn according to GET, POST, PUT, PATCH, DELETE.
-- The function order should be arranged in turn according to find, get, check, create, update, delete, remove.
-- The query param (url-path?param1=&param2=) will be a string value, if you want to get another type (boolean, number,...), you need to parse them with decorator like `@IsBoolean()` into QueryInput object.
-- If we use the table inheritance then we shouldn't use the enum type for parent table in database schema, with the logic code is still good.
-- Refer the joining relations document to have the best practice: https://github.com/typeorm/typeorm/blob/master/docs/select-query-builder.md#joining-relations
-- With TypeORM version < 0.3.0, there is a bug `Cannot read property 'databaseName' of undefined` when we use `join` + `orderBy` together, please follow this issue in [here](https://github.com/typeorm/typeorm/issues/4270). Temporary [solution](https://github.com/typeorm/typeorm/issues/747#issuecomment-519553920)

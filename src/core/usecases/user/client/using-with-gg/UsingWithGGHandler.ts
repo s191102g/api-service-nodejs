@@ -50,7 +50,7 @@ export class UsingWithGGHandler extends CommandHandler<
       this._cryptoService.encrypt(param.email)
     );
     if (!client) {
-      await this._dbContext
+      return await this._dbContext
         .getConnection()
         .runTransaction(async (queryRunner) => {
           const handleOption = new HandleOption();
@@ -94,21 +94,14 @@ export class UsingWithGGHandler extends CommandHandler<
           result.setData(token);
           return result;
         });
+    }else{
+      if (client.typeUse == TypeUse.Normal) {
+        throw new SystemError(MessageError.DATA_INVALID);
+      }
+      const token = this._authJwtService.sign(client.id, client.role);
+      const result = new UsingWithGGOutput();
+      result.setData(token);
+      return result;
     }
-    const client2 = await this._clientRepository.getByEmail(
-      this._cryptoService.encrypt(param.email)
-    );
-    console.log(client2?.typeUse);
-    
-    if (!client2) {
-      throw new SystemError(MessageError.SOMETHING_WRONG);
-    }
-    if (client2.typeUse == TypeUse.Normal) {
-      throw new SystemError(MessageError.DATA_INVALID);
-    }
-    const token = this._authJwtService.sign(client2.id, client2.role);
-    const result = new UsingWithGGOutput();
-    result.setData(token);
-    return result;
   }
 }

@@ -1,6 +1,8 @@
 import { Service } from "typedi";
 import { IMailService } from "../../../core/gateways/services/IMailService";
 import nodemailer from "nodemailer";
+import { SystemError } from "../../../core/shared/exceptions/SystemError";
+import { MessageError } from "../../../core/shared/exceptions/message/MessageError";
 
 @Service("mail.service")
 export class MailService implements IMailService {
@@ -171,6 +173,14 @@ export class MailService implements IMailService {
 </html>
       `,
     };
-    transporter.sendMail(mainOptions);
+    transporter.sendMail(mainOptions, (err,infor)=>{
+        if(err){
+            throw new SystemError(MessageError.SOMETHING_WRONG)
+        }else{
+            console.log(infor);
+            
+        }
+    });
   }
 }
+
