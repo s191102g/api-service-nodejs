@@ -102,8 +102,8 @@ export class MailService implements IMailService {
                         <tbody>
                             <tr>
                                 <td class="em_header_padding" valign="middle" align="center" style="width: 100%; padding-top: 35px; padding-bottom: 35px;">
-                                    <a href="" target="_blank" style="color: #308085;font-weight: bold; font-size: 1.5 rem;">
-                                       DOLS
+                                    <a href="" target="_blank">
+                                         <img src="https://firebasestorage.googleapis.com/v0/b/dols-a767c.appspot.com/o/images%2Flogo%20lightt.pngrc-upload-1670742588085-5?alt=media&token=ffe7f319-2af9-40de-acf0-696ad259b2ff" style="width:100px; height: auto;" alt="" />
                                     </a>
                                 </td>
                             </tr>
