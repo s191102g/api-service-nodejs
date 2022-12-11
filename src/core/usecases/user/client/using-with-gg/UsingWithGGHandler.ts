@@ -59,7 +59,7 @@ export class UsingWithGGHandler extends CommandHandler<
           data.email = param.email;
           data.status = StatusType.Active;
           data.role = RoleType.Client;
-          data.typeUse = TypeUse.Normal;
+          data.typeUse = TypeUse.WithGG;
           data.firstName = param.name;
           data.passWord = param.password;
           data.avatar = param.avatar;
