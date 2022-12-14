@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { Authorized, Body,  Delete,  Get,  JsonController, Param, Post, Put, QueryParams } from "routing-controllers";
+import { Authorized, Body,  CurrentUser,  Delete,  Get,  JsonController, Param, Post, Put, QueryParams } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { RoleType } from "../../../../core/domain/enums/userEnum";
 import { CreateTaskInput } from "../../../../core/usecases/task/create-task/CreateTaskInput";
@@ -16,6 +16,10 @@ import { UpdateTaskOutput } from "../../../../core/usecases/task/update-task/Upd
 import { UpdateTaskOfDataHandler } from "../../../../core/usecases/task/update-task-of-data/UpdateTaskOfDataHandler";
 import { UpdateTaskOfDataInput } from "../../../../core/usecases/task/update-task-of-data/UpdateTaskOfDataInput";
 import { UpdateTaskOfDataOutput } from "../../../../core/usecases/task/update-task-of-data/UpdateTaskOfDataOutput";
+import { MakeDealineHandler } from "../../../../core/usecases/task/make-task/MakeDealineHandler";
+import { MakeDealineOutput } from "../../../../core/usecases/task/make-task/MakeDealineOutput";
+import { MakeDealineInput } from "../../../../core/usecases/task/make-task/MakeDealineInput";
+import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
 
 @Service()
 @JsonController("/v1/tasks")
@@ -25,7 +29,8 @@ export class TaskController{
        private readonly _findTaskHandler: FindTaskHandler,
        private readonly _updateTaskHandler: UpdateTaskHandler,
        private readonly _deleteTaskHandler: DeleteTaskHandler,
-       private readonly _updateTaskOfDataHandler: UpdateTaskOfDataHandler
+       private readonly _updateTaskOfDataHandler: UpdateTaskOfDataHandler,
+       private readonly _makeDealineHandler: MakeDealineHandler
     ){}
 
     @Post("/")
@@ -82,4 +87,14 @@ export class TaskController{
         return await this._deleteTaskHandler.handle(id)
     }
 
+    @Post("/make-dealine")
+    @OpenAPI({summary: "make dealine for task"})
+    @Authorized(RoleType.Client)
+    @ResponseSchema(MakeDealineOutput)
+    async makeDealine(
+        @CurrentUser()  userAuth: UserAuthenticated,
+        @Body() param: MakeDealineInput,
+    ): Promise<MakeDealineOutput> {
+        return await this._makeDealineHandler.handle(userAuth.userId, param)
+    }
 }

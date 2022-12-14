@@ -26,3 +26,7 @@ export const MINIO_SECRET_KEY: string = process.env.MINIO_SECRET_KEY ?? "";
 export const MINIO_USE_SSL: boolean = convertStringToBoolean(
   process.env.MINIO_USE_SSL
 );
+
+export const MODE=process.env.MODE ?? "";
+export const CLIENT_ID=process.env.CLIENT_ID ?? "";
+export const CLIENT_SECRET=process.env.CLIENT_SECRET ?? "";

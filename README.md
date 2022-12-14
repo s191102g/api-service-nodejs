@@ -121,8 +121,8 @@ npm start -------------------------------------// Start with production environm
 ```
 - create db name and config db host, db pass
 - npm install
-- npm run build
 - npm run migration:up
+- npm run build
 - npm start 
 ```
 
