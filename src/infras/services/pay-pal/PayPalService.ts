@@ -46,13 +46,15 @@ export class PaypalService implements IPaypalService{
             if (error) {
                 throw error;
             } 
+            console.log(payment);
             
-            const arr: [] | undefined = payment.links
-            for (let i = 0; i < arr; i++) {
-                if (payment.links[i].rel === 'approval_url') {
-                    res.redirect(payment.links[i].href);
-                }  
-            }
+            
+            // const arr: [] | undefined = payment.links
+            // for (let i = 0; i < arr; i++) {
+            //     if (payment.links[i].rel === 'approval_url') {
+            //         res.redirect(payment.links[i].href);
+            //     }  
+            // }
         });
     }
 }
