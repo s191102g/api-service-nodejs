@@ -18,6 +18,8 @@ export class SendDealineHandler {
         if(date === dealine){ 
             clearItv();
         }
+        console.log(date);
+        
          
      },1000);
      

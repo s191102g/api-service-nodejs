@@ -45,10 +45,13 @@ export class PaypalService implements IPaypalService{
         this._paypal.payment.create(create_payment_json, function (error, payment) {
             if (error) {
                 throw error;
-            } else {
-                console.log(payment);
-                
-    
+            } 
+            
+            const arr: [] | undefined = payment.links
+            for (let i = 0; i < arr; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    res.redirect(payment.links[i].href);
+                }  
             }
         });
     }
