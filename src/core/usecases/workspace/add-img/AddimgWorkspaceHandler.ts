@@ -5,11 +5,8 @@ import { IWorkSpaceRepository } from "../../../gateways/repositories/workspace/I
 import { CommandHandler } from "../../../shared/usecase/CommandHandler";
 import { AddimgWorkspaceInput } from "./AddimgWorkspaceInput";
 import { AddimgWorkspaceOutput } from "./AddimgWorkspaceOutput";
-import mime from "mime-types";
 import { SystemError } from "../../../shared/exceptions/SystemError";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
-// import { IStorageService } from "../../../gateways/services/IStorageService";
-// import { readFile, removeFile } from "../../../../utils/file";
 
 @Service()
 export class AddimgWorkspaceHandler extends CommandHandler<
@@ -17,8 +14,6 @@ export class AddimgWorkspaceHandler extends CommandHandler<
   AddimgWorkspaceOutput
 > {
   constructor(
-    // @Inject("storage.service")
-    // private readonly _storageService: IStorageService,
 
     @Inject("workspace.repository")
     private readonly _workspaceRepository: IWorkSpaceRepository
@@ -32,26 +27,13 @@ export class AddimgWorkspaceHandler extends CommandHandler<
   ): Promise<AddimgWorkspaceOutput> {
     await validateDataInput(param);
 
-    const file = param.file;
-    const ext = mime.extension(file.mimetype);
-    if (!ext) {
-      throw new SystemError(MessageError.PARAM_INVALID, "image");
-    }
-
-    WorkSpace.validateImageFile(file);
-    const imagePath = WorkSpace.getImagePath(id, ext);
-
     const data = new WorkSpace()
-    data.image = imagePath;
+    data.image = param.image;
     
-
-    // const buffer = await readFile(file.path);
-    // const hasSucceed = await this._storageService
-    //   .upload( buffer,imagePath, ext)
-    //   .finally(() => removeFile(file.path));
-    // if (!hasSucceed) {
-    //   throw new SystemError(MessageError.PARAM_CANNOT_UPLOAD, "image");
-    // }
+    const wp = await this._workspaceRepository.getById(id)
+    if(!wp){
+      throw new SystemError(MessageError.DATA_NOT_FOUND)
+    }
 
      await this._workspaceRepository.update(id, data);
     const result = new AddimgWorkspaceOutput();

@@ -1,7 +1,7 @@
-import { IsNotEmptyObject } from "class-validator";
+import { IsString } from "class-validator";
 
 
 export class AddimgWorkspaceInput{
-    @IsNotEmptyObject()
-    file: Express.Multer.File
+    @IsString()
+    image: string;
 }
