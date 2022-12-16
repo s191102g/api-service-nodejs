@@ -7,6 +7,9 @@ import { ActiveClientOutput } from "../../../../core/usecases/user/client/active
 import { CreateClientHandler } from "../../../../core/usecases/user/client/create/CreateClientHandler";
 import { CreateClientInput } from "../../../../core/usecases/user/client/create/CreateClientInput";
 import { CreateClientOutput } from "../../../../core/usecases/user/client/create/CreateClientOutput";
+import { ForgotPassHandler } from "../../../../core/usecases/user/client/forgot-pass/ForgotPassHandler";
+import { ForgotPassInput } from "../../../../core/usecases/user/client/forgot-pass/ForgotPassInput";
+import { ForgotPassOutput } from "../../../../core/usecases/user/client/forgot-pass/ForgotPassOutput";
 import { LoginClientHandler } from "../../../../core/usecases/user/client/login/LoginClientHandler";
 import { LoginClientInput } from "../../../../core/usecases/user/client/login/LoginClientInput";
 import { LoginClientOutput } from "../../../../core/usecases/user/client/login/LoginClientOutput";
@@ -33,7 +36,8 @@ export class ClientController {
          private readonly _requireRegisterHandler: RequireRegisterHandler,
          private readonly _activeClientHandler: ActiveClientHandler,
          private readonly _usingWithGGHandler: UsingWithGGHandler,
-         private readonly _resendActiveHandler: ResendActiveHandler
+         private readonly _resendActiveHandler: ResendActiveHandler,
+         private readonly _forgotPassHandler: ForgotPassHandler
      ){}
 
      @Post("/require-register")
@@ -91,4 +95,13 @@ export class ClientController {
           return await this._usingWithGGHandler.handle(param)
      }
      
+     @Post('/forgot-pass')
+     @OpenAPI({summary:"forgot pass"})
+     @ResponseSchema(ForgotPassOutput)
+     async forgotPass(
+          @Body() param: ForgotPassInput,
+          
+     ): Promise<ForgotPassOutput>{
+          return await this._forgotPassHandler.handle(param)
+     }
 }

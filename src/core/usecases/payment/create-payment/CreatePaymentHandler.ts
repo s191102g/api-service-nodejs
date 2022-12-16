@@ -27,10 +27,10 @@ CreatePaymentOutput
         if(!client){
             throw new SystemError(MessageError.DATA_NOT_FOUND)
         }
-        await this._paypalService.pay();
+        const link =  await this._paypalService.pay();
 
         const result = new CreatePaymentOutput()
-        result.setData(true)
+        result.setData(String(link) )
         return result;
     }
 }

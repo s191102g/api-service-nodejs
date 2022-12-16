@@ -2,6 +2,8 @@ import { Service } from "typedi";
 import { IPaypalService } from "../../../core/gateways/services/IPaypalService";
 import * as paypal from 'paypal-rest-sdk'
 import { CLIENT_ID, CLIENT_SECRET, MODE } from "../../../configs/Configuration";
+import { SystemError } from "../../../core/shared/exceptions/SystemError";
+import { MessageError } from "../../../core/shared/exceptions/message/MessageError";
 
 @Service("paypal.service")
 export class PaypalService implements IPaypalService{
@@ -14,7 +16,8 @@ export class PaypalService implements IPaypalService{
             mode:MODE
         })
     }
-    pay(){
+    async  pay():Promise<void>{
+        let text = ''
         const create_payment_json = {
             "intent": "sale",
             "payer": {
@@ -42,19 +45,25 @@ export class PaypalService implements IPaypalService{
             }]
         };
     
-        this._paypal.payment.create(create_payment_json, function (error, payment) {
+      return  this._paypal.payment.create(create_payment_json, function (error, payment) {
             if (error) {
                 throw error;
             } 
-            console.log(payment);
-            
-            
-            // const arr: [] | undefined = payment.links
-            // for (let i = 0; i < arr; i++) {
+            if(!payment){
+                throw new SystemError(MessageError.SOMETHING_WRONG)
+            }
+            // for (let i = 0; i < payment.links.length; i++) {
             //     if (payment.links[i].rel === 'approval_url') {
             //         res.redirect(payment.links[i].href);
-            //     }  
+            //     }
             // }
+
+            const arr = payment.links;
+            text = arr[1].href ?? "non"
+            return text;
         });
+
+       
     }
 }
+

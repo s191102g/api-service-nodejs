@@ -1,4 +1,4 @@
 
 export interface IPaypalService{
-    pay():void;
+    pay():Promise<void>;
 }
