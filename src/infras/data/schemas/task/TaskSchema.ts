@@ -8,6 +8,7 @@ export const TASK_SCHEMA = {
         TITLE:"title",
         CONTENT:"content",
         POSITION:"position",
-        DATA_ID:"data-id"
+        DATA_ID:"data-id",
+        DEADLINE:"dead_line"
     }
 }

@@ -1,5 +1,6 @@
 import { Inject, Service } from "typedi";
 import { validateDataInput } from "../../../../utils/validator";
+import { Task } from "../../../domain/entities/task/Task";
 import { ITaskRepository } from "../../../gateways/repositories/task/ITaskRepository";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
 import { SystemError } from "../../../shared/exceptions/SystemError";
@@ -30,8 +31,11 @@ MakeDealineOutput
        }
        const data: any = {...task, dealine: param.dealine , userid}
        SendDealineHandler.handler(data)
+       const dataTask = new Task()
+       dataTask.deadline = param.dealine;
+       const isUpdated = await this._taskRepository.update(task.id,dataTask)
        const result = new MakeDealineOutput();
-        result.setData(true)
+        result.setData(isUpdated)
         return result;
     }
 }

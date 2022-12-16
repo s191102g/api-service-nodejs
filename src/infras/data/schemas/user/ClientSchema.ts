@@ -10,6 +10,7 @@ export const CLIENT_SCHEMA ={
         EMAIL:"email",
         ACTIVEKEY:"active_key",
         STATUS:"status",
-        TYPE_USE:"type_use"
+        TYPE_USE:"type_use",
+        PAY:"pay"
     }
 }

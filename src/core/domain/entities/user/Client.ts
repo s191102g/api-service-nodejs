@@ -4,7 +4,7 @@ import { hashMD5 } from "../../../../utils/crypt";
 import { ICryptoService } from "../../../gateways/services/ICryptoService";
 import { MessageError } from "../../../shared/exceptions/message/MessageError";
 import { SystemError } from "../../../shared/exceptions/SystemError";
-import { StatusType, TypeUse } from "../../enums/userEnum";
+import { Pay, StatusType, TypeUse } from "../../enums/userEnum";
 import { IClient } from "../../interfaces/user/IClient";
 import { WorkSpace } from "../workspace/WorkSpace";
 import { UserBase } from "./User";
@@ -73,6 +73,10 @@ export class Client extends UserBase<IClient> implements IClient {
 
   set typeUse(val: TypeUse | null){
     this.data.typeUse = val;
+  }
+
+  get pay(): Pay | null{
+    return this.data.pay
   }
 
    

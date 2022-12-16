@@ -19,4 +19,5 @@ export class ErrorCode {
   static DATA_NOT_VERIFIED = "DATA_NOT_VERIFIED_ERR";
   static DATA_CANNOT_DELETE = "DATA_CANNOT_DELETE";
   static DATA_IS_BAN = "DATA_IS_BAN";
+  static USER_NOT_UPDATE = "USER_NOT_UPDATE";
 }

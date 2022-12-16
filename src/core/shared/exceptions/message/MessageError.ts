@@ -168,4 +168,9 @@ export class MessageError {
     ErrorCode.DATA_INVALID,
     "The length of {0} must be between {1} and {2}!"
   );
+
+  static USER_NOT_UPDATE = new ErrorObject(
+    ErrorCode.USER_NOT_UPDATE,
+    "User need update to create more task!"
+  );
 }

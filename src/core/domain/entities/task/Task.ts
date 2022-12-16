@@ -32,6 +32,14 @@ return this.data.content
         this.data.dataId = val
     }
 
+    get deadline(): string| null{
+       return this.data.deadline
+    }
+
+    set deadline(val: string| null){
+        this.data.deadline= val
+    }
+
     // relationship
 
     get datas(): Data{

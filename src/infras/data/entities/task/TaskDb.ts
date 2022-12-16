@@ -24,6 +24,8 @@ export class TaskDb extends BaseDbEntity<string,ITask> implements ITask{
     @Column("uuid",{name:TASK_SCHEMA.COLUMNS.DATA_ID})
     dataId: string;
 
+    @Column("varchar",{name:TASK_SCHEMA.COLUMNS.DEADLINE , nullable:true})
+    deadline: string|null;
     // relationship 
     @ManyToOne(()=> DataDb, (datas)=> datas.tasks)
     @JoinColumn({name:TASK_SCHEMA.COLUMNS.DATA_ID})

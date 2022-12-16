@@ -1,6 +1,6 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Client } from "../../../../core/domain/entities/user/Client";
-import { StatusType, TypeUse } from "../../../../core/domain/enums/userEnum";
+import { Pay, StatusType, TypeUse } from "../../../../core/domain/enums/userEnum";
 import { IClient } from "../../../../core/domain/interfaces/user/IClient";
 import { IWorkSpace } from "../../../../core/domain/interfaces/workspace/IWorkSpace";
 import { CLIENT_SCHEMA } from "../../schemas/user/ClientSchema";
@@ -9,6 +9,7 @@ import { UserDb } from "./UserDb";
 
 @Entity(CLIENT_SCHEMA.TABLE_NAME)
 export class ClientDb extends UserDb implements IClient {
+  
   @Column("varchar", { name: CLIENT_SCHEMA.COLUMNS.USER_NAME, length: 50, nullable:true })
   @Index({ unique: true, where: ClientDb.getIndexFilterDeletedColumn() })
   userName: string;
@@ -29,6 +30,8 @@ export class ClientDb extends UserDb implements IClient {
    @Column("enum",{name: CLIENT_SCHEMA.COLUMNS.TYPE_USE, enum: TypeUse, nullable:true})
    typeUse: TypeUse;
 
+   @Column("enum",{name: CLIENT_SCHEMA.COLUMNS.PAY, enum: Pay, nullable:true})
+   pay: Pay | null;
   /* Relationship */
   @OneToMany(() => WorkSpaceDb, (workspaces) => workspaces.client)
   workSpaces: IWorkSpace[];

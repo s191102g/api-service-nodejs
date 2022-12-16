@@ -38,10 +38,10 @@ export class TaskController{
     @Authorized(RoleType.Client)
     @ResponseSchema(CreateTaskOutput)
     async create(
-
         @Body() param: CreateTaskInput,
+        @CurrentUser()  userAuth: UserAuthenticated
     ): Promise<CreateTaskOutput> {
-        return await this._createTaskHandler.handle(param)
+        return await this._createTaskHandler.handle(userAuth.userId, param)
     }
 
     @Get("/")

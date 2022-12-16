@@ -7,7 +7,7 @@ export interface ITask extends IEntity<string>{
     content:string;
     position:number;
     dataId:string;
-
+    deadline: string | null;
     // relationship
     datas:IData;
 }

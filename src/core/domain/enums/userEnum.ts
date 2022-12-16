@@ -18,3 +18,8 @@ export enum GenderType {
     Normal = "normal",
     WithGG = "withgg"
   }
+
+  export enum Pay {
+    IsPay = "ispay",
+    NotPay = "notpay"
+  }
