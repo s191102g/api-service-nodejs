@@ -19,13 +19,15 @@ export class CreateTaskData{
     @IsNumber()
     position: number;
 
+    @IsString()
+    deadline: string;
     constructor(data: Task){
         this.id = data.id;
         this.dataId = data.dataId;
         this.title = data.title;
         this.content = data.content;
         this.position = data.position;
-
+        this.deadline = data.deadline
     }
 }
 
