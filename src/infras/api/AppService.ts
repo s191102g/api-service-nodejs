@@ -7,10 +7,12 @@ import swaggerUiExpress from "swagger-ui-express";
 import Container from "typedi";
 import { ILogService } from "../../core/gateways/services/ILogService";
 import { HttpServer } from "../servers/HttpServer";
-import { Server } from "http";
+// import { Server } from "http";
 import { ApiAuthenticator } from "./ApiAuthenticator";
+import * as fs from 'fs';
+import * as https from 'https'
 export class ApiService {
-  static init(port: number, callback?: () => void): Server {
+  static init(port: number, callback?: () => void): void {
     const app = express();
     const logger = Container.get<ILogService>("log.service");
     app.get("/", (_req, res) => {
@@ -21,7 +23,8 @@ export class ApiService {
     app.get("/.well-known/pki-validation/1438DCCE5261131B30546E280E5012C0.txt", (_req, res) => {
       res.sendFile('/var/app/current/1438DCCE5261131B30546E280E5012C0.txt')
     });
-
+    const key = fs.readFileSync('./src/private.key');
+    const cert= fs.readFileSync('./src/certificate.crt')
     const loggingMiddleware = logger.createMiddleware();
     app.use(loggingMiddleware);
     const options = this.getOptions({
@@ -31,10 +34,16 @@ export class ApiService {
       development: !!(process.env.NODE_ENV != "production"),
     });
     const httpServer = new HttpServer();
+    const aa =  httpServer.createApp(app, options);
     httpServer.createApp(app, options);
     const spec = ApiDocument.generate(options);
     app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(spec));
-    return httpServer.start(port, callback);
+     httpServer.start(port, callback);
+     https.createServer({ key, cert }, aa)
+     .listen(8000,()=>{
+      console.log('https');
+      
+     })
   }
 
   static getOptions(param: {
