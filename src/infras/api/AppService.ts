@@ -16,8 +16,10 @@ export class ApiService {
     app.get("/", (_req, res) => {
       res.status(200).end("ok");
     });
+
+
     app.get("/.well-known/pki-validation/1438DCCE5261131B30546E280E5012C0.txt", (_req, res) => {
-      res.sendFile('../../../1438DCCE5261131B30546E280E5012C0.txt')
+      res.sendFile('/home/ec2-user/web-api-core/1438DCCE5261131B30546E280E5012C0.txt')
     });
 
     const loggingMiddleware = logger.createMiddleware();
