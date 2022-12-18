@@ -19,7 +19,7 @@ export class ApiService {
 
 
     app.get("/.well-known/pki-validation/1438DCCE5261131B30546E280E5012C0.txt", (_req, res) => {
-      res.sendFile(path.join(__dirname +'/auth/1438DCCE5261131B30546E280E5012C0.txt'))
+      res.sendFile('/var/app/current/1438DCCE5261131B30546E280E5012C0.txt')
     });
 
     const loggingMiddleware = logger.createMiddleware();
