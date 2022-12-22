@@ -8,4 +8,5 @@ export class FindTaskFilter extends DbPaginationFilter {
   }
 export interface ITaskRepository extends IBaseRepository<string,Task>{
     findAndCount( param: FindTaskFilter): Promise<[Task[], number]>
+    getByYear(yearStart:string,yearEnd:string):Promise<number>
 }

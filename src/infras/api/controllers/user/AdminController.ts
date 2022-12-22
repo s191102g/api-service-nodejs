@@ -8,6 +8,9 @@ import { CreateAdminOutput } from "../../../../core/usecases/user/admin/create-a
 import { FindAllClientHandler } from "../../../../core/usecases/user/admin/find-all-client/FindAllClientHandler";
 import { FindAllClientInput } from "../../../../core/usecases/user/admin/find-all-client/FindAllClientInput";
 import { FindAllCientOutput } from "../../../../core/usecases/user/admin/find-all-client/FindAllClientOutput";
+import { GetByYearHadler } from "../../../../core/usecases/user/admin/get-by-year/GetByYearHandler";
+import { GetByYearInput } from "../../../../core/usecases/user/admin/get-by-year/GetByYearInput";
+import { GetByYearOutput } from "../../../../core/usecases/user/admin/get-by-year/GetByYearOutput";
 import { LoginAdminHandler } from "../../../../core/usecases/user/admin/login-admin/LoginAdminHandler";
 import { LoginAdminInput } from "../../../../core/usecases/user/admin/login-admin/LoginAdminInput";
 import { LoginAdminOutput } from "../../../../core/usecases/user/admin/login-admin/LoginAdminOutput";
@@ -31,7 +34,8 @@ export class AdminController {
          private readonly _findAllClientHandler: FindAllClientHandler,
          private readonly _findAllWorkspaceForAdminHandler: FindWorkspaceForAdminHandler,
          private readonly _banclientHandler: BanClientHandler,
-         private readonly _unbanclientHandler: UnbanClientHandler
+         private readonly _unbanclientHandler: UnbanClientHandler,
+         private readonly _getByYearHadler: GetByYearHadler
      ){}
      @Post("/create")
      @Authorized(RoleType.Admin)
@@ -93,4 +97,23 @@ export class AdminController {
          return await this._findAllWorkspaceForAdminHandler.handle(param)
      }
 
+     @Post("/get-by-year")
+     @Authorized(RoleType.Admin)
+     @OpenAPI({summary:"find all by year"})
+     @ResponseSchema(GetByYearOutput)
+     async findByyear(
+         @Body() param: GetByYearInput,
+     ): Promise<GetByYearOutput>{
+         return await this._getByYearHadler.handle(param)
+     }
+
+     @Post("/get-by-month")
+      @Authorized(RoleType.Admin)
+      @OpenAPI({summary:"find all by month"})
+      @ResponseSchema(GetByYearOutput)
+      async findByMonth(
+          @Body() param: GetByYearInput,
+      ): Promise<GetByYearOutput>{
+          return await this._getByYearHadler.handle(param)
+      }
 }

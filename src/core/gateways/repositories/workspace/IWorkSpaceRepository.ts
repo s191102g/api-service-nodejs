@@ -14,4 +14,5 @@ export interface IWorkSpaceRepository extends IBaseRepository<string,WorkSpace>{
      getAll(): Promise<WorkSpace[]>;
      getByUserAndId(idUser:string, idWorkspace:string): Promise<WorkSpace | null>;
      findAndCount( param: FindAllWorkspaceForAdminClientFilter): Promise<[WorkSpace[], number]>;
+     getByYear(yearStart:string,yearEnd:string):Promise<number>
 }

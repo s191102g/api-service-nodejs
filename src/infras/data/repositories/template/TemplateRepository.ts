@@ -36,4 +36,19 @@ export class TemplateRepository extends BaseRepository<string, Template, Templat
         const [list, count] = await query.getManyAndCount();
         return [list.map((item) => item.toEntity()), count];
       }
+
+      async getByYear(yearStart:string,yearEnd:string):Promise<number>{
+        let query = this.repository
+        .createQueryBuilder(TEMPLATE_SCHEMA.TABLE_NAME)
+       .where(
+        `${TEMPLATE_SCHEMA.TABLE_NAME}.${TEMPLATE_SCHEMA.COLUMNS.CREATED_AT} > :yearStart`,
+        {yearStart}
+       )
+       .andWhere(
+        `${TEMPLATE_SCHEMA.TABLE_NAME}.${TEMPLATE_SCHEMA.COLUMNS.CREATED_AT} < :yearEnd`,
+        {yearEnd}
+       )
+       const result = await query.getCount()
+       return result;
+      }
 }

@@ -41,4 +41,19 @@ export class TaskRepository extends BaseRepository<string, Task, TaskDb>
         const [list, count] = await query.getManyAndCount();
         return [list.map((item) => item.toEntity()), count];
       }
+
+      async getByYear(yearStart:string,yearEnd:string):Promise<number>{
+        let query = this.repository
+        .createQueryBuilder(TASK_SCHEMA.TABLE_NAME)
+       .where(
+        `${TASK_SCHEMA.TABLE_NAME}.${TASK_SCHEMA.COLUMNS.CREATED_AT} > :yearStart`,
+        {yearStart}
+       )
+       .andWhere(
+        `${TASK_SCHEMA.TABLE_NAME}.${TASK_SCHEMA.COLUMNS.CREATED_AT} < :yearEnd`,
+        {yearEnd}
+       )
+       const result = await query.getCount()
+       return result;
+      }
 }

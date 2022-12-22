@@ -97,5 +97,18 @@ string, WorkSpace, WorkSpaceDb
            const result = await query.getOne();
            return result ? result.toEntity() : null;
       }
-
+      async getByYear(yearStart:string,yearEnd:string):Promise<number>{
+        let query = this.repository
+        .createQueryBuilder(WORKSPACE_SCHEMA.TABLE_NAME)
+       .where(
+        `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.COLUMNS.CREATED_AT} > :yearStart`,
+        {yearStart}
+       )
+       .andWhere(
+        `${WORKSPACE_SCHEMA.TABLE_NAME}.${WORKSPACE_SCHEMA.COLUMNS.CREATED_AT} < :yearEnd`,
+        {yearEnd}
+       )
+       const result = await query.getCount()
+       return result;
+      }
 }

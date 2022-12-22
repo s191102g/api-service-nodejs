@@ -6,5 +6,6 @@ export class FindTemplateFilter extends DbPaginationFilter {
     keyword: string | null;
   }
 export interface ITemplateRepository extends IBaseRepository<string,Template>{
-    findAndCount( param: FindTemplateFilter): Promise<[Template[], number]>
+    findAndCount( param: FindTemplateFilter): Promise<[Template[], number]>;
+    getByYear(yearStart:string,yearEnd:string):Promise<number>
 }

@@ -57,4 +57,19 @@ export class ClientRepository extends BaseRepository<
         const result = await query.getOne();
         return result ? result.toEntity() : null;
       }
+
+      async getByYear(yearStart:string,yearEnd:string):Promise<number>{
+        let query = this.repository
+        .createQueryBuilder(CLIENT_SCHEMA.TABLE_NAME)
+       .where(
+        `${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.CREATED_AT} > :yearStart`,
+        {yearStart}
+       )
+       .andWhere(
+        `${CLIENT_SCHEMA.TABLE_NAME}.${CLIENT_SCHEMA.COLUMNS.CREATED_AT} < :yearEnd`,
+        {yearEnd}
+       )
+       const result = await query.getCount()
+       return result;
+      }
 }
