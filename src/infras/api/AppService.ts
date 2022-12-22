@@ -8,11 +8,6 @@ import Container from "typedi";
 import { ILogService } from "../../core/gateways/services/ILogService";
 import { HttpServer } from "../servers/HttpServer";
 import * as paypal from 'paypal-rest-sdk';
-paypal.configure({
-  client_id: CLIENT_ID,
-  client_secret: CLIENT_SECRET,
-  mode: MODE
-})
 
 // import { Server } from "http";
 import { ApiAuthenticator } from "./ApiAuthenticator";
@@ -21,6 +16,14 @@ import * as https from 'https'
 import { CLIENT_ID, CLIENT_SECRET, MODE } from "../../configs/Configuration";
 import { SystemError } from "../../core/shared/exceptions/SystemError";
 import { MessageError } from "../../core/shared/exceptions/message/MessageError";
+
+paypal.configure({
+  client_id: CLIENT_ID,
+  client_secret: CLIENT_SECRET,
+  mode: MODE
+})
+
+
 export class ApiService {
   static init(port: number, callback?: () => void): void {
     const app = express();
