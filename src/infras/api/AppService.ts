@@ -20,8 +20,8 @@ export class ApiService {
     });
 
 
-    app.get("/.well-known/pki-validation/1438DCCE5261131B30546E280E5012C0.txt", (_req, res) => {
-      res.sendFile('/var/app/current/1438DCCE5261131B30546E280E5012C0.txt')
+    app.get("/.well-known/pki-validation/0A9CEA6D4A86BBA22B8716A837682513.txt", (_req, res) => {
+      res.sendFile('/var/app/current/0A9CEA6D4A86BBA22B8716A837682513.txt')
     });
     const key = fs.readFileSync('./src/private.key');
     const cert= fs.readFileSync('./src/certificate.crt')
