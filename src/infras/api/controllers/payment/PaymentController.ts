@@ -7,7 +7,7 @@ import { CreatePaymentHandler } from "../../../../core/usecases/payment/create-p
 import { CreatePaymentOutput } from "../../../../core/usecases/payment/create-payment/CreatePaymentOutput";
 
 @Service()
-@JsonController("/v1/payment")
+@JsonController("/v1/paymentv2")
 export class PaymentController{
     constructor(
         private readonly _createPaymentHandler: CreatePaymentHandler
