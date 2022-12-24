@@ -91,7 +91,7 @@ export class WorkspaceController {
         return await this._addimgWorkspaceHandler.handle(id,param)
     }
 
-    @Put("/:id([0-9a-f-]{36}")
+    @Put("/:id([0-9a-f-]{36})")
     @Authorized()
     @OpenAPI({summary:"update workspace"})
     @ResponseSchema(UpdateWorkspaceOutput)
