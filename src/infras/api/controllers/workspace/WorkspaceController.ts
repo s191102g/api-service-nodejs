@@ -1,4 +1,4 @@
-import { Authorized, Body, CurrentUser, Delete, Get, JsonController, Param, Patch, Post } from "routing-controllers";
+import { Authorized, Body, CurrentUser, Delete, Get, JsonController, Param, Patch, Post, Put } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
 import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
@@ -16,6 +16,9 @@ import { AddMemberWorkspaceHandler } from "../../../../core/usecases/workspace/a
 import { DeleteWorkspaceHandler } from "../../../../core/usecases/workspace/delete-workspace/DeleteWorkspaceHandler";
 import { DeleteWorkspaceOutput } from "../../../../core/usecases/workspace/delete-workspace/DeleteWorkspaceOutput";
 import { DeleteWorkspaceInput } from "../../../../core/usecases/workspace/delete-workspace/DeleteWorkspaceInput";
+import { UpdateWorkspaceInput } from "../../../../core/usecases/workspace/update-workspace/UpdateWorkspaceInput";
+import { UpdateWorkspaceOutput } from "../../../../core/usecases/workspace/update-workspace/UpdateWorkspaceOutput";
+import { UpdateWorkspaceHandler } from "../../../../core/usecases/workspace/update-workspace/UpdateWorkspaceHandler";
   
 
 @Service()
@@ -27,7 +30,8 @@ export class WorkspaceController {
         private readonly _createWorkspaceHandler: CreateWorkspaceHandler,
         private readonly _findWorkspaceHandler: FindWorkSpacehandler,
         private readonly _addMemberWorkspaceHandler: AddMemberWorkspaceHandler,
-        private readonly _deleteWorkspaceHandler: DeleteWorkspaceHandler
+        private readonly _deleteWorkspaceHandler: DeleteWorkspaceHandler,
+        private readonly _updateWorkspaceHandler: UpdateWorkspaceHandler
     ){}
 
     @Post('/')
@@ -85,5 +89,16 @@ export class WorkspaceController {
         @Param("id") id: string
     ): Promise<AddimgWorkspaceOutput>{
         return await this._addimgWorkspaceHandler.handle(id,param)
+    }
+
+    @Put('/:id([0-9a-f-]{36}')
+    @Authorized()
+    @OpenAPI({summary:"update workspace"})
+    @ResponseSchema(UpdateWorkspaceOutput)
+    async update(
+        @Param("id") id: string,
+        @Body() param: UpdateWorkspaceInput
+    ): Promise<UpdateWorkspaceOutput>{
+        return await this._updateWorkspaceHandler.handle(id,param)
     }
 }
