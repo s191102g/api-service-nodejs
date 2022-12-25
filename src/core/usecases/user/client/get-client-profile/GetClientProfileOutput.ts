@@ -1,6 +1,6 @@
 import { IsDate, IsEnum, IsObject, IsString, IsUUID } from "class-validator";
 import { Client } from "../../../../domain/entities/user/Client";
-import { GenderType } from "../../../../domain/enums/userEnum";
+import { GenderType, Pay } from "../../../../domain/enums/userEnum";
 import { RefSchemaObject } from "../../../../shared/decorators/RefSchema";
 import { DataResponse } from "../../../../shared/usecase/DataResponse";
 
@@ -26,6 +26,9 @@ export class GetClientProfileData{
     @IsString()
     email: string;
 
+    @IsEnum(Pay)
+    pay: Pay | null;
+
     constructor(data: Client){
         this.id = data.id;
         this.firstName = data.firstName;
@@ -34,6 +37,7 @@ export class GetClientProfileData{
         this.birthDay = data.birthDay;
         this.avatar = data.avatar;
         this.email = data.email;
+        this.pay = data.pay;
     }
 }
 
