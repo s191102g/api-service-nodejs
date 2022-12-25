@@ -1,6 +1,7 @@
-import { Body, JsonController, Post } from "routing-controllers";
+import { Authorized, Body, CurrentUser, JsonController, Post } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { Service } from "typedi";
+import { UserAuthenticated } from "../../../../core/shared/UserAuthenticated";
 import { ActiveClientHandler } from "../../../../core/usecases/user/client/active/ActiveClientHandler";
 import { ActiveClientInput } from "../../../../core/usecases/user/client/active/ActiveClientInput";
 import { ActiveClientOutput } from "../../../../core/usecases/user/client/active/ActiveClientOutput";
@@ -19,6 +20,8 @@ import { RequireRegisterOutput } from "../../../../core/usecases/user/client/req
 import { ResendActiveHandler } from "../../../../core/usecases/user/client/resend-active/ResendActiveHandler";
 import { ResendActiveInput } from "../../../../core/usecases/user/client/resend-active/ResendActiveInput";
 import { ResendActiveOutput } from "../../../../core/usecases/user/client/resend-active/ResendactiveOutput";
+import { UpgradeClientHandler } from "../../../../core/usecases/user/client/upgrade-client/UpgradeClientHandler";
+import { UpgradeClientOutput } from "../../../../core/usecases/user/client/upgrade-client/UpgradeClientOutput";
 import { UsingWithGGHandler } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGHandler";
 import { UsingWithGGInput } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGInput";
 import { UsingWithGGOutput } from "../../../../core/usecases/user/client/using-with-gg/UsingWithGGOutput";
@@ -37,7 +40,8 @@ export class ClientController {
          private readonly _activeClientHandler: ActiveClientHandler,
          private readonly _usingWithGGHandler: UsingWithGGHandler,
          private readonly _resendActiveHandler: ResendActiveHandler,
-         private readonly _forgotPassHandler: ForgotPassHandler
+         private readonly _forgotPassHandler: ForgotPassHandler,
+         private readonly _upgradeClientHandler: UpgradeClientHandler
      ){}
 
      @Post("/require-register")
@@ -103,5 +107,15 @@ export class ClientController {
           
      ): Promise<ForgotPassOutput>{
           return await this._forgotPassHandler.handle(param)
+     }
+
+     @Post('/upgrade')
+     @OpenAPI({summary:"upgrade"})
+     @Authorized()
+     @ResponseSchema(UpgradeClientOutput)
+     async upgrade(
+          @CurrentUser()  userAuth: UserAuthenticated
+     ): Promise<UpgradeClientOutput>{
+          return await this._upgradeClientHandler.handle(userAuth.userId)
      }
 }

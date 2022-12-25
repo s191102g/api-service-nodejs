@@ -79,6 +79,10 @@ export class Client extends UserBase<IClient> implements IClient {
     return this.data.pay
   }
 
+  set pay(val:Pay | null){
+    this.data.pay = val
+  }
+
    
   // relationship
   get workSpaces(): WorkSpace[] {
