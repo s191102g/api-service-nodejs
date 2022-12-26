@@ -65,8 +65,8 @@ export class ApiService {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "https://dols-client.netlify.app/success",
-            "cancel_url": "https://dols-client.netlify.app/cancel"
+            "return_url": "https://dols.site/success",
+            "cancel_url": "https://dols.site/cancel"
         },
         "transactions": [{
             "item_list": {
