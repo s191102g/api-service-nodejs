@@ -35,7 +35,7 @@ ForgotPassOutput
         await validateDataInput(param);
 
         const client = await this._clientRepository.getByEmail(this._cryptoServiceL.encrypt(param.email))
-        if(!client){
+        if(client == null){
             throw new SystemError(MessageError.DATA_NOT_FOUND)
         }
 
